@@ -1,0 +1,18 @@
+{
+  "name": "rwymk5419o",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "index.js",
+  "dependencies": {
+    "apollo-boost": "0.1.6",
+    "graphql": "0.13.2",
+    "preact": "8.2.5",
+    "preact-compat": "3.17.0",
+    "react-apollo": "2.1.4",
+    "react-styled-flexboxgrid": "2.2.0",
+    "styled-components": "3.2.6",
+    "styled-flex-component": "2.2.2",
+    "styled-is": "1.1.3"
+  }
+}
