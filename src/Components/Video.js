@@ -84,7 +84,7 @@ export default class extends Component {
 
       <Flex justifyBetween alignCenter>
         <Name>{name}</Name>
-        <Speaker>{speaker.join(", ")}</Speaker>
+        <Speaker>{speaker.name}</Speaker>
       </Flex>
       <Button onClick={this.toggleDescription}>
         {isDescriptionClicked ? "Hide" : "Show"} Description
