@@ -1,8 +1,5 @@
 import { injectGlobal } from 'styled-components'
-import { render } from 'preact'
-import { Grid } from 'react-styled-flexboxgrid'
-import Header from './Components/Header'
-import Talks from './Components/Talks'
+import App from './Components/App'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 
@@ -29,15 +26,8 @@ injectGlobal`
   }
 `
 
-const App = () => (
+export default () => (
   <ApolloProvider client={client}>
-    <Grid>
-      <Header />
-      <Talks />
-    </Grid>
+    <App />
   </ApolloProvider>
 )
-
-if (typeof window !== 'undefined') {
-  render(<App />, document.getElementById('root'))
-}

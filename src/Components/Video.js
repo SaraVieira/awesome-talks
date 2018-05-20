@@ -31,7 +31,7 @@ const Speaker = styled.p`
 const Name = styled.h2`
   font-family: Montserrat;
   font-size: 400;
-  font-size: 26px;
+  font-size: 22px;
   color: #000000;
   letter-spacing: -0.63px;
 `
