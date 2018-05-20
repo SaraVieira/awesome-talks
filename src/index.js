@@ -1,7 +1,9 @@
 import { injectGlobal } from 'styled-components'
-import App from './Components/App'
+import Home from './Pages/Home'
+import Speaker from './Pages/Speaker'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
+import Router from 'preact-router'
 
 const client = new ApolloClient({
   uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
@@ -28,6 +30,9 @@ injectGlobal`
 
 export default () => (
   <ApolloProvider client={client}>
-    <App />
+    <Router>
+      <Home path="/" />
+      <Speaker path="/speaker/:speaker" />
+    </Router>
   </ApolloProvider>
 )

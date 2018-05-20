@@ -7,6 +7,7 @@
     "graphql": "0.13.2",
     "preact": "8.2.5",
     "preact-compat": "3.17.0",
+    "preact-router": "^2.6.0",
     "react-apollo": "2.1.4",
     "react-styled-flexboxgrid": "2.2.0",
     "styled-components": "3.2.6",

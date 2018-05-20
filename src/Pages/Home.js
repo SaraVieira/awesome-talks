@@ -1,6 +1,6 @@
 import { Grid } from 'react-styled-flexboxgrid'
-import Header from './Header'
-import Talks from './Talks'
+import Header from './../Components/Header'
+import Talks from './../Components/Talks'
 
 export default () => (
   <Grid>

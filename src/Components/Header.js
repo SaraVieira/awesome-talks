@@ -20,11 +20,11 @@ const Title = styled.h1`
 export default class extends Component {
   state = { search: false, term: null }
 
-  render = () => (
+  render = ({ title = 'Talks', noSearch }) => (
     <Row>
       <Flex full alignCenter justifyBetween>
-        <Title>Talks</Title>
-        <Search />
+        <Title>{title}</Title>
+        {noSearch ? null : <Search />}
       </Flex>
     </Row>
   )

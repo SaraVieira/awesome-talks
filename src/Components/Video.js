@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Component } from 'preact'
 import { Col } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
+import { Link } from 'preact-router/match'
 
 const Button = styled.button`
   background: transparent;
@@ -18,14 +19,17 @@ const Video = styled.section`
 `
 
 const Speaker = styled.p`
-  opacity: 0.6;
-  font-family: Montserrat-Light;
-  font-size: 12px;
-  color: #000000;
-  letter-spacing: 0.09px;
-  text-align: left;
-  line-height: 21px;
-  padding-left: 20px;
+  a {
+    opacity: 0.6;
+    font-family: Montserrat-Light;
+    font-size: 12px;
+    color: #000000;
+    letter-spacing: 0.09px;
+    text-align: left;
+    line-height: 21px;
+    padding-left: 20px;
+    text-decoration: none;
+  }
 `
 
 const Name = styled.h2`
@@ -57,6 +61,8 @@ const Iframe = styled.iframe`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
 `
 
+const makeLink = name => `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
+
 export default class extends Component {
   state = { isDescriptionClicked: false }
 
@@ -83,7 +89,11 @@ export default class extends Component {
 
       <Flex justifyBetween alignCenter>
         <Name>{name}</Name>
-        <Speaker>{speaker.name}</Speaker>
+        <Speaker>
+          <Link activeClassName="active" href={makeLink(speaker.name)}>
+            {speaker.name}
+          </Link>
+        </Speaker>
       </Flex>
       <Button onClick={this.toggleDescription}>
         {isDescriptionClicked ? 'Hide' : 'Show'} Description
