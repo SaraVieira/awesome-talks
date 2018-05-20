@@ -1,6 +1,7 @@
 {
   "semi": false,
   "singleQuote": true,
+  "tabWidth": 2,
   "overrides": [
     {
       "files": "*.md",

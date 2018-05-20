@@ -29,7 +29,7 @@ injectGlobal`
   }
 `
 
-const App = (props, { results = [] }) => (
+const App = () => (
   <ApolloProvider client={client}>
     <Grid>
       <Header />
