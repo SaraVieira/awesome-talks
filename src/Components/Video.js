@@ -1,8 +1,7 @@
-import styled from "styled-components"
-import { Component } from "preact"
-import { Col } from "react-styled-flexboxgrid"
-import is from "styled-is"
-import Flex from "styled-flex-component"
+import styled from 'styled-components'
+import { Component } from 'preact'
+import { Col } from 'react-styled-flexboxgrid'
+import Flex from 'styled-flex-component'
 
 const Button = styled.button`
   background: transparent;
@@ -62,9 +61,9 @@ export default class extends Component {
   state = { isDescriptionClicked: false }
 
   toggleDescription = () =>
-    this.setState(({ isDescriptionClicked }) => {
-      return { isDescriptionClicked: !isDescriptionClicked }
-    })
+    this.setState(({ isDescriptionClicked }) => ({
+      isDescriptionClicked: !isDescriptionClicked
+    }))
 
   render = ({ speaker, description, link, name }, { isDescriptionClicked }) => (
     <Column
@@ -75,7 +74,7 @@ export default class extends Component {
         <Iframe
           title={name}
           width="100%"
-          height={isDescriptionClicked ? "500" : 180}
+          height={isDescriptionClicked ? '500' : 180}
           src={`https://www.youtube.com/embed/${link}`}
           allow="autoplay; encrypted-media"
           allowfullscreen
@@ -87,7 +86,7 @@ export default class extends Component {
         <Speaker>{speaker.name}</Speaker>
       </Flex>
       <Button onClick={this.toggleDescription}>
-        {isDescriptionClicked ? "Hide" : "Show"} Description
+        {isDescriptionClicked ? 'Hide' : 'Show'} Description
       </Button>
 
       {isDescriptionClicked ? <Description>{description}</Description> : null}

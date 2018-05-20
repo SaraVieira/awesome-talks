@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import { Row } from "react-styled-flexboxgrid"
-import { Component } from "preact"
-import Search from "./Search"
-import Flex from "styled-flex-component"
+import styled from 'styled-components'
+import { Row } from 'react-styled-flexboxgrid'
+import { Component } from 'preact'
+import Search from './Search'
+import Flex from 'styled-flex-component'
 
 const Title = styled.h1`
   opacity: 0.5;
@@ -20,14 +20,12 @@ const Title = styled.h1`
 export default class extends Component {
   state = { search: false, term: null }
 
-  render = () => {
-    return (
-      <Row>
-        <Flex full alignCenter justifyBetween>
-          <Title>Talks</Title>
-          <Search />
-        </Flex>
-      </Row>
-    )
-  }
+  render = () => (
+    <Row>
+      <Flex full alignCenter justifyBetween>
+        <Title>Talks</Title>
+        <Search />
+      </Flex>
+    </Row>
+  )
 }

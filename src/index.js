@@ -1,13 +1,13 @@
-import { injectGlobal } from "styled-components"
-import { render } from "preact"
-import { Grid } from "react-styled-flexboxgrid"
-import Header from "./Components/Header"
-import Talks from "./Components/Talks"
-import ApolloClient from "apollo-boost"
-import { ApolloProvider } from "react-apollo"
+import { injectGlobal } from 'styled-components'
+import { render } from 'preact'
+import { Grid } from 'react-styled-flexboxgrid'
+import Header from './Components/Header'
+import Talks from './Components/Talks'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
 
 const client = new ApolloClient({
-  uri: "https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq"
+  uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
 })
 
 injectGlobal`
@@ -29,17 +29,15 @@ injectGlobal`
   }
 `
 
-const App = (props, { results = [] }) => {
-  return (
-    <ApolloProvider client={client}>
-      <Grid>
-        <Header />
-        <Talks />
-      </Grid>
-    </ApolloProvider>
-  )
-}
+const App = (props, { results = [] }) => (
+  <ApolloProvider client={client}>
+    <Grid>
+      <Header />
+      <Talks />
+    </Grid>
+  </ApolloProvider>
+)
 
-if (typeof window !== "undefined") {
-  render(<App />, document.getElementById("root"))
+if (typeof window !== 'undefined') {
+  render(<App />, document.getElementById('root'))
 }
