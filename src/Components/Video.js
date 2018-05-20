@@ -3,6 +3,7 @@ import { Component } from 'preact'
 import { Col } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
+import YouTube from 'react-youtube'
 
 const Button = styled.button`
   background: transparent;
@@ -53,7 +54,7 @@ const Column = styled(Col)`
   transition: all 200ms ease;
   margin-bottom: 20px;
 `
-const Iframe = styled.iframe`
+const Iframe = styled(YouTube)`
   position: relative;
   z-index: 3;
   border: none;
@@ -78,12 +79,11 @@ export default class extends Component {
     >
       <Video>
         <Iframe
-          title={name}
-          width="100%"
-          height={isDescriptionClicked ? '500' : 180}
-          src={`https://www.youtube.com/embed/${link}`}
-          allow="autoplay; encrypted-media"
-          allowfullscreen
+          videoId={link}
+          opts={{
+            width: '100%',
+            height: isDescriptionClicked ? '500' : 180
+          }}
         />
       </Video>
 

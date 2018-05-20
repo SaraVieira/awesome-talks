@@ -3,10 +3,15 @@ import { Query } from 'react-apollo'
 
 export default ({ children, ...props }) => (
   <Query {...props}>
-    {({ loading, error, data }) => {
-      if (loading) return <div className="">Loading...</div>
+    {({ loading, error, data, fetchMore }) => {
+      if (loading) {
+        return 'loading'
+      }
       if (error) return `Error!: ${error}`
-      return children(data)
+      return children[0]({
+        data,
+        fetchMore
+      })
     }}
   </Query>
 )

@@ -1,19 +1,54 @@
 // import styled from 'styled-components'
 import { Col, Row } from 'react-styled-flexboxgrid'
-import { Query } from 'react-apollo'
+import shuffle from 'shuffle-array'
 import Video from './Video'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
+import COUNT from '../Queries/COUNT'
+import Scroll from './Scroll'
+import Query from './Query'
+
+const getMore = (fetchMore, allVideoses) =>
+  fetchMore({
+    variables: {
+      first: 9,
+      after: allVideoses[allVideoses.length - 1].id
+    },
+    updateQuery: (prev, { fetchMoreResult }) => {
+      if (!fetchMoreResult) return prev
+      return {
+        allVideoses: [...prev.allVideoses, ...fetchMoreResult.allVideoses]
+      }
+    }
+  })
 
 export default () => (
-  <Row style={{ justifyContent: 'center' }}>
-    <Col xs={12}>
-      <Query query={ALL_VIDEOS}>
-        {({ loading, error, data: { allVideoses } }) => {
-          if (loading) return <div>Loading...</div>
-          if (error) return `Error!: ${error}`
-          return <Row>{allVideoses.map(v => <Video key={v.id} {...v} />)}</Row>
-        }}
-      </Query>
-    </Col>
-  </Row>
+  <Query
+    query={ALL_VIDEOS}
+    variables={{
+      first: 9
+    }}
+  >
+    {({ data: { allVideoses }, fetchMore }) => {
+      return (
+        <Row style={{ justifyContent: 'center' }}>
+          <Col xs={12}>
+            <Row>
+              {shuffle(allVideoses, { copy: true }).map(v => (
+                <Video key={v.id} {...v} />
+              ))}
+            </Row>
+
+            <Query query={COUNT}>
+              {({ data: { _allVideosesMeta } }) => (
+                <Scroll
+                  show={_allVideosesMeta.count > allVideoses.length}
+                  onBottom={() => getMore(fetchMore, allVideoses)}
+                />
+              )}
+            </Query>
+          </Col>
+        </Row>
+      )
+    }}
+  </Query>
 )
