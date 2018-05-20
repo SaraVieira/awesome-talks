@@ -22,17 +22,18 @@ const Video = styled.section`
 const Speaker = styled.p`
   padding-left: 20px;
   a {
-    opacity: 0.6;
-    font-family: Montserrat-Light;
-    font-size: 12px;
-    letter-spacing: 0.09px;
-    text-align: left;
-    line-height: 21px;
+    min-width: 30px;
+    display: block;
+    padding: 5px;
+    text-align: center;
+
+    &:after {
+      left: 0;
+    }
   }
 `
 
 const Name = styled.h2`
-  font-family: Montserrat;
   font-size: 400;
   font-size: 22px;
   color: #000000;
@@ -89,7 +90,7 @@ export default class extends Component {
         <Name>{name}</Name>
         <Speaker>
           <Link activeClassName="active" href={makeLink(speaker.name)}>
-            {speaker.name}
+            <span>{speaker.name}</span>
           </Link>
         </Speaker>
       </Flex>

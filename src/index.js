@@ -29,6 +29,12 @@ injectGlobal`
     padding-bottom: 2px;
     border-bottom: 2px solid #60b7e6;
     position: relative;
+    padding: 5px;
+    opacity: 0.6;
+    font-wheight: 300;
+    letter-spacing: 0.09px;
+    text-align: left;
+    line-height: 21px;
 
     span {
       position: relative;
