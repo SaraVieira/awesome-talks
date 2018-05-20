@@ -9,6 +9,7 @@ const Title = styled.h1`
   font-family: Montserrat;
   font-weight: 600;
   font-size: 102px;
+  line-height: 1.2;
   color: #000000;
   letter-spacing: -2.46px;
 

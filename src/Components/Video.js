@@ -20,16 +20,14 @@ const Video = styled.section`
 `
 
 const Speaker = styled.p`
+  padding-left: 20px;
   a {
     opacity: 0.6;
     font-family: Montserrat-Light;
     font-size: 12px;
-    color: #000000;
     letter-spacing: 0.09px;
     text-align: left;
     line-height: 21px;
-    padding-left: 20px;
-    text-decoration: none;
   }
 `
 
