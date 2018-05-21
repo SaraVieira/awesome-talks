@@ -5,7 +5,7 @@ import { Component } from 'preact'
 import Flex from 'styled-flex-component'
 
 const Title = styled.h1`
-  opacity: 0.5;
+  opacity: 0.8;
   font-family: Montserrat;
   font-weight: 600;
   font-size: 90px;

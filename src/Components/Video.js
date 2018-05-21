@@ -38,7 +38,7 @@ const Speaker = styled.p`
 const Tag = styled(Link)`
   opacity: 1;
   border: none;
-  opacity: 0.5;
+  opacity: 0.8;
   font-weight: 600;
   color: #000000;
   margin-top: -20px;
@@ -63,7 +63,7 @@ const Name = styled.h2`
 `
 
 const Description = styled.p`
-  opacity: 0.6;
+  opacity: 0.8;
   font-family: Montserrat-Light;
   font-size: 14px;
   color: #000000;

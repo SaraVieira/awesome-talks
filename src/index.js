@@ -33,7 +33,7 @@ injectGlobal`
     border-bottom: 2px solid #60b7e6;
     position: relative;
     padding: 5px;
-    opacity: 0.6;
+    opacity: 0.8;
     font-wheight: 300;
     letter-spacing: 0.09px;
     text-align: left;
