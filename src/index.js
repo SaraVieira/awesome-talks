@@ -38,6 +38,7 @@ injectGlobal`
     letter-spacing: 0.09px;
     text-align: left;
     line-height: 21px;
+    cursor: pointer;
 
     span {
       position: relative;

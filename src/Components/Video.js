@@ -35,6 +35,26 @@ const Speaker = styled.p`
   }
 `
 
+const Tag = styled(Link)`
+  opacity: 1;
+  border: none;
+  opacity: 0.5;
+  font-weight: 600;
+  color: #000000;
+  margin-top: -20px;
+  padding: 0;
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  &:hover {
+    opacity: 1;
+    color: #000000;
+  }
+  &:after {
+    display: none;
+  }
+`
+
 const Name = styled.h2`
   font-size: 400;
   font-size: 22px;
@@ -69,7 +89,6 @@ const Thumbnail = styled.img`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
   display: block;
   width: 100%;
-  height: 180px;
 
   ${is('isDescriptionClicked')`
     height: 500px;
@@ -79,6 +98,8 @@ const Thumbnail = styled.img`
 const Image = styled.div`
   position: relative;
   margin: auto;
+  height: 200px;
+  overflow: hidden;
 `
 
 const Play = styled.button`
@@ -129,8 +150,8 @@ const Play = styled.button`
   }
 `
 
-const makeLink = (name = 'FIX ME') =>
-  `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
+const makeLink = (url = 'speaker', name = 'FIX ME') =>
+  `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export default class extends Component {
   state = { isDescriptionClicked: false, showVideo: false }
@@ -148,7 +169,7 @@ export default class extends Component {
   }
 
   render = (
-    { speaker, description, link, name },
+    { speaker, description, link, name, tags },
     { isDescriptionClicked, showVideo }
   ) => (
     <Column
@@ -172,7 +193,7 @@ export default class extends Component {
             <Play onClick={this.showVideo} />
             <Thumbnail
               isDescriptionClicked={isDescriptionClicked}
-              src={`https://img.youtube.com/vi/${link}/maxresdefault.jpg`}
+              src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
               alt={name}
             />
           </Image>
@@ -193,6 +214,18 @@ export default class extends Component {
           ))}
         </Speaker>
       </Flex>
+      <Flex>
+        {tags.map(s => (
+          <Tag
+            key={s.id}
+            activeClassName="active"
+            href={makeLink('category', s.name)}
+          >
+            #{s.name.toLowerCase()}
+          </Tag>
+        ))}
+      </Flex>
+
       {description ? (
         <Button onClick={this.toggleDescription}>
           {isDescriptionClicked ? 'Hide' : 'Show'} Description

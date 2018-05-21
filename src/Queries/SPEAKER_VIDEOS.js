@@ -10,6 +10,10 @@ export default gql`
         description
         link
         name
+        tags {
+          name
+          id
+        }
       }
     }
   }

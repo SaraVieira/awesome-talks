@@ -23,20 +23,22 @@ export default () => (
   <Query
     query={ALL_VIDEOS}
     variables={{
-      first: 9
+      first: 9,
+      orderBy: 'link_ASC'
     }}
   >
     {({ data: { allVideoses }, fetchMore }) => {
+      const videos = allVideoses
       return (
         <Row style={{ justifyContent: 'center' }}>
           <Col xs={12}>
-            <Row>{allVideoses.map(v => <Video key={v.id} {...v} />)}</Row>
+            <Row>{videos.map(v => <Video key={v.id} {...v} />)}</Row>
 
             <Query query={COUNT}>
               {({ data: { _allVideosesMeta } }) => (
                 <Scroll
                   show={_allVideosesMeta.count > allVideoses.length}
-                  onBottom={() => getMore(fetchMore, allVideoses)}
+                  onBottom={() => getMore(fetchMore, videos)}
                 />
               )}
             </Query>
