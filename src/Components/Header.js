@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import { Row } from 'react-styled-flexboxgrid'
 import { Component } from 'preact'
-import Search from './Search'
+// import Search from './Search'
 import Flex from 'styled-flex-component'
 
 const Title = styled.h1`
   opacity: 0.5;
   font-family: Montserrat;
   font-weight: 600;
-  font-size: 102px;
+  font-size: 90px;
   line-height: 1.2;
   color: #000000;
   letter-spacing: -2.46px;
@@ -26,7 +26,7 @@ export default class extends Component {
     <Row>
       <Flex full alignCenter justifyBetween>
         <Title>{title}</Title>
-        {noSearch ? null : <Search />}
+        {/* {noSearch ? null : <Search />} */}
       </Flex>
     </Row>
   )
