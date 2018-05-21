@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
-import SPEAKERS from '../Queries/SPEAKERS'
+import TAGS from '../Queries/TAGS'
 
-const makeLink = name => `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
+const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 const Speaker = styled(Link)`
   background-color: #fbfbfb;
@@ -29,16 +29,16 @@ const Speaker = styled(Link)`
   }
 `
 
-export default ({ speaker }) => (
+export default () => (
   <Grid>
-    <Header title="Speakers" noSearch />
+    <Header title="Categories" noSearch />
     <Row>
       <Col xs={12}>
-        <Query query={SPEAKERS}>
-          {({ data: { allSpeakerses } }) => {
+        <Query query={TAGS}>
+          {({ data: { allTagses } }) => {
             return (
               <Row>
-                {allSpeakerses.map(s => (
+                {allTagses.map(s => (
                   <Speaker key={s.id} href={makeLink(s.name)}>
                     {s.name}
                   </Speaker>

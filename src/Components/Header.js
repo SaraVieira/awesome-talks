@@ -12,6 +12,7 @@ const Title = styled.h1`
   line-height: 1.2;
   color: #000000;
   letter-spacing: -2.46px;
+  margin-top: 0;
 
   @media (max-width: 600px) {
     font-size: 60px;

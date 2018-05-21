@@ -3,6 +3,8 @@ import styled, { injectGlobal } from 'styled-components'
 import Home from './Pages/Home'
 import Speaker from './Pages/Speaker'
 import Speakers from './Pages/Speakers'
+import Tags from './Pages/Tags'
+import Tag from './Pages/Tag'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
@@ -108,7 +110,9 @@ export default () => (
       <Router>
         <Home path="/" />
         <Speaker path="/speaker/:speaker" />
+        <Tag path="/category/:category" />
         <Speakers path="/speakers" />
+        <Tags path="/categories" />
       </Router>
     </div>
   </ApolloProvider>
