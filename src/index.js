@@ -1,5 +1,4 @@
-import { Link } from 'preact-router/match'
-import styled, { injectGlobal } from 'styled-components'
+import { injectGlobal } from 'styled-components'
 import Home from './Pages/Home'
 import Speaker from './Pages/Speaker'
 import Speakers from './Pages/Speakers'
@@ -8,6 +7,8 @@ import Tag from './Pages/Tag'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
+
+import Nav from './Components/Nav'
 
 const client = new ApolloClient({
   uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
@@ -71,42 +72,10 @@ injectGlobal`
   }
 `
 
-const List = styled.ul`
-  display: flex;
-  justify-content: flex-end;
-  padding: 40px;
-`
-
-const Item = styled.li`
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
-`
-
 export default () => (
   <ApolloProvider client={client}>
     <div>
-      <header>
-        <nav>
-          <List>
-            <Item>
-              <Link href="/">
-                <span>Home</span>
-              </Link>
-            </Item>
-            <Item>
-              <Link href="/speakers">
-                <span>Speakers</span>
-              </Link>
-            </Item>
-            <Item>
-              <Link href="/categories">
-                <span>Categories</span>
-              </Link>
-            </Item>
-          </List>
-        </nav>
-      </header>
+      <Nav />
       <Router>
         <Home path="/" />
         <Speaker path="/speaker/:speaker" />
