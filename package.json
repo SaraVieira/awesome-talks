@@ -5,6 +5,7 @@
   "dependencies": {
     "apollo-boost": "0.1.6",
     "apollo-link-http-common": "^0.2.4",
+    "apollo-link-state": "^0.4.1",
     "formik": "^0.11.11",
     "graphql": "0.13.2",
     "preact": "8.2.5",
@@ -33,6 +34,7 @@
     "if-env": "^1.0.0",
     "lint-staged": "^7.1.1",
     "preact-cli": "^1.4.1",
+    "preact-cli-plugin-async": "^1.0.0",
     "prettier": "^1.12.1"
   },
   "scripts": {

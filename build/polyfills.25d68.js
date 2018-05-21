@@ -273,9 +273,7 @@
   },
   h6ac: function(e) {
     var t
-    t = (function() {
-      return this
-    })()
+    t = this
     try {
       t = t || Function('return this')() || (0, eval)('this')
     } catch (e) {
@@ -290,4 +288,4 @@
     }.call(t, n('h6ac')))
   }
 })
-//# sourceMappingURL=polyfills.3824f.js.map
+//# sourceMappingURL=polyfills.25d68.js.map

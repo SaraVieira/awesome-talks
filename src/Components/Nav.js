@@ -142,18 +142,22 @@ class Navigation extends Component {
     this.setState({ modalIsOpen: false })
   }
 
+  submit = async (e, createVideos, values, setSubmitting, handleReset) => {
+    e.preventDefault()
+    await createVideos({ variables: { ...values } })
+    setSubmitting(false)
+    handleReset()
+    this.setState({ submitted: true }, () => {
+      setTimeout(() => {
+        this.setState({
+          submitted: false
+        })
+      }, 3000)
+    })
+  }
+
   render = (
-    {
-      values,
-      touched,
-      errors,
-      dirty,
-      isSubmitting,
-      handleChange,
-      handleBlur,
-      setSubmitting,
-      handleReset
-    },
+    { values, handleChange, handleBlur, setSubmitting, handleReset },
     { modalIsOpen, submitted }
   ) => (
     <Grid>
@@ -209,24 +213,15 @@ class Navigation extends Component {
                   <Mutation mutation={CREATE_VIDEO}>
                     {(createVideos, { data, loading }) => (
                       <form
-                        onSubmit={async e => {
-                          e.preventDefault()
-                          await createVideos({ variables: { ...values } })
-                          setSubmitting(false)
-                          handleReset()
-                          this.setState(
-                            s => {
-                              return { submitted: true }
-                            },
-                            () => {
-                              setTimeout(() => {
-                                this.setState(s => {
-                                  return { submitted: false }
-                                })
-                              }, 3000)
-                            }
+                        onSubmit={e =>
+                          this.submit(
+                            e,
+                            createVideos,
+                            values,
+                            setSubmitting,
+                            handleReset
                           )
-                        }}
+                        }
                       >
                         {submitted ? <Name> You are the Best 🎉</Name> : null}
                         <Wrapper>

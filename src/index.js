@@ -4,15 +4,11 @@ import Speaker from './Pages/Speaker'
 import Speakers from './Pages/Speakers'
 import Tags from './Pages/Tags'
 import Tag from './Pages/Tag'
-import ApolloClient from 'apollo-boost'
+import ApolloClient, { gql } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
 
 import Nav from './Components/Nav'
-
-const client = new ApolloClient({
-  uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
-})
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
@@ -72,6 +68,60 @@ injectGlobal`
     list-style: none;
   }
 `
+const defaultState = {
+  favorites: JSON.parse(localStorage.getItem('favorites__awesome-talks')) || []
+}
+
+const stateLink = {
+  defaults: defaultState,
+  resolvers: {
+    Mutation: {
+      addFavorite: (_, { id }, { cache }) => {
+        const query = gql`
+          query GetFavorites {
+            favorites @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
+        const data = {
+          favorites: [...previous.favorites, id]
+        }
+
+        localStorage.setItem(
+          'favorites__awesome-talks',
+          JSON.stringify(data.favorites)
+        )
+
+        cache.writeQuery({ query, data })
+      },
+      removeFavorite: (_, { id }, { cache }) => {
+        const query = gql`
+          query GetFavorites {
+            favorites @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
+        const data = {
+          favorites: previous.favorites.filter(a => a !== id)
+        }
+
+        localStorage.setItem(
+          'favorites__awesome-talks',
+          JSON.stringify(data.favorites)
+        )
+
+        cache.writeQuery({ query, data })
+      }
+    }
+  }
+}
+
+const client = new ApolloClient({
+  uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq',
+  clientState: stateLink
+})
 
 export default () => (
   <ApolloProvider client={client}>

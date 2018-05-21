@@ -1,10 +1,15 @@
 import styled from 'styled-components'
 import { Component } from 'preact'
 import { Col } from 'react-styled-flexboxgrid'
+import { Mutation } from 'react-apollo'
 import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
 import YouTube from 'react-youtube'
 import is from 'styled-is'
+import ADD_FAVORITE from '../Queries/ADD_FAVORITE'
+import REMOVE_FAVORITE from '../Queries/REMOVE_FAVORITE'
+import GET_FAVORITES from '../Queries/GET_FAVORITES'
+import Query from './Query'
 
 const Button = styled.button`
   background: transparent;
@@ -149,6 +154,77 @@ const Play = styled.button`
     width: 0;
   }
 `
+const Heart = styled.div`
+  input[type='checkbox'] {
+    clear: both;
+    display: none;
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  input[type='checkbox'] + label {
+    z-index: 100;
+    overflow: hidden;
+    height: 6em;
+    width: 6em;
+    display: block;
+    text-align: center;
+    line-height: 95px;
+    cursor: pointer;
+    transition: all 300ms ease;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+
+  input[type='checkbox'] + label:before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    background: rgb(220, 72, 127);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+  }
+
+  input[type='checkbox'] + label:after {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    background: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+  }
+
+  input[type='checkbox']:checked + label svg {
+    transition: all 300ms ease-in-out;
+    fill: rgb(220, 72, 127);
+    transform: scale(1.3);
+  }
+
+  input[type='checkbox']:checked + label:after {
+    animation: like-a 0.3s 0.2s forwards;
+  }
+
+  input[type='checkbox']:checked + label:before {
+    animation: like-a 0.5s 0s forwards;
+  }
+
+  label svg {
+    display: inline-flex;
+    vertical-align: middle;
+    width: 35px;
+    fill: rgb(167, 167, 167);
+  }
+`
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
   `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
@@ -169,7 +245,7 @@ export default class extends Component {
   }
 
   render = (
-    { speaker, description, link, name, tags },
+    { speaker, description, link, name, tags, id },
     { isDescriptionClicked, showVideo }
   ) => (
     <Column
@@ -231,6 +307,47 @@ export default class extends Component {
           {isDescriptionClicked ? 'Hide' : 'Show'} Description
         </Button>
       ) : null}
+
+      <Query query={GET_FAVORITES}>
+        {({ data: { favorites } }) => {
+          return (
+            <Mutation mutation={REMOVE_FAVORITE}>
+              {removeFavorite => {
+                return (
+                  <Mutation mutation={ADD_FAVORITE}>
+                    {addFavorite => {
+                      return (
+                        <Heart>
+                          <input
+                            checked={favorites.includes(id)}
+                            type="checkbox"
+                            id="like"
+                            onClick={() =>
+                              favorites.includes(id)
+                                ? removeFavorite({ variables: { id } })
+                                : addFavorite({
+                                    variables: { id }
+                                  })
+                            }
+                          />
+                          <label htmlFor="like">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z" />
+                            </svg>
+                          </label>
+                        </Heart>
+                      )
+                    }}
+                  </Mutation>
+                )
+              }}
+            </Mutation>
+          )
+        }}
+      </Query>
 
       {isDescriptionClicked && description ? (
         <Description>{description}</Description>
