@@ -19,30 +19,11 @@ const getMore = (fetchMore, allVideoses) =>
     }
   })
 
-const arr = [
-  'createdAt_ASC',
-  'description_ASC',
-  'description_DESC',
-  'id_ASC',
-  'id_DESC',
-  'isPublished_ASC',
-  'isPublished_DESC',
-  'link_ASC',
-  'link_DESC',
-  'name_ASC',
-  'name_DESC',
-  'updatedAt_ASC',
-  'updatedAt_DESC'
-]
-
-const rand = arr[Math.floor(Math.random() * arr.length)]
-
 export default () => (
   <Query
     query={ALL_VIDEOS}
     variables={{
-      first: 9,
-      orderBy: rand
+      first: 9
     }}
   >
     {({ data: { allVideoses }, fetchMore }) => {

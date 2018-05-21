@@ -4,6 +4,7 @@ import { Col } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
 import YouTube from 'react-youtube'
+import is from 'styled-is'
 
 const Button = styled.button`
   background: transparent;
@@ -61,44 +62,141 @@ const Iframe = styled(YouTube)`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
 `
 
-const makeLink = name => `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
+const Thumbnail = styled.img`
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
+  display: block;
+  width: 100%;
+  height: 180px;
+
+  ${is('isDescriptionClicked')`
+    height: 500px;
+  `};
+`
+
+const Image = styled.div`
+  position: relative;
+`
+
+const Play = styled.button`
+  background: #282828;
+  border-radius: 50% / 10%;
+  color: #ffffff;
+  font-size: 1em;
+  height: 3em;
+  padding: 0;
+  text-align: center;
+  text-indent: 0.1em;
+  transition: all 150ms ease-out;
+  width: 4em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border: none;
+  opacity: 0.8;
+  cursor: pointer;
+
+  &:hover {
+    background: #ff0000;
+  }
+
+  &:before {
+    background: inherit;
+    border-radius: 5% / 50%;
+    bottom: 9%;
+    content: '';
+    left: -5%;
+    position: absolute;
+    right: -5%;
+    top: 9%;
+  }
+
+  &:after {
+    border-style: solid;
+    border-width: 1em 0 1em 1.732em;
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.75);
+    content: ' ';
+    font-size: 0.75em;
+    height: 0;
+    margin: -1em 0 0 -0.75em;
+    top: 50%;
+    position: absolute;
+    width: 0;
+  }
+`
+
+const makeLink = (name = 'FIX ME') =>
+  `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export default class extends Component {
-  state = { isDescriptionClicked: false }
+  state = { isDescriptionClicked: false, showVideo: false }
 
   toggleDescription = () =>
     this.setState(({ isDescriptionClicked }) => ({
       isDescriptionClicked: !isDescriptionClicked
     }))
 
-  render = ({ speaker, description, link, name }, { isDescriptionClicked }) => (
+  showVideo = () => {
+    this.setState(({ showVideo }) => ({
+      showVideo: !showVideo
+    }))
+    setTimeout(() => document.getElementById('iframe').playVideo(), 200)
+  }
+
+  render = (
+    { speaker, description, link, name },
+    { isDescriptionClicked, showVideo }
+  ) => (
     <Column
       md={isDescriptionClicked ? 12 : 4}
       xs={isDescriptionClicked ? 12 : 6}
     >
       <Video>
-        <Iframe
-          videoId={link}
-          opts={{
-            width: '100%',
-            height: isDescriptionClicked ? '500' : 180
-          }}
-        />
+        {showVideo ? (
+          <Iframe
+            videoId={link}
+            id="iframe"
+            onReady={e => e.target.playVideo()}
+            opts={{
+              width: '100%',
+              height: isDescriptionClicked ? '500' : 180
+            }}
+          />
+        ) : (
+          <Image>
+            <Play onClick={this.showVideo} />
+            <Thumbnail
+              isDescriptionClicked={isDescriptionClicked}
+              src={`https://img.youtube.com/vi/${link}/maxresdefault.jpg`}
+              alt={name}
+            />
+          </Image>
+        )}
       </Video>
 
       <Flex justifyBetween alignCenter>
         <Name>{name}</Name>
         <Speaker>
-          <Link activeClassName="active" href={makeLink(speaker.name)}>
-            <span>{speaker.name}</span>
-          </Link>
+          {speaker.map(s => (
+            <Link
+              key={s.id}
+              activeClassName="active"
+              href={makeLink(speaker.name)}
+            >
+              <span>{s.name}</span>
+            </Link>
+          ))}
         </Speaker>
       </Flex>
-      <Button onClick={this.toggleDescription}>
-        {isDescriptionClicked ? 'Hide' : 'Show'} Description
-      </Button>
+      {description ? (
+        <Button onClick={this.toggleDescription}>
+          {isDescriptionClicked ? 'Hide' : 'Show'} Description
+        </Button>
+      ) : null}
 
-      {isDescriptionClicked ? <Description>{description}</Description> : null}
+      {isDescriptionClicked && description ? (
+        <Description>{description}</Description>
+      ) : null}
     </Column>
   )
 }
