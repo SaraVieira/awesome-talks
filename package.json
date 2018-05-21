@@ -4,6 +4,7 @@
   "version": "0.0.234",
   "dependencies": {
     "apollo-boost": "0.1.6",
+    "apollo-link-http-common": "^0.2.4",
     "graphql": "0.13.2",
     "preact": "8.2.5",
     "preact-compat": "3.17.0",
@@ -34,8 +35,8 @@
   "scripts": {
     "posttest": "npm run format",
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build",
-    "serve": "preact build && preact serve",
+    "build": "preact build --no-prerender",
+    "serve": "preact build --no-prerender && preact serve",
     "dev": "preact watch",
     "format": "prettier --write '**/*.{js,css,md}'",
     "lint": "eslint . --cache --fix",
@@ -43,13 +44,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,css,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,css,md}": ["prettier --write", "git add"],
+    "*.js": ["eslint --fix", "git add"]
   }
 }

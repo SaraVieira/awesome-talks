@@ -18,6 +18,7 @@ const Button = styled.button`
 
 const Video = styled.section`
   position: relative;
+  margin: auto;
 `
 
 const Speaker = styled.p`
@@ -52,7 +53,9 @@ const Description = styled.p`
 
 const Column = styled(Col)`
   transition: all 200ms ease;
-  margin-bottom: 20px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 40px;
 `
 const Iframe = styled(YouTube)`
   position: relative;
@@ -75,6 +78,7 @@ const Thumbnail = styled.img`
 
 const Image = styled.div`
   position: relative;
+  margin: auto;
 `
 
 const Play = styled.button`
@@ -149,7 +153,8 @@ export default class extends Component {
   ) => (
     <Column
       md={isDescriptionClicked ? 12 : 4}
-      xs={isDescriptionClicked ? 12 : 6}
+      sm={isDescriptionClicked ? 12 : 6}
+      xs={9}
     >
       <Video>
         {showVideo ? (
