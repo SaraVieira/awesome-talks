@@ -5,6 +5,9 @@ gh-pages
 out
 gh-pages
 
+dist
+build
+
 # Docker
 *.dockerfile
 *.dockerignore
