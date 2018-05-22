@@ -1,50 +1,52 @@
+import { Component } from 'preact'
 import { Col, Row } from 'react-styled-flexboxgrid'
+import shuffle from 'shuffle-array'
 import Video from './Video'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
-import COUNT from '../Queries/COUNT'
-import Scroll from './Scroll'
 import Query from './Query'
+import { docHeight, windowBottom } from '../Utils/dom'
 
-const getMore = (fetchMore, allVideoses) =>
-  fetchMore({
-    variables: {
-      first: 9,
-      after: allVideoses[allVideoses.length - 1].id
-    },
-    updateQuery: (prev, { fetchMoreResult }) => {
-      if (!fetchMoreResult) return prev
-      return {
-        allVideoses: [...prev.allVideoses, ...fetchMoreResult.allVideoses]
-      }
+class Talks extends Component {
+  state = {
+    step: 20,
+    visibleStart: 0,
+    visibleEnd: 20,
+    videos: shuffle(this.props.talks, { copy: true }).slice(0, this.state.step)
+  }
+
+  componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
+
+  componentWillUnmount = () =>
+    window.removeEventListener('scroll', this.handleScroll)
+
+  handleScroll = event => {
+    if (windowBottom >= docHeight) {
+      const visibleStart = this.state.visibleStart + this.state.step
+      const visibleEnd = this.state.visibleEnd + this.state.step
+      const nextVideos = [...this.props.talks.slice(visibleStart, visibleEnd)]
+      this.setState({
+        visibleStart: visibleStart,
+        visibleEnd: visibleEnd,
+        videos: [...this.state.videos, ...nextVideos]
+      })
     }
-  })
+  }
 
-export default () => (
-  <Query
-    query={ALL_VIDEOS}
-    variables={{
-      first: 9,
-      orderBy: 'link_ASC'
-    }}
-  >
-    {({ data: { allVideoses }, fetchMore }) => {
-      const videos = allVideoses
-      return (
-        <Row style={{ justifyContent: 'center' }}>
-          <Col xs={12}>
-            <Row>{videos.map(v => <Video key={v.id} {...v} />)}</Row>
+  render = ({ talks }, { videos }) => (
+    <strong>{videos.map(v => <Video key={v.id} {...v} />)}</strong>
+  )
+}
 
-            <Query query={COUNT}>
-              {({ data: { _allVideosesMeta } }) => (
-                <Scroll
-                  show={_allVideosesMeta.count > allVideoses.length}
-                  onBottom={() => getMore(fetchMore, videos)}
-                />
-              )}
-            </Query>
-          </Col>
-        </Row>
-      )
-    }}
+const VideoComponent = () => (
+  <Query query={ALL_VIDEOS}>
+    {({ data: { allVideoses } }) => (
+      <Row>
+        <Col xs={12}>
+          <Talks talks={allVideoses} />
+        </Col>
+      </Row>
+    )}
   </Query>
 )
+
+export default VideoComponent
