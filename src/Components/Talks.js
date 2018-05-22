@@ -4,14 +4,15 @@ import shuffle from 'shuffle-array'
 import Video from './Video'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
 import Query from './Query'
-import { docHeight, windowBottom } from '../Utils/dom'
+
+const shuffleArr = arr => shuffle(arr, { copy: true })
 
 class Talks extends Component {
   state = {
     step: 20,
     visibleStart: 0,
     visibleEnd: 20,
-    videos: shuffle(this.props.talks, { copy: true }).slice(0, this.state.step)
+    videos: shuffleArr(this.props.talks).slice(0, this.state.step)
   }
 
   componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
@@ -20,10 +21,26 @@ class Talks extends Component {
     window.removeEventListener('scroll', this.handleScroll)
 
   handleScroll = event => {
+    const windowHeight =
+      'innerHeight' in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight
+    const body = document.body
+    const html = document.documentElement
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    )
+    const windowBottom = windowHeight + window.pageYOffset
     if (windowBottom >= docHeight) {
       const visibleStart = this.state.visibleStart + this.state.step
       const visibleEnd = this.state.visibleEnd + this.state.step
-      const nextVideos = [...this.props.talks.slice(visibleStart, visibleEnd)]
+      const nextVideos = [
+        ...shuffleArr(this.props.talks.slice(visibleStart, visibleEnd))
+      ]
       this.setState({
         visibleStart: visibleStart,
         visibleEnd: visibleEnd,
@@ -33,7 +50,9 @@ class Talks extends Component {
   }
 
   render = ({ talks }, { videos }) => (
-    <strong>{videos.map(v => <Video key={v.id} {...v} />)}</strong>
+    <Col xs={12}>
+      <Row>{videos.map(v => <Video key={v.id} {...v} />)}</Row>
+    </Col>
   )
 }
 
@@ -41,9 +60,7 @@ const VideoComponent = () => (
   <Query query={ALL_VIDEOS}>
     {({ data: { allVideoses } }) => (
       <Row>
-        <Col xs={12}>
-          <Talks talks={allVideoses} />
-        </Col>
+        <Talks talks={allVideoses} />
       </Row>
     )}
   </Query>
