@@ -68,8 +68,13 @@ injectGlobal`
     list-style: none;
   }
 `
+
+const WATCHED_KEY = 'watched__awesome-talks'
+const FAV_KEY = 'favorites__awesome-talks'
+
 const defaultState = {
-  favorites: JSON.parse(localStorage.getItem('favorites__awesome-talks')) || []
+  favorites: JSON.parse(localStorage.getItem(FAV_KEY)) || [],
+  watched: JSON.parse(localStorage.getItem(WATCHED_KEY)) || []
 }
 
 const stateLink = {
@@ -82,17 +87,13 @@ const stateLink = {
             favorites @client
           }
         `
-        console.log('add', id)
 
         const previous = cache.readQuery({ query })
         const data = {
           favorites: [...previous.favorites, id]
         }
 
-        localStorage.setItem(
-          'favorites__awesome-talks',
-          JSON.stringify(data.favorites)
-        )
+        localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
 
         cache.writeQuery({ query, data })
       },
@@ -103,17 +104,44 @@ const stateLink = {
           }
         `
 
-        console.log('Remove', id)
-
         const previous = cache.readQuery({ query })
         const data = {
           favorites: previous.favorites.filter(a => a !== id)
         }
 
-        localStorage.setItem(
-          'favorites__awesome-talks',
-          JSON.stringify(data.favorites)
-        )
+        localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
+
+        cache.writeQuery({ query, data })
+      },
+      addWatched: (_, { id }, { cache }) => {
+        const query = gql`
+          query GetWatched {
+            watched @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
+        const data = {
+          watched: [...previous.watched, id]
+        }
+
+        localStorage.setItem(WATCHED_KEY, JSON.stringify(data.watched))
+
+        cache.writeQuery({ query, data })
+      },
+      removeWatched: (_, { id }, { cache }) => {
+        const query = gql`
+          query GetWatched {
+            watched @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
+        const data = {
+          watched: previous.watched.filter(a => a !== id)
+        }
+
+        localStorage.setItem(WATCHED_KEY, JSON.stringify(data.watched))
 
         cache.writeQuery({ query, data })
       }
