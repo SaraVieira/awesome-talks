@@ -82,6 +82,7 @@ const stateLink = {
             favorites @client
           }
         `
+        console.log('add', id)
 
         const previous = cache.readQuery({ query })
         const data = {
@@ -101,6 +102,8 @@ const stateLink = {
             favorites @client
           }
         `
+
+        console.log('Remove', id)
 
         const previous = cache.readQuery({ query })
         const data = {
