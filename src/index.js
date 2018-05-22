@@ -2,6 +2,7 @@ import { injectGlobal } from 'styled-components'
 import Home from './Pages/Home'
 import Speaker from './Pages/Speaker'
 import Speakers from './Pages/Speakers'
+import Favorites from './Pages/Favorites'
 import Tags from './Pages/Tags'
 import Tag from './Pages/Tag'
 import ApolloClient, { gql } from 'apollo-boost'
@@ -164,6 +165,7 @@ export default () => (
         <Tag path="/category/:category" />
         <Speakers path="/speakers" />
         <Tags path="/categories" />
+        <Favorites path="/favorites" />
       </Router>
     </div>
   </ApolloProvider>

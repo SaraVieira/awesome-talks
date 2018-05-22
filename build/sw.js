@@ -83,9 +83,10 @@ var precacheConfig = [
     ['/assets/icons/mstile-150x150.png', '4f4bc9937f8d8d04bb7d61b979dcd14d'],
     ['/assets/loading.svg', '5533a66870c9638332558611c346c8d1'],
     ['/assets/logo.svg', '5fb83fbb222198e12e782065792887ad'],
-    ['/bundle.1df8d.js', '27748bff1d20bb9dbcbdcf0db487e4ed'],
+    ['/assets/seen.svg', 'd9c923e1202bf5596e8e6cb9370058ca'],
+    ['/bundle.7d191.js', 'b93bc8e3d1b166bff3966a0d80aa0041'],
     ['/favicon.ico', '3acc6295401b81fc977be2c776266852'],
-    ['/index.html', 'dbb9b017e4eca6512a56a707e2977ef5'],
+    ['/index.html', '6bf383e2c59f132bfc8d677212c05cca'],
     ['/manifest.json', '6bfd30c60b4d3f9852973dd4e8cb3a5d']
   ],
   cacheName =
@@ -94,7 +95,7 @@ var precacheConfig = [
   ignoreUrlParametersMatching = [/^utm_/],
   addDirectoryIndex = function(e, n) {
     var s = new URL(e)
-    return '/' === s.pathname.slice(-1) && (s.pathname += n), s.toString()
+    return s.pathname.slice(-1) === '/' && (s.pathname += n), s.toString()
   },
   cleanResponse = function(e) {
     return e.redirected
@@ -120,7 +121,7 @@ var precacheConfig = [
     )
   },
   isPathWhitelisted = function(e, n) {
-    if (0 === e.length) return !0
+    if (e.length === 0) return !0
     var s = new URL(n).pathname
     return e.some(function(e) {
       return s.match(e)
@@ -181,13 +182,14 @@ self.addEventListener('install', function(e) {
               if (!n.has(s)) {
                 var a = new Request(s, { credentials: 'same-origin' })
                 return fetch(a).then(function(n) {
-                  if (!n.ok)
+                  if (!n.ok) {
                     throw new Error(
                       'Request for ' +
                         s +
                         ' returned a response with status ' +
                         n.status
                     )
+                  }
                   return cleanResponse(n).then(function(n) {
                     return e.put(s, n)
                   })
@@ -222,7 +224,7 @@ self.addEventListener('install', function(e) {
     )
   }),
   self.addEventListener('fetch', function(e) {
-    if ('GET' === e.request.method) {
+    if (e.request.method === 'GET') {
       var n,
         s = stripIgnoredUrlParameters(
           e.request.url,
@@ -231,7 +233,7 @@ self.addEventListener('install', function(e) {
       ;(n = urlsToCacheKeys.has(s)) ||
         ((s = addDirectoryIndex(s, 'index.html')), (n = urlsToCacheKeys.has(s)))
       !n &&
-        'navigate' === e.request.mode &&
+        e.request.mode === 'navigate' &&
         isPathWhitelisted(['^(?!\\/__).*'], e.request.url) &&
         ((s = new URL('index.html', self.location).toString()),
         (n = urlsToCacheKeys.has(s))),

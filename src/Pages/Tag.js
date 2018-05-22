@@ -19,7 +19,6 @@ export default ({ category }) => (
       <Col xs={12}>
         <Query query={TAG_VIDEOS} variables={{ name: humanize(category) }}>
           {({ data: { allTagses } }) => {
-            console.log(allTagses[0])
             return (
               <Row>
                 {allTagses[0].videos.map(v => (

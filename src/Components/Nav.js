@@ -6,8 +6,9 @@ import Loading from '../assets/loading.svg'
 import { Grid, Row, Col } from 'react-styled-flexboxgrid'
 import Modal from 'react-modal'
 import { withFormik } from 'formik'
-import { Mutation } from 'react-apollo'
+import { Mutation, Query } from 'react-apollo'
 import CREATE_VIDEO from '../Queries/ADD_VIDEO'
+import GET_FAVORITES from '../Queries/GET_FAVORITES'
 
 const Nav = styled.nav`
   display: flex;
@@ -178,6 +179,17 @@ class Navigation extends Component {
                   <span>Categories</span>
                 </Link>
               </Item>
+              <Query query={GET_FAVORITES}>
+                {({ data: { favorites } }) =>
+                  favorites.length ? (
+                    <Item>
+                      <Link href="/favorites">
+                        <span>Favorites</span>
+                      </Link>
+                    </Item>
+                  ) : null
+                }
+              </Query>
               <Item>
                 <a
                   target="_blank"

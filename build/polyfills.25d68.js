@@ -47,9 +47,10 @@
         }
       }
       function r(e) {
-        if (!(this instanceof r))
+        if (!(this instanceof r)) {
           throw new TypeError('Promises must be constructed via new')
-        if ('function' != typeof e) throw new TypeError('not a function')
+        }
+        if (typeof e !== 'function') throw new TypeError('not a function')
         ;(this._state = 0),
           (this._handled = !1),
           (this._value = void 0),
@@ -57,13 +58,14 @@
           a(e, this)
       }
       function i(e, t) {
-        for (; 3 === e._state; ) e = e._value
-        if (0 === e._state) return void e._deferreds.push(t)
+        for (; e._state === 3; ) e = e._value
+        if (e._state === 0) return void e._deferreds.push(t)
         ;(e._handled = !0),
           r._immediateFn(function() {
-            var n = 1 === e._state ? t.onFulfilled : t.onRejected
-            if (null === n)
-              return void (1 === e._state ? u : c)(t.promise, e._value)
+            var n = e._state === 1 ? t.onFulfilled : t.onRejected
+            if (n === null) {
+              return void (e._state === 1 ? u : c)(t.promise, e._value)
+            }
             var o
             try {
               o = n(e._value)
@@ -75,12 +77,13 @@
       }
       function u(e, t) {
         try {
-          if (t === e)
+          if (t === e) {
             throw new TypeError('A promise cannot be resolved with itself.')
-          if (t && ('object' == typeof t || 'function' == typeof t)) {
+          }
+          if (t && (typeof t === 'object' || typeof t === 'function')) {
             var n = t.then
             if (t instanceof r) return (e._state = 3), (e._value = t), void s(e)
-            if ('function' == typeof n) return void a(o(n, t), e)
+            if (typeof n === 'function') return void a(o(n, t), e)
           }
           ;(e._state = 1), (e._value = t), s(e)
         } catch (t) {
@@ -91,18 +94,19 @@
         ;(e._state = 2), (e._value = t), s(e)
       }
       function s(e) {
-        2 === e._state &&
-          0 === e._deferreds.length &&
+        e._state === 2 &&
+          e._deferreds.length === 0 &&
           r._immediateFn(function() {
             e._handled || r._unhandledRejectionFn(e._value)
           })
-        for (var t = 0, n = e._deferreds.length; t < n; t++)
+        for (var t = 0, n = e._deferreds.length; t < n; t++) {
           i(e, e._deferreds[t])
+        }
         e._deferreds = null
       }
       function f(e, t, n) {
-        ;(this.onFulfilled = 'function' == typeof e ? e : null),
-          (this.onRejected = 'function' == typeof t ? t : null),
+        ;(this.onFulfilled = typeof e === 'function' ? e : null),
+          (this.onRejected = typeof t === 'function' ? t : null),
           (this.promise = n)
       }
       function a(e, t) {
@@ -133,9 +137,9 @@
           return new r(function(t, n) {
             function o(e, u) {
               try {
-                if (u && ('object' == typeof u || 'function' == typeof u)) {
+                if (u && (typeof u === 'object' || typeof u === 'function')) {
                   var c = u.then
-                  if ('function' == typeof c)
+                  if (typeof c === 'function') {
                     return void c.call(
                       u,
                       function(t) {
@@ -143,21 +147,23 @@
                       },
                       n
                     )
+                  }
                 }
-                ;(r[e] = u), 0 == --i && t(r)
+                ;(r[e] = u), --i == 0 && t(r)
               } catch (e) {
                 n(e)
               }
             }
-            if (!e || void 0 === e.length)
+            if (!e || void 0 === e.length) {
               throw new TypeError('Promise.all accepts an array')
+            }
             var r = Array.prototype.slice.call(e)
-            if (0 === r.length) return t([])
+            if (r.length === 0) return t([])
             for (var i = r.length, u = 0; u < r.length; u++) o(u, r[u])
           })
         }),
         (r.resolve = function(e) {
-          return e && 'object' == typeof e && e.constructor === r
+          return e && typeof e === 'object' && e.constructor === r
             ? e
             : new r(function(t) {
                 t(e)
@@ -174,7 +180,7 @@
           })
         }),
         (r._immediateFn =
-          ('function' == typeof setImmediate &&
+          (typeof setImmediate === 'function' &&
             function(e) {
               setImmediate(e)
             }) ||
@@ -182,7 +188,7 @@
             l(e, 0)
           }),
         (r._unhandledRejectionFn = function(e) {
-          'undefined' != typeof console &&
+          typeof console !== 'undefined' &&
             console &&
             console.warn('Possible Unhandled Promise Rejection:', e)
         }),
@@ -201,12 +207,12 @@
     'use strict'
     Object.defineProperty(t, '__esModule', { value: !0 }),
       (t.default =
-        'function' == typeof fetch
+        typeof fetch === 'function'
           ? fetch.bind()
           : function(e, t) {
               return (
                 (t = t || {}),
-                new Promise(function(n, o) {
+                new Promise(function(resolve, reject) {
                   function r() {
                     var e,
                       t = [],
@@ -222,7 +228,7 @@
                             (o[i] = e ? e + ',' + u : u)
                         }),
                       {
-                        ok: 1 == ((i.status / 200) | 0),
+                        ok: ((i.status / 200) | 0) == 1,
                         status: i.status,
                         statusText: i.statusText,
                         url: i.responseURL,
@@ -258,7 +264,7 @@
                   var i = new XMLHttpRequest()
                   i.open(t.method || 'get', e)
                   for (var u in t.headers) i.setRequestHeader(u, t.headers[u])
-                  ;(i.withCredentials = 'include' == t.credentials),
+                  ;(i.withCredentials = t.credentials == 'include'),
                     (i.onload = function() {
                       n(r())
                     }),
@@ -277,7 +283,7 @@
     try {
       t = t || Function('return this')() || (0, eval)('this')
     } catch (e) {
-      'object' == typeof window && (t = window)
+      typeof window === 'object' && (t = window)
     }
     e.exports = t
   },
@@ -288,4 +294,4 @@
     }.call(t, n('h6ac')))
   }
 })
-//# sourceMappingURL=polyfills.25d68.js.map
+// # sourceMappingURL=polyfills.25d68.js.map
