@@ -1,8 +1,10 @@
-import styled from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
+import is from 'styled-is'
 import { Component } from 'preact'
 import { Col } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
+import Portal from 'preact-portal'
 import Player from './Player'
 
 const Button = styled.button`
@@ -70,6 +72,36 @@ const Column = styled(Col)`
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 40px;
+
+  ${is('cinemaMode')`
+    position: fixed;
+    z-index: 9999;
+    top: 10%;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 20px;
+    max-height: 90%;
+    overflow: scroll;
+    padding-bottom: 50px;
+  `};
+`
+
+const Overlay = styled.div`
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+`
+
+injectGlobal`
+  body.cinema-mode {
+      overflow: hidden;
+  }
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
@@ -78,14 +110,22 @@ const makeLink = (url = 'speaker', name = 'FIX ME') =>
 export default class extends Component {
   state = { cinemaMode: false, showVideo: false }
 
-  toggleDescription = () =>
+  toggleCinemaMode = () => {
     this.setState(({ cinemaMode }) => ({
       cinemaMode: !cinemaMode
     }))
+    document.body.classList.toggle('cinema-mode', this.state.cinemaMode)
+  }
 
   showVideo = () => {
     this.setState(({ showVideo }) => ({
       showVideo: true
+    }))
+  }
+
+  closeVideo = () => {
+    this.setState(({ showVideo }) => ({
+      showVideo: false
     }))
   }
 
@@ -111,15 +151,21 @@ export default class extends Component {
     },
     { cinemaMode, showVideo }
   ) => (
-    <Column md={cinemaMode ? 12 : 4} sm={cinemaMode ? 12 : 6} xs={9}>
+    <Column
+      cinemaMode={cinemaMode}
+      md={cinemaMode ? 12 : 4}
+      sm={cinemaMode ? 12 : 6}
+      xs={9}
+    >
       <Player
+        showVideo={showVideo}
         cinemaMode={cinemaMode}
         id={id}
-        showVideo={showVideo}
         onClick={this.showVideo}
         link={link}
         name={name}
         onEnd={() => this.endVideo(id)}
+        closeVideo={this.closeVideo}
       />
       <Flex justifyBetween alignCenter>
         <Name>{name}</Name>
@@ -147,14 +193,18 @@ export default class extends Component {
         ))}
       </Flex>
 
-      {description ? (
-        <Button onClick={this.toggleDescription}>
-          {cinemaMode ? 'Hide' : 'Show'} Description
-        </Button>
-      ) : null}
+      <Button onClick={this.toggleCinemaMode}>
+        {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
+      </Button>
 
       {cinemaMode && description ? (
         <Description>{description}</Description>
+      ) : null}
+
+      {cinemaMode ? (
+        <Portal into="body">
+          <Overlay onClick={this.toggleCinemaMode} />
+        </Portal>
       ) : null}
     </Column>
   )

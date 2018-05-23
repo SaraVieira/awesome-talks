@@ -22,10 +22,6 @@ const Thumbnail = styled.img`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
   display: block;
   width: 100%;
-
-  ${is('cinemaMode')`
-    height: 500px;
-  `};
 `
 
 const Image = styled.div`
@@ -33,6 +29,10 @@ const Image = styled.div`
   margin: auto;
   height: 200px;
   overflow: hidden;
+
+  ${is('cinemaMode')`
+    height: auto;
+  `};
 `
 
 const Play = styled.button`
@@ -46,7 +46,7 @@ const Play = styled.button`
   text-indent: 0.1em;
   transition: all 150ms ease-out;
   width: 4em;
-  position: absolute;
+  position: absolute !important;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
@@ -85,7 +85,7 @@ const Play = styled.button`
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
   <Video>
-    {showVideo ? (
+    {showVideo || cinemaMode ? (
       <Iframe
         videoId={link}
         id="iframe"
@@ -93,11 +93,11 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
         onEnd={onEnd}
         opts={{
           width: '100%',
-          height: cinemaMode ? '500' : 180
+          height: cinemaMode ? 600 : 200
         }}
       />
     ) : (
-      <Image>
+      <Image cinemaMode={cinemaMode}>
         <Play onClick={onClick} />
         <Thumbnail
           cinemaMode={cinemaMode}
