@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import { Row } from 'react-styled-flexboxgrid'
 import { Query } from 'react-apollo'
-// import Search from './Search'
+import Match from 'preact-router/match'
 import Flex from 'styled-flex-component'
+// import Search from './Search'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 
 const Title = styled.h1`
@@ -85,29 +86,43 @@ const Input = styled.input`
   }
 `
 
+const Section = styled.div`
+  @media (max-width: 768px) {
+    margin: auto;
+    left: -70px;
+    position: relative;
+  }
+`
+
 export default ({ title = 'Talks', noSearch }) => (
   <Row>
     <Flex full alignCenter justifyBetween>
       <Title>{title}</Title>
       {/* {noSearch ? null : <Search />} */}
     </Flex>
-    <Query query={SHOW_VIEWED}>
-      {({ data: { hideViewed }, client }) => (
-        <div>
-          <Input
-            type="checkbox"
-            id="show-viewed"
-            ariaLabel="Hide Watched Talks"
-            onClick={() =>
-              client.writeData({ data: { hideViewed: !hideViewed } })
-            }
-            checked={hideViewed}
-          />
-          <Label htmlFor="show-viewed">
-            <i />
-          </Label>
-        </div>
-      )}
-    </Query>
+    <Match path="/">
+      {({ matches }) =>
+        matches && (
+          <Query query={SHOW_VIEWED}>
+            {({ data: { hideViewed }, client }) => (
+              <Section>
+                <Input
+                  type="checkbox"
+                  id="show-viewed"
+                  ariaLabel="Hide Watched Talks"
+                  onClick={() =>
+                    client.writeData({ data: { hideViewed: !hideViewed } })
+                  }
+                  checked={hideViewed}
+                />
+                <Label htmlFor="show-viewed">
+                  <i />
+                </Label>
+              </Section>
+            )}
+          </Query>
+        )
+      }
+    </Match>
   </Row>
 )
