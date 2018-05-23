@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Row } from 'react-styled-flexboxgrid'
-import { Component } from 'preact'
 // import Search from './Search'
 import Flex from 'styled-flex-component'
 
@@ -21,15 +20,11 @@ const Title = styled.h1`
   }
 `
 
-export default class extends Component {
-  state = { search: false, term: null }
-
-  render = ({ title = 'Talks', noSearch }) => (
-    <Row>
-      <Flex full alignCenter justifyBetween>
-        <Title>{title}</Title>
-        {/* {noSearch ? null : <Search />} */}
-      </Flex>
-    </Row>
-  )
-}
+export default ({ title = 'Talks', noSearch }) => (
+  <Row>
+    <Flex full alignCenter justifyBetween>
+      <Title>{title}</Title>
+      {/* {noSearch ? null : <Search />} */}
+    </Flex>
+  </Row>
+)
