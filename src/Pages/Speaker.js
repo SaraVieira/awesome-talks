@@ -23,13 +23,10 @@ export default ({ speaker }) => (
             if (error) return `Error!: ${error}`
             return (
               <Row>
-                {allSpeakerses[0].videoses.map(v => (
-                  <Video
-                    key={v.id}
-                    {...v}
-                    speaker={{ name: allSpeakerses[0].name }}
-                  />
-                ))}
+                {allSpeakerses.length &&
+                  allSpeakerses[0].videoses.map(v => (
+                    <Video key={v.id} {...v} speaker={[allSpeakerses[0]]} />
+                  ))}
               </Row>
             )
           }}
