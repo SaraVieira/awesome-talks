@@ -1,10 +1,6 @@
 import { injectGlobal } from 'styled-components'
 import Home from './Pages/Home'
-import Speaker from './Pages/Speaker'
-import Speakers from './Pages/Speakers'
-import Favorites from './Pages/Favorites'
-import Tags from './Pages/Tags'
-import Tag from './Pages/Tag'
+import AsyncRoute from 'preact-async-route'
 import ApolloClient, { gql } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
@@ -167,11 +163,36 @@ export default () => (
       <Nav />
       <Router>
         <Home path="/" />
-        <Speaker path="/speaker/:speaker" />
-        <Tag path="/category/:category" />
-        <Speakers path="/speakers" />
-        <Tags path="/categories" />
-        <Favorites path="/favorites" />
+        <AsyncRoute
+          path="/speaker/:speaker"
+          getComponent={() =>
+            import('./Pages/Speaker').then(module => module.default)
+          }
+        />
+        <AsyncRoute
+          path="/speakers"
+          getComponent={() =>
+            import('./Pages/Speakers').then(module => module.default)
+          }
+        />
+        <AsyncRoute
+          path="/category/:category"
+          getComponent={() =>
+            import('./Pages/Tag').then(module => module.default)
+          }
+        />
+        <AsyncRoute
+          path="/categories"
+          getComponent={() =>
+            import('./Pages/Tags').then(module => module.default)
+          }
+        />
+        <AsyncRoute
+          path="/favorites"
+          getComponent={() =>
+            import('./Pages/Favorites').then(module => module.default)
+          }
+        />
       </Router>
     </div>
   </ApolloProvider>
