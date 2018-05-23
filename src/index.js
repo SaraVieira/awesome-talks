@@ -32,6 +32,7 @@ injectGlobal`
     text-align: left;
     line-height: 21px;
     cursor: pointer;
+    transition: color 200ms ease;
 
     span {
       position: relative;
