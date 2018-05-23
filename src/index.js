@@ -157,7 +157,12 @@ const client = new ApolloClient({
 
 export default () => (
   <ApolloProvider client={client}>
-    <div>
+    <div
+      style={{
+        width: '100%',
+        overflow: 'hidden'
+      }}
+    >
       <Nav />
       <Router>
         <Home path="/" />

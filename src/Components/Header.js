@@ -14,7 +14,7 @@ const Title = styled.h1`
   margin-top: 0;
 
   @media (max-width: 768px) {
-    font-size: 60px;
+    font-size: 30px;
     margin: auto;
     margin-bottom: 40px;
   }

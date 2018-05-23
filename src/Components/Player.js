@@ -16,6 +16,10 @@ const Iframe = styled(YouTube)`
   border: none;
   transition: all 200ms ease;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `
 
 const Thumbnail = styled.img`
@@ -29,6 +33,10 @@ const Image = styled.div`
   margin: auto;
   height: 200px;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 
   ${is('cinemaMode')`
     height: auto;

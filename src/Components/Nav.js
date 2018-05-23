@@ -1,5 +1,6 @@
 import { Component } from 'preact'
-import styled from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
+import is from 'styled-is'
 import { Link } from 'preact-router/match'
 import Logo from '../assets/logo.svg'
 import Loading from '../assets/loading.svg'
@@ -15,11 +16,22 @@ const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   padding: 40px 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
 `
 
 const List = styled.ul`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    line-height: 40px;
+  }
 `
 
 const LogoWrapper = styled(Link)`
@@ -31,6 +43,14 @@ const LogoWrapper = styled(Link)`
 `
 
 const Item = styled.li`
+  @media (max-width: 768px) {
+    font-size: 16px;
+
+    ${is('hideOnMobile')`
+        display: none;
+    `};
+  }
+
   &:not(:last-child) {
     margin-right: 10px;
   }
@@ -117,6 +137,20 @@ const Button = styled.button`
   }
 `
 
+injectGlobal`
+    .ReactModalPortal {
+        z-index: 10;
+        position: relative;
+    }
+    @media (max-width: 768px) {
+        .ReactModal__Content.ReactModal__Content--after-open {
+            width: 80%;
+            height: 300px;
+            z-index: 999;
+        }
+    }
+`
+
 const Name = styled.h2`
   font-size: 400;
   font-size: 22px;
@@ -190,7 +224,7 @@ class Navigation extends Component {
                   ) : null
                 }
               </Query>
-              <Item>
+              <Item hideOnMobile>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"

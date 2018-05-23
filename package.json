@@ -1,6 +1,7 @@
 {
   "name": "awesome-talks",
-  "description": null,
+  "description": "Awesome Talks",
+  "license": "MIT",
   "version": "0.0.1",
   "dependencies": {
     "apollo-boost": "0.1.6",
@@ -26,7 +27,11 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-preact": "^1.1.0",
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.5.0",
     "eslint-config-standard": "^11.0.0",
@@ -38,17 +43,19 @@
     "husky": "^0.14.3",
     "if-env": "^1.0.0",
     "lint-staged": "^7.1.1",
+    "lodash-webpack-plugin": "^0.11.5",
     "preact-cli": "^2.2.1",
     "preact-cli-lodash": "^1.1.0",
     "preact-cli-plugin-async": "^1.0.0",
-    "prettier": "^1.12.1"
+    "prettier": "^1.12.1",
+    "webpack-bundle-analyzer": "^2.13.1"
   },
   "scripts": {
     "posttest": "npm run format",
-    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build --no-prerender",
-    "serve": "preact build --no-prerender && preact serve",
-    "dev": "preact watch",
+    "start": "npm run -s serve",
+    "build": "preact build --template src/index.html --no-prerender",
+    "serve": "preact build --template src/index.html --no-prerender && preact serve",
+    "dev": "preact watch --template src/index.html",
     "format": "prettier --write '**/*.{js,css,md}'",
     "lint": "eslint . --cache --fix",
     "test": "npm run lint",
