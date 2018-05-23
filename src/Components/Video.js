@@ -5,6 +5,7 @@ import { Col } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
 import Portal from 'preact-portal'
+import LazyLoad from 'react-lazyload'
 import Player from './Player'
 
 const Button = styled.button`
@@ -151,61 +152,63 @@ export default class extends Component {
     },
     { cinemaMode, showVideo }
   ) => (
-    <Column
-      cinemaMode={cinemaMode}
-      md={cinemaMode ? 12 : 4}
-      sm={cinemaMode ? 12 : 6}
-      xs={9}
-    >
-      <Player
-        showVideo={showVideo}
+    <LazyLoad height={310} offset={50}>
+      <Column
         cinemaMode={cinemaMode}
-        id={id}
-        onClick={this.showVideo}
-        link={link}
-        name={name}
-        onEnd={() => this.endVideo(id)}
-        closeVideo={this.closeVideo}
-      />
-      <Flex justifyBetween alignCenter>
-        <Name>{name}</Name>
-        <Speaker>
-          {speaker.map(s => (
-            <Link
+        md={cinemaMode ? 12 : 4}
+        sm={cinemaMode ? 12 : 6}
+        xs={9}
+      >
+        <Player
+          showVideo={showVideo}
+          cinemaMode={cinemaMode}
+          id={id}
+          onClick={this.showVideo}
+          link={link}
+          name={name}
+          onEnd={() => this.endVideo(id)}
+          closeVideo={this.closeVideo}
+        />
+        <Flex justifyBetween alignCenter>
+          <Name>{name}</Name>
+          <Speaker>
+            {speaker.map(s => (
+              <Link
+                key={s.id}
+                activeClassName="active"
+                href={makeLink('speaker', s.name)}
+              >
+                <span>{s.name}</span>
+              </Link>
+            ))}
+          </Speaker>
+        </Flex>
+        <Flex>
+          {tags.map(s => (
+            <Tag
               key={s.id}
               activeClassName="active"
-              href={makeLink('speaker', s.name)}
+              href={makeLink('category', s.name)}
             >
-              <span>{s.name}</span>
-            </Link>
+              #{s.name.toLowerCase()}
+            </Tag>
           ))}
-        </Speaker>
-      </Flex>
-      <Flex>
-        {tags.map(s => (
-          <Tag
-            key={s.id}
-            activeClassName="active"
-            href={makeLink('category', s.name)}
-          >
-            #{s.name.toLowerCase()}
-          </Tag>
-        ))}
-      </Flex>
+        </Flex>
 
-      <Button onClick={this.toggleCinemaMode}>
-        {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
-      </Button>
+        <Button onClick={this.toggleCinemaMode}>
+          {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
+        </Button>
 
-      {cinemaMode && description ? (
-        <Description>{description}</Description>
-      ) : null}
+        {cinemaMode && description ? (
+          <Description>{description}</Description>
+        ) : null}
 
-      {cinemaMode ? (
-        <Portal into="body">
-          <Overlay onClick={this.toggleCinemaMode} />
-        </Portal>
-      ) : null}
-    </Column>
+        {cinemaMode ? (
+          <Portal into="body">
+            <Overlay onClick={this.toggleCinemaMode} />
+          </Portal>
+        ) : null}
+      </Column>
+    </LazyLoad>
   )
 }
