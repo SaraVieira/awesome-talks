@@ -1,11 +1,11 @@
 {
   "name": "Awesome Talks",
-  "short_name": "Awesome Talks",
+  "short_name": "Talks ️❤️",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
-  "theme_color": "#60b7e6",
+  "theme_color": "#337294",
   "icons": [
     {
       "src": "/assets/icons/android-icon-192x192.png",

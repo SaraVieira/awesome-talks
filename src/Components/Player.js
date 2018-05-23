@@ -106,7 +106,7 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
       />
     ) : (
       <Image cinemaMode={cinemaMode}>
-        <Play onClick={onClick} />
+        <Play onClick={onClick} aria-label="Play Video" />
         <Thumbnail
           cinemaMode={cinemaMode}
           src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}

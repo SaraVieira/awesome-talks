@@ -76,7 +76,7 @@ const Input = styled.input`
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #60b7e6;
+    background-color: #337294;
     transition: 0.4s;
   }
   &:focus ~ span {
@@ -295,6 +295,7 @@ class Navigation extends Component {
                           <span />
                         </Wrapper>
                         <Button
+                          name="Add a Talks"
                           type="submit"
                           submitted={submitted}
                           disabled={false}

@@ -12,7 +12,7 @@ const Button = styled.button`
   background: transparent;
   display: block;
   border: none;
-  color: #f61c0d;
+  color: #d62d22;
   font-weight: bold;
   text-align: right;
   padding: 0;
@@ -152,7 +152,7 @@ export default class extends Component {
     },
     { cinemaMode, showVideo }
   ) => (
-    <LazyLoad height={310} offset={50}>
+    <LazyLoad height={310}>
       <Column
         cinemaMode={cinemaMode}
         md={cinemaMode ? 12 : 4}
@@ -195,7 +195,7 @@ export default class extends Component {
           ))}
         </Flex>
 
-        <Button onClick={this.toggleCinemaMode}>
+        <Button name="Toggle Cinema Mode" onClick={this.toggleCinemaMode}>
           {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
         </Button>
 

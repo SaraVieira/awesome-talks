@@ -24,10 +24,10 @@ injectGlobal`
   }
 
   a {
-    color: #60b7e6;
+    color: #337294;
     text-decoration: none;
     padding-bottom: 2px;
-    border-bottom: 2px solid #60b7e6;
+    border-bottom: 2px solid #337294;
     position: relative;
     padding: 5px;
     opacity: 0.8;
@@ -47,7 +47,7 @@ injectGlobal`
       content: '';
       width: 100%;
       height: 0px;
-      background: #60b7e6;
+      background: #337294;
       display: block;
       position: absolute;
       bottom: 0;
