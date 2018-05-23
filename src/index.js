@@ -75,7 +75,8 @@ const FAV_KEY = 'favorites__awesome-talks'
 
 const defaultState = {
   favorites: JSON.parse(localStorage.getItem(FAV_KEY)) || [],
-  watched: JSON.parse(localStorage.getItem(WATCHED_KEY)) || []
+  watched: JSON.parse(localStorage.getItem(WATCHED_KEY)) || [],
+  hideViewed: false
 }
 
 const stateLink = {

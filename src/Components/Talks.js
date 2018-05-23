@@ -2,12 +2,15 @@ import { Component } from 'preact'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import shuffle from 'shuffle-array'
 import Video from './Video'
-import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
+import { graphql, compose } from 'react-apollo'
 import Query from './Query'
+import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
+import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
+import GET_WATCHED from '../Queries/GET_WATCHED'
 
 const shuffleArr = arr => shuffle(arr, { copy: true })
 
-class Talks extends Component {
+class TalksComponent extends Component {
   state = {
     step: 20,
     visibleStart: 0,
@@ -19,6 +22,20 @@ class Talks extends Component {
 
   componentWillUnmount = () =>
     window.removeEventListener('scroll', this.handleScroll)
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const allTalks =
+      this.props.hideViewed && !prevProps.hideViewed
+        ? this.props.talks.filter(t => !this.props.watched.includes(t.id))
+        : this.props.talks
+
+    if (this.props.hideViewed !== prevProps.hideViewed) {
+      this.setState({
+        ...this.state,
+        videos: shuffleArr(allTalks).slice(0, this.state.step)
+      })
+    }
+  }
 
   handleScroll = event => {
     const windowHeight =
@@ -55,6 +72,15 @@ class Talks extends Component {
     </Col>
   )
 }
+
+const Talks = compose(
+  graphql(SHOW_VIEWED, {
+    props: ({ data }) => ({ hideViewed: data.hideViewed })
+  }),
+  graphql(GET_WATCHED, {
+    props: ({ data }) => ({ watched: data.watched })
+  })
+)(TalksComponent)
 
 const VideoComponent = () => (
   <Query query={ALL_VIDEOS}>
