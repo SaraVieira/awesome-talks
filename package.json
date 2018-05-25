@@ -30,6 +30,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.3",
     "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -47,6 +48,7 @@
     "if-env": "^1.0.0",
     "lint-staged": "^7.1.1",
     "lodash-webpack-plugin": "^0.11.5",
+    "offline-plugin": "^5.0.3",
     "preact-cli": "^2.2.1",
     "preact-cli-lodash": "^1.1.0",
     "preact-cli-plugin-async": "^1.0.0",
@@ -56,7 +58,7 @@
   "scripts": {
     "posttest": "npm run format",
     "start": "preact serve",
-    "build": "preact build --template src/index.html --no-prerender",
+    "build": "preact build --template src/index.html -p",
     "dev": "preact watch --template src/index.html",
     "format": "prettier --write '**/*.{js,css,md}'",
     "lint": "eslint . --cache --fix",
@@ -64,13 +66,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,css,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,css,md}": ["prettier --write", "git add"],
+    "*.js": ["eslint --fix", "git add"]
   }
 }

@@ -26,6 +26,7 @@ const Wrapper = styled(Row)`
 const Img = styled.img`
   margin-right: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
+  width: 200px;
 
   @media (max-width: 768px) {
     margin: auto;
@@ -49,18 +50,22 @@ const Section = styled.div`
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
   <Wrapper>
     <Desc>
-      <Img src={photo.url} alt={name} height="200" width="200" />
+      {photo ? (
+        <Img src={photo.url} alt={name} height="200" width="200" />
+      ) : null}
       <Section>
         <Header title={humanize(name)} noSearch small />
         <p>{bio} </p>
-        <a
-          className="no-hover"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={`https://twitter.com/${twitter}`}
-        >
-          <img src={TwitterIcon} alt="Twitter" width="24" />
-        </a>
+        {twitter ? (
+          <a
+            className="no-hover"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://twitter.com/${twitter}`}
+          >
+            <img src={TwitterIcon} alt="Twitter" width="24" />
+          </a>
+        ) : null}
       </Section>
     </Desc>
   </Wrapper>

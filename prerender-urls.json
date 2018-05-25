@@ -1,0 +1,15 @@
+[
+  {
+    "url": "/",
+    "title": "Homepage"
+  },
+  {
+    "url": "/speakers"
+  },
+  {
+    "url": "/categories"
+  },
+  {
+    "url": "/favorites"
+  }
+]

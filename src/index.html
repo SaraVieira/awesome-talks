@@ -52,8 +52,9 @@
 
 <body>
     <%= htmlWebpackPlugin.options.ssr({
-			url: '/'
-		}) %>
+        			url: '/'
+        		}) %>
+        <div id="root"></div>
         <script defer src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
         <script>window.fetch || document.write('<script src="<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"><\/script>')</script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
