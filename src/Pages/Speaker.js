@@ -27,6 +27,7 @@ const Img = styled.img`
   margin-right: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
   width: 200px;
+  height: 200px;
 
   @media (max-width: 768px) {
     margin: auto;
@@ -50,9 +51,7 @@ const Section = styled.div`
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
   <Wrapper>
     <Desc>
-      {photo ? (
-        <Img src={photo.url} alt={name} height="200" width="200" />
-      ) : null}
+      {photo ? <Img src={photo.url} alt={name} /> : null}
       <Section>
         <Header title={humanize(name)} noSearch small />
         <p>{bio} </p>
@@ -76,22 +75,20 @@ export default ({ speaker }) => (
     <Row>
       <Col xs={12}>
         <Query query={SPEAKER_VIDEOS} variables={{ name: humanize(speaker) }}>
-          {({ data: { allSpeakerses } }) => {
-            return (
-              <Section>
-                <SpeakerInfo {...allSpeakerses[0]} />
-                <Row>
-                  <Header title="Talks" noSearch />
-                </Row>
-                <Row>
-                  {allSpeakerses.length &&
-                    allSpeakerses[0].videoses.map(v => (
-                      <Video key={v.id} {...v} speaker={[allSpeakerses[0]]} />
-                    ))}
-                </Row>
-              </Section>
-            )
-          }}
+          {({ data: { allSpeakerses } }) => (
+            <Section>
+              <SpeakerInfo {...allSpeakerses[0]} />
+              <Row>
+                <Header title="Talks" noSearch />
+              </Row>
+              <Row>
+                {allSpeakerses.length &&
+                  allSpeakerses[0].videoses.map(v => (
+                    <Video key={v.id} {...v} speaker={[allSpeakerses[0]]} />
+                  ))}
+              </Row>
+            </Section>
+          )}
         </Query>
       </Col>
     </Row>
