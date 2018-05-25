@@ -14,7 +14,7 @@ const Title = styled.h1`
   font-weight: 600;
   font-size: ${remcalc(90)};
   line-height: 1.2;
-  color: #000000;
+  color: ${props => props.theme.black};
   letter-spacing: ${remcalc(-2.46)};
   margin-top: 0;
   margin-bottom: 0;
@@ -42,7 +42,7 @@ const Label = styled.label`
   margin: 0 auto;
   border-radius: ${remcalc(100)};
   transition: all 0.2s ease-in-out;
-  background-color: #e6e9ec;
+  background-color: ${props => props.theme.lightGrey};
 
   &:after {
     display: inline-block;
@@ -56,7 +56,7 @@ const Label = styled.label`
   & i {
     height: ${remcalc(28)};
     width: ${remcalc(28)};
-    background: #ffffff;
+    background: ${props => props.theme.white};
     display: inline-block;
     border-radius: ${remcalc(100)};
     margin-top: ${remcalc(2)};
@@ -85,7 +85,7 @@ const Input = styled.input`
   display: none;
 
   &:checked + label {
-    background-color: #51b257;
+    background-color: ${props => props.theme.green};
   }
 
   &:checked + label > i {

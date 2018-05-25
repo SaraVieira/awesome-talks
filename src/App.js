@@ -3,6 +3,7 @@ import AsyncRoute from 'preact-async-route'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
+import { ThemeProvider } from 'styled-components'
 
 import './Utils/global-styles'
 import Nav from './Components/Nav'
@@ -67,48 +68,58 @@ const client = new ApolloClient({
   clientState
 })
 
+const theme = {
+  black: '#00#',
+  white: '#fff',
+  lightGrey: '#e6e9ec',
+  darkGrey: '#666',
+  green: '#51b257'
+}
+
 export default () => (
   <ApolloProvider client={client}>
-    <div
-      style={{
-        width: '100%',
-        overflow: 'hidden'
-      }}
-    >
-      <Nav />
-      <Router>
-        <Home path="/" />
-        <AsyncRoute
-          path="/speaker/:speaker"
-          getComponent={() =>
-            import('./Pages/Speaker').then(module => module.default)
-          }
-        />
-        <AsyncRoute
-          path="/speakers"
-          getComponent={() =>
-            import('./Pages/Speakers').then(module => module.default)
-          }
-        />
-        <AsyncRoute
-          path="/category/:category"
-          getComponent={() =>
-            import('./Pages/Tag').then(module => module.default)
-          }
-        />
-        <AsyncRoute
-          path="/categories"
-          getComponent={() =>
-            import('./Pages/Tags').then(module => module.default)
-          }
-        />
-        <AsyncRoute
-          path="/favorites"
-          getComponent={() =>
-            import('./Pages/Favorites').then(module => module.default)
-          }
-        />
-      </Router>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div
+        style={{
+          width: '100%',
+          overflow: 'hidden'
+        }}
+      >
+        <Nav />
+        <Router>
+          <Home path="/" />
+          <AsyncRoute
+            path="/speaker/:speaker"
+            getComponent={() =>
+              import('./Pages/Speaker').then(module => module.default)
+            }
+          />
+          <AsyncRoute
+            path="/speakers"
+            getComponent={() =>
+              import('./Pages/Speakers').then(module => module.default)
+            }
+          />
+          <AsyncRoute
+            path="/category/:category"
+            getComponent={() =>
+              import('./Pages/Tag').then(module => module.default)
+            }
+          />
+          <AsyncRoute
+            path="/categories"
+            getComponent={() =>
+              import('./Pages/Tags').then(module => module.default)
+            }
+          />
+          <AsyncRoute
+            path="/favorites"
+            getComponent={() =>
+              import('./Pages/Favorites').then(module => module.default)
+            }
+          />
+        </Router>
+      </div>
+    </ThemeProvider>
   </ApolloProvider>
 )

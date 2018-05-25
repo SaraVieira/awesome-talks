@@ -8,7 +8,7 @@ injectGlobal`
     padding: 0;
     font-family: Montserrat;
     font-size: ${remcalc(14)};
-    color: #666;
+    color: ${props => props.theme.darkGrey};;
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
     padding-bottom: ${remcalc(40)};

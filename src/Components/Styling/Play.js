@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export default styled.button`
   background: #282828;
   border-radius: 50% / 10%;
-  color: #ffffff;
+  color: ${props => props.theme.white};
   font-size: 1em;
   height: 3em;
   padding: 0;

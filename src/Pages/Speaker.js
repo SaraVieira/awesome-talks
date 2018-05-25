@@ -23,6 +23,7 @@ const Img = styled.img`
   box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
     0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
   width: ${remcalc(200)};
+  min-width: ${remcalc(200)};
 
   @media (max-width: ${remcalc(768)}) {
     margin: auto;

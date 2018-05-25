@@ -61,7 +61,7 @@ export default styled.div`
   }
 
   input[type='checkbox']:checked + label svg g {
-    fill: #51b257;
+    fill: ${props => props.theme.green};
   }
 
   input[type='checkbox']:checked + label:after {

@@ -7,7 +7,7 @@ export default styled(Link)`
   border: none;
   opacity: 0.8;
   font-weight: 600;
-  color: #000000;
+  color: ${props => props.theme.black};
   margin-top: ${remcalc(-20)};
   padding: 0;
   margin-bottom: ${remcalc(10)};
@@ -15,7 +15,7 @@ export default styled(Link)`
 
   &:hover {
     opacity: 1;
-    color: #000000;
+    color: ${props => props.theme.black};
   }
   &:after {
     display: none;

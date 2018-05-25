@@ -27,7 +27,7 @@ export default styled.button`
   padding-right: 1.25rem;
   padding-left: 1.25rem;
   font-size: 0.75rem;
-  color: #fff;
+  color: ${props => props.theme.white};
   background-color: #60b7e6;
   border-color: transparent;
   min-width: ${remcalc(125)};
@@ -47,7 +47,7 @@ export default styled.button`
     height: 2em;
 
     path {
-      stroke: #fff;
+      stroke: ${props => props.theme.white};
       stroke-width: 5;
     }
   }

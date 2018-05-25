@@ -38,7 +38,7 @@ const Speaker = styled.p`
 const Name = styled.h2`
   font-size: 400;
   font-size: ${remcalc(22)};
-  color: #000000;
+  color: ${props => props.theme.black};
   letter-spacing: ${remcalc(-0.63)};
 `
 
@@ -46,7 +46,7 @@ const Description = styled.p`
   opacity: 0.8;
   font-family: Montserrat-Light;
   font-size: ${remcalc(14)};
-  color: #000000;
+  color: ${props => props.theme.black};
   letter-spacing: ${remcalc(0.11)};
   line-height: ${remcalc(21)};
 `
@@ -64,7 +64,7 @@ const Column = styled(Col)`
     width: 90%;
     left: 50%;
     transform: translateX(-50%);
-    background: #fff;
+    background: ${props => props.theme.white};
     padding: ${remcalc(20)};
     max-height: 90%;
     overflow: scroll;
