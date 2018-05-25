@@ -100,7 +100,7 @@ const Input = styled.input`
 const Section = styled.div`
   @media (max-width: ${remcalc(768)}) {
     margin: auto;
-    left: ${remcalc(70)};
+    left: ${remcalc(-70)};
     position: relative;
     top: ${remcalc(-45)};
   }

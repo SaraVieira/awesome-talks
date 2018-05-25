@@ -8,14 +8,7 @@ import Query from './../Components/Query'
 import Video from './../Components/Video'
 import SPEAKER_VIDEOS from '../Queries/SPEAKER_VIDEOS'
 import TwitterIcon from '../assets/twitter.svg'
-
-const humanize = str => {
-  var frags = str.split('-')
-  for (let i = 0; i < frags.length; i++) {
-    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)
-  }
-  return frags.join(' ')
-}
+import humanize from '../Utils/strings'
 
 const Wrapper = styled(Row)`
   margin-bottom: ${remcalc(30)};
