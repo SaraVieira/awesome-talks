@@ -18,10 +18,6 @@ injectGlobal`
     letter-spacing: 0.11px;
     line-height: 21px;
     padding-bottom: 40px;
-
-    * {
-        box-sizing: border-box;
-    }
   }
 
   div[id*='do-not-delete-this-hack'] {
