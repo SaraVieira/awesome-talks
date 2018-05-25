@@ -11,6 +11,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "formik": "^0.11.11",
     "graphql": "0.13.2",
+    "nuka-carousel": "^4.2.1",
     "preact": "8.2.5",
     "preact-async-route": "^2.2.0",
     "preact-compat": "3.17.0",
