@@ -17,6 +17,7 @@ injectGlobal`
     color: #666;
     letter-spacing: 0.11px;
     line-height: 21px;
+    padding-bottom: 40px;
   }
 
   a {

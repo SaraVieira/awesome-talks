@@ -1,34 +1,10 @@
-import { Link } from 'preact-router/match'
-import styled from 'styled-components'
-import shuffle from 'shuffle-array'
-
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
+import Tag from './../Components/Tag'
 import SPEAKERS from '../Queries/SPEAKERS'
 
 const makeLink = name => `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
-
-const Speaker = styled(Link)`
-  background-color: #fbfbfb;
-  border: 1px solid #a9b1b5;
-  padding: 6px 15px;
-  color: #a9b1b5;
-  border-radius: 5px;
-  transition: all 300ms ease-in-out;
-  margin: 5px;
-  text-decoration: none;
-
-  &:after {
-    width: 0;
-    height: 0;
-  }
-
-  &:hover {
-    border: 1px solid #63d3e1;
-    color: #63d3e1;
-  }
-`
 
 export default ({ speaker }) => (
   <Grid>
@@ -39,10 +15,10 @@ export default ({ speaker }) => (
           {({ data: { allSpeakerses } }) => {
             return (
               <Row>
-                {shuffle(allSpeakerses, { copy: true }).map(s => (
-                  <Speaker key={s.id} href={makeLink(s.name)}>
+                {allSpeakerses.map(s => (
+                  <Tag key={s.id} href={makeLink(s.name)}>
                     {s.name}
-                  </Speaker>
+                  </Tag>
                 ))}
               </Row>
             )

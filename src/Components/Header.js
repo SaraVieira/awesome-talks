@@ -31,7 +31,6 @@ const Label = styled.label`
   border-radius: 100px;
   -webkit-transition: all 0.2s ease-in-out;
   background-color: #e6e9ec;
-  margin-bottom: 60px;
 
   &:after {
     display: inline-block;
@@ -94,8 +93,12 @@ const Section = styled.div`
   }
 `
 
+const Wrapper = styled(Row)`
+  margin-bottom: 60px;
+`
+
 export default ({ title = 'Talks', noSearch }) => (
-  <Row>
+  <Wrapper>
     <Flex full alignCenter justifyBetween>
       <Title>{title}</Title>
       {/* {noSearch ? null : <Search />} */}
@@ -124,5 +127,5 @@ export default ({ title = 'Talks', noSearch }) => (
         )
       }
     </Match>
-  </Row>
+  </Wrapper>
 )

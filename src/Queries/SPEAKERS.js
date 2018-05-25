@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost'
 
 export default gql`
   {
-    allSpeakerses {
+    allSpeakerses(orderBy: name_ASC) {
       name
       id
     }
