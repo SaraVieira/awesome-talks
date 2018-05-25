@@ -44,23 +44,25 @@ injectGlobal`
       z-index: 10;
     }
 
-    &:after {
-      transition: height 200ms ease;
-      content: '';
-      width: 100%;
-      height: 0;
-      background: #337294;
-      display: block;
-      position: absolute;
-      bottom: 0;
-      z-index: 0;
-    }
-
-    &:hover {
-      color: white;
-
+    @media (pointer: fine) {
       &:after {
-        height: 100%;
+        transition: height 200ms ease;
+        content: '';
+        width: 100%;
+        height: 0;
+        background: #337294;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        z-index: 0;
+      }
+
+      &:hover {
+        color: white;
+
+        &:after {
+          height: 100%;
+        }
       }
     }
   }
