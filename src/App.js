@@ -69,7 +69,7 @@ const client = new ApolloClient({
 })
 
 const theme = {
-  black: '#00#',
+  black: '#000',
   white: '#fff',
   lightGrey: '#e6e9ec',
   darkGrey: '#666',
