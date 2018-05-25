@@ -3,7 +3,7 @@ import GET_FAVORITES from '../Queries/GET_FAVORITES'
 import ADD_FAVORITE from '../Queries/ADD_FAVORITE'
 import REMOVE_FAVORITE from '../Queries/REMOVE_FAVORITE'
 import Query from './Query'
-import Heart from './Heart'
+import Heart from './Styling/Heart'
 
 import randomID from 'random-id'
 

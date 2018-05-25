@@ -1,11 +1,12 @@
 import { graphql, compose } from 'react-apollo'
+import remcalc from 'remcalc'
+import randomID from 'random-id'
+
 import ADD_WATCHED from '../Queries/ADD_WATCHED'
 import REMOVE_WATCHED from '../Queries/REMOVE_WATCHED'
 import GET_WATCHED from '../Queries/GET_WATCHED'
 import Query from './Query'
-import Heart from './Heart'
-
-import randomID from 'random-id'
+import Heart from './Styling/Heart'
 
 const Favorite = ({ id, removeWatched, addWatched }) => (
   <Query query={GET_WATCHED}>
@@ -23,8 +24,8 @@ const Favorite = ({ id, removeWatched, addWatched }) => (
           />
           <label htmlFor={inputId}>
             <svg
-              width="90px"
-              height="24px"
+              width={remcalc(90)}
+              height={remcalc(24)}
               viewBox="0 0 90 82"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"

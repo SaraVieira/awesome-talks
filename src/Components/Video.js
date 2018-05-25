@@ -6,6 +6,9 @@ import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
 import Portal from 'preact-portal'
 import LazyLoad from 'react-lazyload'
+import remcalc from 'remcalc'
+
+import Tag from './Styling/Tag'
 import Player from './Player'
 
 const Button = styled.button`
@@ -19,11 +22,11 @@ const Button = styled.button`
 `
 
 const Speaker = styled.p`
-  padding-left: 20px;
+  padding-left: ${remcalc(20)};
   a {
-    min-width: 30px;
+    min-width: ${remcalc(30)};
     display: block;
-    padding: 5px;
+    padding: ${remcalc(5)};
     text-align: center;
 
     &:after {
@@ -32,47 +35,27 @@ const Speaker = styled.p`
   }
 `
 
-const Tag = styled(Link)`
-  opacity: 1;
-  border: none;
-  opacity: 0.8;
-  font-weight: 600;
-  color: #000000;
-  margin-top: -20px;
-  padding: 0;
-  margin-bottom: 10px;
-  margin-right: 10px;
-
-  &:hover {
-    opacity: 1;
-    color: #000000;
-  }
-  &:after {
-    display: none;
-  }
-`
-
 const Name = styled.h2`
   font-size: 400;
-  font-size: 22px;
+  font-size: ${remcalc(22)};
   color: #000000;
-  letter-spacing: -0.63px;
+  letter-spacing: ${remcalc(-0.63)};
 `
 
 const Description = styled.p`
   opacity: 0.8;
   font-family: Montserrat-Light;
-  font-size: 14px;
+  font-size: ${remcalc(14)};
   color: #000000;
-  letter-spacing: 0.11px;
-  line-height: 21px;
+  letter-spacing: ${remcalc(0.11)};
+  line-height: ${remcalc(21)};
 `
 
 const Column = styled(Col)`
   transition: all 200ms ease;
   justify-content: center;
   margin: 0 auto;
-  margin-bottom: 40px;
+  margin-bottom: ${remcalc(40)};
 
   ${is('cinemaMode')`
     position: fixed;
@@ -82,10 +65,10 @@ const Column = styled(Col)`
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
-    padding: 20px;
+    padding: ${remcalc(20)};
     max-height: 90%;
     overflow: scroll;
-    padding-bottom: 50px;
+    padding-bottom: ${remcalc(50)};
   `};
 `
 

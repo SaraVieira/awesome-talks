@@ -3,6 +3,7 @@ import { Row, Col } from 'react-styled-flexboxgrid'
 import { Query } from 'react-apollo'
 import Match from 'preact-router/match'
 import Flex from 'styled-flex-component'
+import remcalc from 'remcalc'
 // import Search from './Search'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 import is from 'styled-is'
@@ -11,71 +12,71 @@ const Title = styled.h1`
   opacity: 0.8;
   font-family: Montserrat;
   font-weight: 600;
-  font-size: 90px;
+  font-size: ${remcalc(90)};
   line-height: 1.2;
   color: #000000;
-  letter-spacing: -2.46px;
+  letter-spacing: ${remcalc(-2.46)};
   margin-top: 0;
   margin-bottom: 0;
 
   ${is('small')`
-    font-size: 24px;
+    font-size: ${remcalc(24)};
 
-    @media (max-width: 768px) {
-        margin-bottom: 20px;
+    @media (max-width: ${remcalc(768)}) {
+        margin-bottom: ${remcalc(20)};
     }
   `};
 
-  @media (max-width: 768px) {
-    font-size: 30px;
+  @media (max-width: ${remcalc(768)}) {
+    font-size: ${remcalc(30)};
     position: relative;
     margin: auto;
-    margin-bottom: 40px;
-    margin-top: -20px;
+    margin-bottom: ${remcalc(40)};
+    margin-top: ${remcalc(-20)};
   }
 `
 const Label = styled.label`
   display: block;
-  width: 54px;
-  height: 32px;
-  margin: 0px auto;
-  border-radius: 100px;
-  -webkit-transition: all 0.2s ease-in-out;
+  width: ${remcalc(54)};
+  height: ${remcalc(32)};
+  margin: 0 auto;
+  border-radius: ${remcalc(100)};
+  transition: all 0.2s ease-in-out;
   background-color: #e6e9ec;
 
   &:after {
     display: inline-block;
     content: 'Hide Watched Talks';
     position: relative;
-    width: 150px;
-    left: 60px;
-    top: -30px;
+    width: ${remcalc(150)};
+    left: ${remcalc(60)};
+    top: ${remcalc(-30)};
   }
 
   & i {
-    height: 28px;
-    width: 28px;
+    height: ${remcalc(28)};
+    width: ${remcalc(28)};
     background: #ffffff;
     display: inline-block;
-    border-radius: 100px;
-    margin-top: 2px;
-    margin-left: 2px;
+    border-radius: ${remcalc(100)};
+    margin-top: ${remcalc(2)};
+    margin-left: ${remcalc(2)};
     transition: all 0.2s ease-in-out;
     pointer-events: none;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 
   &:active {
     background-color: #a6b9cb;
 
     & > i {
-      width: 34px;
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+      width: ${remcalc(34)};
+      box-shadow: 0 ${remcalc(2)} ${remcalc(4)} 0 rgba(0, 0, 0, 0.2);
     }
   }
 
   &:active &:hover > i {
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 ${remcalc(1)} ${remcalc(2)} 0 rgba(0, 0, 0, 0.2);
     transform: scale(1.01);
   }
 `
@@ -88,32 +89,32 @@ const Input = styled.input`
   }
 
   &:checked + label > i {
-    margin-left: 24px;
+    margin-left: ${remcalc(24)};
   }
 
   &:checked + label:active > i {
-    margin-left: 18px;
+    margin-left: ${remcalc(18)};
   }
 `
 
 const Section = styled.div`
-  @media (max-width: 768px) {
+  @media (max-width: ${remcalc(768)}) {
     margin: auto;
-    left: -70px;
+    left: ${remcalc(70)};
     position: relative;
-    top: -45px;
+    top: ${remcalc(-45)};
   }
 `
 
 const Wrapper = styled(Row)`
-  margin-bottom: 60px;
+  margin-bottom: ${remcalc(60)};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${remcalc(768)}) {
     margin: auto;
   }
 
   ${is('small')`
-    margin-bottom: 20px;
+    margin-bottom: ${remcalc(20)};
   `};
 `
 

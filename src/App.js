@@ -4,6 +4,7 @@ import AsyncRoute from 'preact-async-route'
 import ApolloClient, { gql } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
+import remcalc from 'remcalc'
 
 import Nav from './Components/Nav'
 
@@ -13,11 +14,11 @@ injectGlobal`
     margin: 0;
     padding: 0;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: ${remcalc(14)};
     color: #666;
-    letter-spacing: 0.11px;
-    line-height: 21px;
-    padding-bottom: 40px;
+    letter-spacing: ${remcalc(0.11)};
+    line-height: ${remcalc(21)};
+    padding-bottom: ${remcalc(40)};
   }
 
   div[id*='do-not-delete-this-hack'] {
@@ -27,15 +28,15 @@ injectGlobal`
   a {
     color: #337294;
     text-decoration: none;
-    padding-bottom: 2px;
-    border-bottom: 2px solid #337294;
+    padding-bottom: ${remcalc(2)};
+    border-bottom: ${remcalc(2)} solid #337294;
     position: relative;
-    padding: 5px;
+    padding: ${remcalc(5)};;
     opacity: 0.8;
     font-wheight: 300;
-    letter-spacing: 0.09px;
+    letter-spacing: ${remcalc(0.09)};
     text-align: left;
-    line-height: 21px;
+    line-height: ${remcalc(21)};;
     cursor: pointer;
     transition: color 200ms ease;
 
@@ -54,7 +55,7 @@ injectGlobal`
       transition: height 200ms ease;
       content: '';
       width: 100%;
-      height: 0px;
+      height: 0;
       background: #337294;
       display: block;
       position: absolute;

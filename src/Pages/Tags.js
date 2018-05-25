@@ -1,7 +1,7 @@
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
-import Tag from './../Components/Tag'
+import Item from './../Components/Styling/Item'
 import TAGS from '../Queries/TAGS'
 
 const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
@@ -16,9 +16,9 @@ export default () => (
             return (
               <Row>
                 {allTagses.map(s => (
-                  <Tag key={s.id} href={makeLink(s.name)}>
+                  <Item key={s.id} href={makeLink(s.name)}>
                     {s.name}
-                  </Tag>
+                  </Item>
                 ))}
               </Row>
             )

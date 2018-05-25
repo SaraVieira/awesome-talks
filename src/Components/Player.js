@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import YouTube from 'react-youtube'
 import is, { isNot } from 'styled-is'
+import remcalc from 'remcalc'
 
 import Favorite from './Favorite'
+import Play from './Styling/Play'
 import Watched from './Watched'
 
 const Video = styled.section`
@@ -10,7 +12,7 @@ const Video = styled.section`
   margin: auto;
 
   ${isNot('cinemaMode')`
-    height: 200px;
+    height: ${remcalc(200)};
   `};
 `
 
@@ -19,86 +21,40 @@ const Iframe = styled(YouTube)`
   z-index: 3;
   border: none;
   transition: all 200ms ease;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
-  height: 200px;
+  box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
+    0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
+  height: ${remcalc(200)};
 
   ${is('cinemaMode')`
-        height: 600px;
+        height: ${remcalc(600)};
   `};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${remcalc(768)}) {
     height: auto;
   }
 `
 
 const Thumbnail = styled.img`
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
+    0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
   display: block;
   width: 100%;
-  height: 200px;
+  height: ${remcalc(200)};
 `
 
 const Image = styled.div`
   position: relative;
   margin: auto;
-  height: 200px;
+  height: ${remcalc(200)};
   overflow: hidden;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${remcalc(768)}) {
     height: auto;
   }
 
   ${is('cinemaMode')`
     height: auto;
   `};
-`
-
-const Play = styled.button`
-  background: #282828;
-  border-radius: 50% / 10%;
-  color: #ffffff;
-  font-size: 1em;
-  height: 3em;
-  padding: 0;
-  text-align: center;
-  text-indent: 0.1em;
-  transition: all 150ms ease-out;
-  width: 4em;
-  position: absolute !important;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  border: none;
-  opacity: 0.8;
-  cursor: pointer;
-
-  &:hover {
-    background: #ff0000;
-  }
-
-  &:before {
-    background: inherit;
-    border-radius: 5% / 50%;
-    bottom: 9%;
-    content: '';
-    left: -5%;
-    position: absolute;
-    right: -5%;
-    top: 9%;
-  }
-
-  &:after {
-    border-style: solid;
-    border-width: 1em 0 1em 1.732em;
-    border-color: transparent transparent transparent rgba(255, 255, 255, 0.75);
-    content: ' ';
-    font-size: 0.75em;
-    height: 0;
-    margin: -1em 0 0 -0.75em;
-    top: 50%;
-    position: absolute;
-    width: 0;
-  }
 `
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+import remcalc from 'remcalc'
 
 const Search = styled.svg`
-  width: 30px;
+  width: ${remcalc(30)};
 
   path {
     fill: #808080;
