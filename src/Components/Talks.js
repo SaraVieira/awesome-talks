@@ -12,7 +12,7 @@ const shuffleArr = arr => shuffle(arr, { copy: true })
 
 class TalksComponent extends Component {
   state = {
-    videos: this.props.talks.slice(0, 20)
+    videos: this.props.talks
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -24,8 +24,7 @@ class TalksComponent extends Component {
 
     if (hideViewed !== prevProps.hideViewed) {
       this.setState({
-        ...this.state,
-        videos: allTalks.slice(0, 20)
+        videos: allTalks
       })
     }
   }
