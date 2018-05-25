@@ -12,56 +12,20 @@ const shuffleArr = arr => shuffle(arr, { copy: true })
 
 class TalksComponent extends Component {
   state = {
-    step: 20,
-    visibleStart: 0,
-    visibleEnd: 20,
-    videos: shuffleArr(this.props.talks).slice(0, this.state.step)
+    videos: this.props.talks.slice(0, 20)
   }
-
-  componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
-
-  componentWillUnmount = () =>
-    window.removeEventListener('scroll', this.handleScroll)
 
   componentDidUpdate = (prevProps, prevState) => {
+    const { watched, talks, hideViewed } = this.props
     const allTalks =
-      this.props.hideViewed && !prevProps.hideViewed
-        ? this.props.talks.filter(t => !this.props.watched.includes(t.id))
-        : this.props.talks
+      hideViewed && !prevProps.hideViewed
+        ? talks.filter(t => !watched.includes(t.id))
+        : talks
 
-    if (this.props.hideViewed !== prevProps.hideViewed) {
+    if (hideViewed !== prevProps.hideViewed) {
       this.setState({
         ...this.state,
-        videos: shuffleArr(allTalks).slice(0, this.state.step)
-      })
-    }
-  }
-
-  handleScroll = event => {
-    const windowHeight =
-      'innerHeight' in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight
-    const body = document.body
-    const html = document.documentElement
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    )
-    const windowBottom = windowHeight + window.pageYOffset
-    if (windowBottom >= docHeight) {
-      const visibleStart = this.state.visibleStart + this.state.step
-      const visibleEnd = this.state.visibleEnd + this.state.step
-      const nextVideos = [
-        ...shuffleArr(this.props.talks.slice(visibleStart, visibleEnd))
-      ]
-      this.setState({
-        visibleStart: visibleStart,
-        visibleEnd: visibleEnd,
-        videos: [...this.state.videos, ...nextVideos]
+        videos: allTalks.slice(0, 20)
       })
     }
   }
@@ -86,7 +50,7 @@ const VideoComponent = () => (
   <Query query={ALL_VIDEOS}>
     {({ data: { allVideoses } }) => (
       <Row>
-        <Talks talks={allVideoses} />
+        <Talks talks={shuffleArr(allVideoses)} />
       </Row>
     )}
   </Query>

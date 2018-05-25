@@ -35,6 +35,7 @@ const Thumbnail = styled.img`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
   display: block;
   width: 100%;
+  height: 200px;
 `
 
 const Image = styled.div`
@@ -121,9 +122,9 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
           src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
           alt={name}
         />
-        <Favorite id={id} />
-        <Watched id={id} />
       </Image>
     )}
+    <Favorite id={id} />
+    <Watched id={id} />
   </Video>
 )

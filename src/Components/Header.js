@@ -28,8 +28,10 @@ const Title = styled.h1`
 
   @media (max-width: 768px) {
     font-size: 30px;
+    position: relative;
     margin: auto;
     margin-bottom: 40px;
+    margin-top: -20px;
   }
 `
 const Label = styled.label`
@@ -99,6 +101,7 @@ const Section = styled.div`
     margin: auto;
     left: -70px;
     position: relative;
+    top: -45px;
   }
 `
 
