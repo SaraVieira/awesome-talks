@@ -35,8 +35,6 @@ const Iframe = styled(YouTube)`
 `
 
 const Thumbnail = styled.img`
-  box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
-    0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
   display: block;
   width: 100%;
   height: ${remcalc(200)};
@@ -47,6 +45,8 @@ const Image = styled.div`
   margin: auto;
   height: ${remcalc(200)};
   overflow: hidden;
+  box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
+    0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
 
   @media (max-width: ${remcalc(768)}) {
     height: auto;
