@@ -20,6 +20,10 @@ injectGlobal`
     padding-bottom: 40px;
   }
 
+  div[id*='do-not-delete-this-hack'] {
+    display: none;
+  }
+
   a {
     color: #337294;
     text-decoration: none;

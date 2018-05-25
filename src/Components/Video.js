@@ -113,7 +113,8 @@ export default class extends Component {
 
   toggleCinemaMode = () => {
     this.setState(({ cinemaMode }) => ({
-      cinemaMode: !cinemaMode
+      cinemaMode: !cinemaMode,
+      showVideo: true
     }))
     document.body.classList.toggle('cinema-mode', this.state.cinemaMode)
   }
@@ -121,12 +122,6 @@ export default class extends Component {
   showVideo = () => {
     this.setState(({ showVideo }) => ({
       showVideo: true
-    }))
-  }
-
-  closeVideo = () => {
-    this.setState(({ showVideo }) => ({
-      showVideo: false
     }))
   }
 
@@ -172,7 +167,6 @@ export default class extends Component {
           link={link}
           name={name}
           onEnd={() => this.endVideo(id)}
-          closeVideo={this.closeVideo}
         />
         <Flex justifyBetween alignCenter>
           <Name>{this.videoTitle(name)}</Name>

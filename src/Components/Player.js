@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import YouTube from 'react-youtube'
-import is from 'styled-is'
+import is, { isNot } from 'styled-is'
 
 import Favorite from './Favorite'
 import Watched from './Watched'
@@ -8,6 +8,10 @@ import Watched from './Watched'
 const Video = styled.section`
   position: relative;
   margin: auto;
+
+  ${isNot('cinemaMode')`
+    height: 200px;
+  `};
 `
 
 const Iframe = styled(YouTube)`
@@ -16,6 +20,11 @@ const Iframe = styled(YouTube)`
   border: none;
   transition: all 200ms ease;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
+  height: 200px;
+
+  ${is('cinemaMode')`
+        height: 600px;
+  `};
 
   @media (max-width: 768px) {
     height: auto;
@@ -92,16 +101,16 @@ const Play = styled.button`
 `
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-  <Video>
+  <Video cinemaMode={cinemaMode}>
     {showVideo || cinemaMode ? (
       <Iframe
         videoId={link}
-        id="iframe"
+        id={`a-${link} do-not-delete-this-hack`}
         onReady={e => e.target.playVideo()}
         onEnd={onEnd}
+        cinemaMode={cinemaMode}
         opts={{
-          width: '100%',
-          height: cinemaMode ? 600 : 200
+          width: '100%'
         }}
       />
     ) : (
