@@ -1,5 +1,6 @@
 import { Link } from 'preact-router/match'
 import styled from 'styled-components'
+import shuffle from 'shuffle-array'
 
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
@@ -38,7 +39,7 @@ export default ({ speaker }) => (
           {({ data: { allSpeakerses } }) => {
             return (
               <Row>
-                {allSpeakerses.map(s => (
+                {shuffle(allSpeakerses, { copy: true }).map(s => (
                   <Speaker key={s.id} href={makeLink(s.name)}>
                     {s.name}
                   </Speaker>
