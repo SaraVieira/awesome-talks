@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import { Row } from 'react-styled-flexboxgrid'
+import { Row, Col } from 'react-styled-flexboxgrid'
 import { Query } from 'react-apollo'
 import Match from 'preact-router/match'
 import Flex from 'styled-flex-component'
 // import Search from './Search'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
+import is from 'styled-is'
 
 const Title = styled.h1`
   opacity: 0.8;
@@ -16,6 +17,14 @@ const Title = styled.h1`
   letter-spacing: -2.46px;
   margin-top: 0;
   margin-bottom: 0;
+
+  ${is('small')`
+    font-size: 24px;
+
+    @media (max-width: 768px) {
+        margin-bottom: 20px;
+    }
+  `};
 
   @media (max-width: 768px) {
     font-size: 30px;
@@ -95,37 +104,47 @@ const Section = styled.div`
 
 const Wrapper = styled(Row)`
   margin-bottom: 60px;
+
+  @media (max-width: 768px) {
+    margin: auto;
+  }
+
+  ${is('small')`
+    margin-bottom: 20px;
+  `};
 `
 
-export default ({ title = 'Talks', noSearch }) => (
-  <Wrapper>
-    <Flex full alignCenter justifyBetween>
-      <Title>{title}</Title>
-      {/* {noSearch ? null : <Search />} */}
-    </Flex>
-    <Match path="/">
-      {({ matches }) =>
-        matches && (
-          <Query query={SHOW_VIEWED}>
-            {({ data: { hideViewed }, client }) => (
-              <Section>
-                <Input
-                  type="checkbox"
-                  id="show-viewed"
-                  ariaLabel="Hide Watched Talks"
-                  onClick={() =>
-                    client.writeData({ data: { hideViewed: !hideViewed } })
-                  }
-                  checked={hideViewed}
-                />
-                <Label htmlFor="show-viewed">
-                  <i />
-                </Label>
-              </Section>
-            )}
-          </Query>
-        )
-      }
-    </Match>
+export default ({ title = 'Talks', noSearch, small }) => (
+  <Wrapper small={small}>
+    <Col xs={12}>
+      <Flex full alignCenter justifyBetween>
+        <Title small={small}>{title}</Title>
+        {/* {noSearch ? null : <Search />} */}
+      </Flex>
+      <Match path="/">
+        {({ matches }) =>
+          matches && (
+            <Query query={SHOW_VIEWED}>
+              {({ data: { hideViewed }, client }) => (
+                <Section>
+                  <Input
+                    type="checkbox"
+                    id="show-viewed"
+                    ariaLabel="Hide Watched Talks"
+                    onClick={() =>
+                      client.writeData({ data: { hideViewed: !hideViewed } })
+                    }
+                    checked={hideViewed}
+                  />
+                  <Label htmlFor="show-viewed">
+                    <i />
+                  </Label>
+                </Section>
+              )}
+            </Query>
+          )
+        }
+      </Match>
+    </Col>
   </Wrapper>
 )
