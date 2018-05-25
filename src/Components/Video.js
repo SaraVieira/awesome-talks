@@ -137,6 +137,11 @@ export default class extends Component {
     }))
   }
 
+  videoTitle = name => {
+    if (name.length > 100) return `${name.substring(0, 100)}...`
+    return name
+  }
+
   render = (
     {
       speaker,
@@ -170,7 +175,7 @@ export default class extends Component {
           closeVideo={this.closeVideo}
         />
         <Flex justifyBetween alignCenter>
-          <Name>{name}</Name>
+          <Name>{this.videoTitle(name)}</Name>
           <Speaker>
             {speaker.map(s => (
               <Link
