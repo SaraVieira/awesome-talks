@@ -4,6 +4,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "dependencies": {
+    "all-contributors-cli": "^4.11.1",
     "apollo-boost": "0.1.6",
     "apollo-link-http-common": "^0.2.4",
     "apollo-link-state": "^0.4.1",
@@ -64,16 +65,12 @@
     "format": "prettier --write '**/*.{js,css,md}'",
     "lint": "eslint . --cache --fix",
     "test": "npm run lint",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "lint-staged": {
-    "*.{js,css,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,css,md}": ["prettier --write", "git add"],
+    "*.js": ["eslint --fix", "git add"]
   }
 }

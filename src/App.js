@@ -25,6 +25,8 @@ const clientState = {
           favorites: [...previous.favorites, id]
         }
 
+        console.log(cache, id)
+
         localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
 
         cache.writeQuery({ GetFavorites, data })

@@ -1,0 +1,70 @@
+{
+  "projectName": "awesome-talks",
+  "projectOwner": "SaraVieira",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "Readme.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "hosmelq",
+      "name": "Hosmel Quintana",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1166143?v=4",
+      "profile": "http://hosmelq.com",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "cain",
+      "name": "Cain Hall",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15246256?v=4",
+      "profile": "http://cainhall.com.au",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "glennreyes",
+      "name": "Glenn Reyes",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5080854?v=4",
+      "profile": "https://twitter.com/glnnrys",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "pksjce",
+      "name": "Pavithra Kodmad",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/417268?v=4",
+      "profile": "http://pavithrakodmad.com",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "varjmes",
+      "name": "James",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/542140?v=4",
+      "profile": "https://jmes.tech",
+      "contributions": [
+        "platform"
+      ]
+    },
+    {
+      "login": "SaraVieira",
+      "name": "Sara Vieira",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1051509?v=4",
+      "profile": "http://iamsaravieira.com",
+      "contributions": [
+        "code",
+        "ideas",
+        "design",
+        "doc"
+      ]
+    }
+  ]
+}
