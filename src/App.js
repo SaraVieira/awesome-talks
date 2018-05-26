@@ -1,86 +1,101 @@
 import Home from './Pages/Home'
 import AsyncRoute from 'preact-async-route'
-import ApolloClient from 'apollo-boost'
+import ApolloClient, { gql } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
 import { ThemeProvider } from 'styled-components'
 
-import './Utils/global-styles'
 import Nav from './Components/Nav'
-import {
-  defaultState,
-  GetFavorites,
-  WATCHED_KEY,
-  FAV_KEY,
-  GetWatched
-} from './Utils/state'
+import './Utils/global-styles'
+import theme from './Utils/theme'
+import { WATCHED_KEY, FAV_KEY, getStorage } from './Utils/state'
 
-const clientState = {
+const defaultState = {
+  favorites: getStorage(FAV_KEY),
+  watched: getStorage(WATCHED_KEY),
+  hideViewed: false
+}
+
+const stateLink = {
   defaults: defaultState,
   resolvers: {
     Mutation: {
       addFavorite: (_, { id }, { cache }) => {
-        const previous = cache.readQuery({ GetFavorites })
+        const query = gql`
+          query GetFavorites {
+            favorites @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
         const data = {
           favorites: [...previous.favorites, id]
         }
 
-        console.log(cache, id)
-
         localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
 
-        cache.writeQuery({ GetFavorites, data })
+        cache.writeQuery({ query, data })
       },
       removeFavorite: (_, { id }, { cache }) => {
-        const previous = cache.readQuery({ GetFavorites })
+        const query = gql`
+          query GetFavorites {
+            favorites @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
         const data = {
           favorites: previous.favorites.filter(a => a !== id)
         }
 
         localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
 
-        cache.writeQuery({ GetFavorites, data })
+        cache.writeQuery({ query, data })
       },
       addWatched: (_, { id }, { cache }) => {
-        const previous = cache.readQuery({ GetWatched })
+        const query = gql`
+          query GetWatched {
+            watched @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
         const data = {
           watched: [...previous.watched, id]
         }
 
         localStorage.setItem(WATCHED_KEY, JSON.stringify(data.watched))
 
-        cache.writeQuery({ GetWatched, data })
+        cache.writeQuery({ query, data })
       },
       removeWatched: (_, { id }, { cache }) => {
-        const previous = cache.readQuery({ GetWatched })
+        const query = gql`
+          query GetWatched {
+            watched @client
+          }
+        `
+
+        const previous = cache.readQuery({ query })
         const data = {
           watched: previous.watched.filter(a => a !== id)
         }
 
         localStorage.setItem(WATCHED_KEY, JSON.stringify(data.watched))
 
-        cache.writeQuery({ GetWatched, data })
+        cache.writeQuery({ query, data })
       }
     }
   }
 }
 
 const client = new ApolloClient({
-  uri: 'https://api.graphcms.com/simple/v1/awesometalks',
-  clientState
+  uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq',
+  clientState: stateLink
 })
 
-const theme = {
-  black: '#000',
-  white: '#fff',
-  lightGrey: '#e6e9ec',
-  darkGrey: '#666',
-  green: '#51b257'
-}
-
 export default () => (
-  <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <ApolloProvider client={client}>
       <div
         style={{
           width: '100%',
@@ -122,6 +137,6 @@ export default () => (
           />
         </Router>
       </div>
-    </ThemeProvider>
-  </ApolloProvider>
+    </ApolloProvider>
+  </ThemeProvider>
 )

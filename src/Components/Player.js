@@ -36,8 +36,7 @@ const Iframe = styled(YouTube)`
   z-index: 3;
   border: none;
   transition: all 200ms ease;
-  box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
-    0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
+  box-shadow: ${props => props.theme.shadow};
   height: 100%;
 
   ${is('cinemaMode')`
@@ -59,8 +58,7 @@ const Image = styled.div`
   margin: auto;
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 ${remcalc(10)} ${remcalc(20)} rgba(0, 0, 0, 0.1),
-    0 ${remcalc(6)} ${remcalc(6)} rgba(0, 0, 0, 0.12);
+  box-shadow: ${props => props.theme.shadow};
 
   ${is('cinemaMode')`
     height: auto;
