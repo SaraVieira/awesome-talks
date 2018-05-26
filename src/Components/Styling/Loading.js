@@ -26,10 +26,9 @@ export default styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%) rotate(45deg);
   width: ${remcalc(64)};
   height: ${remcalc(64)};
-  transform: rotate(45deg);
   transform-origin: ${remcalc(32)} ${remcalc(32)};
 
   & div {

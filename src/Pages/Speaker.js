@@ -16,6 +16,10 @@ const Wrapper = styled(Row)`
   * {
     box-sizing: border-box;
   }
+
+  @media (max-width: ${remcalc(768)}) {
+    justify-content: center;
+  }
 `
 
 const Img = styled.img`
@@ -32,14 +36,29 @@ const Img = styled.img`
 const Desc = styled(Flex)`
   @media (max-width: ${remcalc(768)}) {
     flex-direction: column;
+
+    h1 {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
   }
 `
 
 const Section = styled.div`
   width: 100%;
+
+  p {
+    word-break: break-word;
+  }
+
   @media (max-width: ${remcalc(768)}) {
     max-width: 80%;
     margin: auto;
+
+    p {
+      word-break: break-word;
+      text-align: center;
+    }
   }
 `
 

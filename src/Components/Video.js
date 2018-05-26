@@ -24,7 +24,7 @@ const Button = styled.button`
 const Speaker = styled.p`
   padding-left: ${remcalc(20)};
   a {
-    min-width: ${remcalc(30)};
+    min-width: ${remcalc(50)};
     display: block;
     padding: ${remcalc(5)};
     text-align: center;

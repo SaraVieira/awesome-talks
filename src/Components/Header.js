@@ -8,7 +8,7 @@ import remcalc from 'remcalc'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 import is from 'styled-is'
 
-const Title = styled.h1`
+export const Title = styled.h1`
   opacity: 0.8;
   font-family: Montserrat;
   font-weight: 600;
