@@ -66,7 +66,7 @@ const clientState = {
 }
 
 const client = new ApolloClient({
-  uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq',
+  uri: 'https://api.graphcms.com/simple/v1/awesometalks',
   clientState
 })
 

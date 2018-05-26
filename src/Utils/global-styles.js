@@ -24,7 +24,7 @@ injectGlobal`
     padding-bottom: ${remcalc(2)};
     border-bottom: ${remcalc(2)} solid #337294;
     position: relative;
-    padding: ${remcalc(5)};;
+    padding: ${remcalc(5)};
     opacity: 0.8;
     font-wheight: 300;
     letter-spacing: ${remcalc(0.09)};
@@ -34,6 +34,10 @@ injectGlobal`
     transition: color 200ms ease;
 
     &.no-hover {
+        line-height: 1.8;
+        &:hover {
+            color: #255a77;
+        }
         &:after {
             display: none;
         }

@@ -70,7 +70,13 @@
     "contributors:generate": "all-contributors generate"
   },
   "lint-staged": {
-    "*.{js,css,md}": ["prettier --write", "git add"],
-    "*.js": ["eslint --fix", "git add"]
+    "*.{js,css,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

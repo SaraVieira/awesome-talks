@@ -8,7 +8,7 @@ import Query from './../Components/Query'
 import Video from './../Components/Video'
 import SPEAKER_VIDEOS from '../Queries/SPEAKER_VIDEOS'
 import TwitterIcon from '../assets/twitter.svg'
-import humanize from '../Utils/strings'
+import humanize, { urlify } from '../Utils/strings'
 
 const Wrapper = styled(Row)`
   margin-bottom: ${remcalc(30)};
@@ -52,17 +52,27 @@ const SpeakerInfo = ({ photo, name, bio, twitter }) => (
       ) : null}
       <Section>
         <Header title={humanize(name)} noSearch small />
-        <p>{bio} </p>
-        {twitter ? (
+        <p dangerouslySetInnerHTML={{ __html: urlify(bio) }} />{' '}
+        <Flex justifyBetween alignCenter>
+          {twitter ? (
+            <a
+              className="no-hover"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://twitter.com/${twitter}`}
+            >
+              <img src={TwitterIcon} alt="Twitter" width="24" />
+            </a>
+          ) : null}
           <a
             className="no-hover"
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://twitter.com/${twitter}`}
+            href={`https://github.com/SaraVieira/awesome-talks/issues/new?title=Wrong%20Speaker%20info%20for%20${name}&body=Hey!%20The%20info%20on%20${name}%20is%20wrong,%20what%20is%20wrong%20is`}
           >
-            <img src={TwitterIcon} alt="Twitter" width="24" />
+            Wrong Info?
           </a>
-        ) : null}
+        </Flex>
       </Section>
     </Desc>
   </Wrapper>
