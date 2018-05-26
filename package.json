@@ -21,6 +21,7 @@
     "react-styled-flexboxgrid": "2.2.0",
     "react-youtube": "^7.6.0",
     "remcalc": "^1.0.10",
+    "shuffle-array": "^1.0.1",
     "styled-components": "3.2.6",
     "styled-flex-component": "2.2.2",
     "styled-is": "1.1.3"
@@ -69,7 +70,13 @@
     "contributors:generate": "all-contributors generate"
   },
   "lint-staged": {
-    "*.{js,css,md}": ["prettier --write", "git add"],
-    "*.js": ["eslint --fix", "git add"]
+    "*.{js,css,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
