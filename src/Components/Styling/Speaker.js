@@ -5,9 +5,9 @@ export const Figure = styled.figure`
   float: left;
   overflow: hidden;
   margin: 10px 1%;
-  min-width: 200px;
-  max-width: 200px;
-  max-height: 200px;
+  min-width: 220px;
+  max-width: 220px;
+  max-height: 220px;
   width: 100%;
   background: ${props => props.theme.black};
   color: ${props => props.theme.white};
