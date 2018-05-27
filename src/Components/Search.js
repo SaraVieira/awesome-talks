@@ -1,77 +1,34 @@
-import { Component } from 'preact'
 import styled from 'styled-components'
 import Flex from 'styled-flex-component'
-import debounce from 'lodash.debounce'
 import remcalc from 'remcalc'
+import { Query } from 'react-apollo'
+import GET_SEARCH from '../Queries/GET_SEARCH'
 
 const Icon = styled.svg`
   width: ${remcalc(30)};
+  cursor: pointer;
 
   path {
     fill: ${props => props.theme.darkGrey};
   }
 `
 
-const Input = styled.input`
-  border: 0 none;
-  border-bottom: ${remcalc(1)} solid ${props => props.theme.darkGrey};
-  height: ${remcalc(36)};
-  line-height: 1.4;
-  padding: ${remcalc(4)} ${remcalc(6)};
-  box-sizing: border-box;
-  font-size: ${remcalc(16)};
-  margin-right: ${remcalc(20)};
-  transition: border 250ms ease;
-  outline: none;
-
-  &:hover,
-  &:focus {
-    border-bottom-color: ${props => props.theme.blue};
-  }
-`
-
-const SearchInputStyle = {
-  border: '0 none',
-  borderBottom: '1px solid #808080',
-  height: 36,
-  lineHeight: 1.4,
-  padding: '4px 6px',
-  boxSizing: 'border-box',
-  fontSize: '1rem',
-  marginRight: '1rem',
-  transition: 'border 250ms ease',
-  outline: 'none'
-}
-
-export default class Search extends Component {
-  state = {
-    term: ''
-  }
-
-  resetSearch = () => {
-    this.setState({ term: '' }, this.triggerChangeCallback)
-  }
-
-  searchHandler = e => {
-    this.setState(
-      { term: e.target.value },
-      debounce(this.triggerChangeCallback, 200)
-    )
-  }
-  triggerChangeCallback = () => {
-    this.props.onChange(this.state)
-  }
-
-  render({ search }, { term }) {
-    return (
+export default () => (
+  <Query query={GET_SEARCH}>
+    {({ data: { search }, client }) => (
       <Flex alignCenter>
-        <Input type="text" onChange={this.searchHandler} value={term} />
-        {term.length ? (
+        <input
+          className="search-input" // More perf withou styled-components
+          type="text"
+          value={search}
+          onChange={e => client.writeData({ data: { search: e.target.value } })}
+        />
+        {search.length ? (
           <Icon
             viewBox="0 0 34 34"
             xmlns="http://www.w3.org/2000/svg"
             aria-label="Clear Search"
-            onClick={this.resetSearch}
+            onClick={e => client.writeData({ data: { search: '' } })}
           >
             <path
               d="M17 34c9.389 0 17-7.611 17-17S26.389 0 17 0 0 7.611 0 17s7.611 17 17 17zm2.828-17l4.586 4.586a2 2 0 0 1-2.828 2.828L17 19.828l-4.586 4.586a2 2 0 0 1-2.828-2.828L14.172 17l-4.586-4.586a2 2 0 0 1 2.828-2.828L17 14.172l4.586-4.586a2 2 0 0 1 2.828 2.828L19.828 17z"
@@ -84,6 +41,6 @@ export default class Search extends Component {
           </Icon>
         )}
       </Flex>
-    )
-  }
-}
+    )}
+  </Query>
+)

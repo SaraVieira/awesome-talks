@@ -8,7 +8,7 @@ injectGlobal`
     padding: 0;
     font-family: Montserrat;
     font-size: ${remcalc(14)};
-    color: ${props => props.theme.darkGrey};;
+    color: #666;
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
     padding-bottom: ${remcalc(40)};
@@ -68,6 +68,24 @@ injectGlobal`
           height: 100%;
         }
       }
+    }
+  }
+
+  .search-input {
+    border: 0 none;
+    border-bottom: ${remcalc(1)} solid #666;
+    height: ${remcalc(36)};
+    line-height: 1.4;
+    padding: ${remcalc(4)} ${remcalc(6)};
+    box-sizing: border-box;
+    font-size: ${remcalc(16)};
+    margin-right: ${remcalc(20)};
+    transition: border 250ms ease;
+    outline: none;
+
+    &:hover,
+    &:focus {
+        border-bottom-color: #337294;
     }
   }
 

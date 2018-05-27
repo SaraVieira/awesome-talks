@@ -4,7 +4,7 @@ import Loading from './Styling/Loading'
 export default ({ children, ...props }) => {
   return (
     <Query {...props}>
-      {({ loading, error, data, fetchMore }) => {
+      {({ loading, error, data, fetchMore, client }) => {
         if (loading) {
           return (
             <Loading class="lds-heart">
@@ -15,7 +15,8 @@ export default ({ children, ...props }) => {
         if (error) return `Error!: ${error}`
         return children[0]({
           data,
-          fetchMore
+          fetchMore,
+          client
         })
       }}
     </Query>

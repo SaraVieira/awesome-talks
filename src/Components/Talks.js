@@ -1,11 +1,11 @@
 import { Component } from 'preact'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import shuffle from 'shuffle-array'
-import Video from './Video'
 import Flex from 'styled-flex-component'
-import { Title } from './../Components/Header'
 import { graphql, compose } from 'react-apollo'
 import Fuse from 'fuse.js'
+import Video from './Video'
+import { Title } from './../Components/Header'
 import Query from './Query'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
@@ -21,6 +21,11 @@ class TalksComponent extends Component {
 
   componentDidUpdate = prevProps => {
     const { search, watched, talks, hideViewed } = this.props
+    var options = {
+      keys: ['name', 'speaker.name', 'tags.name'],
+      shouldSort: true,
+      threshold: 0.2
+    }
 
     if (hideViewed !== prevProps.hideViewed) {
       const allTalks =
@@ -45,13 +50,7 @@ class TalksComponent extends Component {
     }
 
     if (search !== prevProps.search && search !== '') {
-      var options = {
-        keys: ['name', 'speaker.name', 'tags.name'],
-        shouldSort: true,
-        threshold: 0.2
-      }
-      var fuse = new Fuse(talks, options)
-
+      const fuse = new Fuse(this.props.talks, options)
       const videos = fuse.search(search)
       this.setState({ videos, noLazy: true })
     }

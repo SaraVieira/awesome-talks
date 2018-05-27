@@ -35,6 +35,19 @@ export const Title = styled.h1`
     margin-top: ${remcalc(-20)};
   }
 `
+
+const SearchWrapper = styled(Flex)`
+  @media (max-width: ${remcalc(768)}) {
+    flex-direction: column;
+    margin-bottom: ${remcalc(30)};
+    justify-content: flex-start;
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+`
+
 const Label = styled.label`
   display: block;
   width: ${remcalc(54)};
@@ -106,7 +119,7 @@ const Section = styled.div`
     margin: auto;
     left: ${remcalc(-70)};
     position: relative;
-    top: ${remcalc(-45)};
+    top: ${remcalc(-65)};
   }
 `
 
@@ -115,6 +128,7 @@ const Wrapper = styled(Row)`
 
   @media (max-width: ${remcalc(768)}) {
     margin: auto;
+    margin-bottom: ${remcalc(20)};
   }
 
   ${is('small')`
@@ -125,10 +139,10 @@ const Wrapper = styled(Row)`
 export default ({ title = 'Talks', noSearch, small, onSearch }) => (
   <Wrapper small={small}>
     <Col xs={12}>
-      <Flex full alignCenter justifyBetween>
+      <SearchWrapper full alignCenter justifyBetween>
         <Title small={small}>{title}</Title>
         {noSearch ? null : <Search onChange={onSearch} />}
-      </Flex>
+      </SearchWrapper>
       <Match path="/">
         {({ matches }) =>
           matches && (

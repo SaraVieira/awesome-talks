@@ -13,7 +13,8 @@ import { WATCHED_KEY, FAV_KEY, getStorage } from './Utils/state'
 const defaultState = {
   favorites: getStorage(FAV_KEY),
   watched: getStorage(WATCHED_KEY),
-  hideViewed: false
+  hideViewed: false,
+  search: ''
 }
 
 const stateLink = {
