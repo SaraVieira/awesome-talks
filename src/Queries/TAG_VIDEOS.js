@@ -10,6 +10,9 @@ export default gql`
         description
         link
         name
+        speaker {
+          name
+        }
         tags {
           name
           id

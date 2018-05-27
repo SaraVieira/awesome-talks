@@ -14,9 +14,7 @@ export default ({ category }) => (
           {({ data: { allTagses } }) => {
             return (
               <Row>
-                {allTagses[0].videos.map(v => (
-                  <Video key={v.id} {...v} speaker={v.speaker} />
-                ))}
+                {allTagses[0].videos.map(v => <Video key={v.id} talk={v} />)}
               </Row>
             )
           }}

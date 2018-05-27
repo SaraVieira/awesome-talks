@@ -3,6 +3,7 @@ import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import styled from 'styled-components'
 import remcalc from 'remcalc'
+import { Helmet } from 'react-helmet'
 
 import Query from './../Components/Query'
 import Video from './../Components/Video'
@@ -64,6 +65,17 @@ const Section = styled.div`
 
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
   <Wrapper>
+    <Helmet>
+      <title>Awesome Talks - {name}</title>
+      <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
+      <meta name="twitter:image" content={photo.url} />
+      <meta name="twitter:image:alt" content={name} />
+      <meta name="description" content={`Amazing Tech Talks by ${name}`} />
+      <meta
+        name="twitter:description"
+        content={`Amazing Tech Talks by ${name}`}
+      />
+    </Helmet>
     <Desc>
       {photo ? (
         <Img src={photo.url} alt={name} height="200" width="200" />
@@ -111,7 +123,7 @@ export default ({ speaker }) => (
                 <Row>
                   {allSpeakerses.length &&
                     allSpeakerses[0].videoses.map(v => (
-                      <Video key={v.id} {...v} speaker={[allSpeakerses[0]]} />
+                      <Video key={v.id} talk={v} />
                     ))}
                 </Row>
               </Section>

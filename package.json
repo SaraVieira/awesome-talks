@@ -17,6 +17,7 @@
     "preact-router": "^2.6.0",
     "random-id": "^0.0.2",
     "react-apollo": "2.1.4",
+    "react-helmet": "^5.2.0",
     "react-infinite": "^0.13.0",
     "react-lazyload": "^2.3.0",
     "react-modal": "^3.4.4",

@@ -13,6 +13,9 @@ export default gql`
       videoses {
         id
         description
+        speaker {
+          name
+        }
         link
         name
         tags {
