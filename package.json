@@ -10,6 +10,7 @@
     "fuse.js": "^3.2.0",
     "graphql": "0.13.2",
     "lodash.debounce": "^4.0.8",
+    "nuka-carousel": "^4.2.1",
     "preact": "8.2.5",
     "preact-async-route": "^2.2.0",
     "preact-compat": "3.17.0",
