@@ -2,47 +2,29 @@ import { Component } from 'preact'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import shuffle from 'shuffle-array'
 import Video from './Video'
+import { graphql, compose } from 'react-apollo'
+import Query from './Query'
+import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
+import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
+import GET_WATCHED from '../Queries/GET_WATCHED'
 
 const shuffleArr = arr => shuffle(arr, { copy: true })
 
-class Talks extends Component {
+class TalksComponent extends Component {
   state = {
-    step: 20,
-    visibleStart: 0,
-    visibleEnd: 20,
-    videos: shuffleArr(this.props.talks).slice(0, this.state.step)
+    videos: this.props.talks
   }
 
-  componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
+  componentDidUpdate = (prevProps, prevState) => {
+    const { watched, talks, hideViewed } = this.props
+    const allTalks =
+      hideViewed && !prevProps.hideViewed
+        ? talks.filter(t => !watched.includes(t.id))
+        : talks
 
-  componentWillUnmount = () =>
-    window.removeEventListener('scroll', this.handleScroll)
-
-  handleScroll = event => {
-    const windowHeight =
-      'innerHeight' in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight
-    const body = document.body
-    const html = document.documentElement
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    )
-    const windowBottom = windowHeight + window.pageYOffset
-    if (windowBottom >= docHeight) {
-      const visibleStart = this.state.visibleStart + this.state.step
-      const visibleEnd = this.state.visibleEnd + this.state.step
-      const nextVideos = [
-        ...shuffleArr(this.props.talks.slice(visibleStart, visibleEnd))
-      ]
+    if (hideViewed !== prevProps.hideViewed) {
       this.setState({
-        visibleStart: visibleStart,
-        visibleEnd: visibleEnd,
-        videos: [...this.state.videos, ...nextVideos]
+        videos: allTalks
       })
     }
   }
@@ -54,12 +36,23 @@ class Talks extends Component {
   )
 }
 
-const VideoComponent = ({ talks }) => {
-  return (
-    <Row>
-      <Talks talks={talks} />
-    </Row>
-  )
-}
+const Talks = compose(
+  graphql(SHOW_VIEWED, {
+    props: ({ data }) => ({ hideViewed: data.hideViewed })
+  }),
+  graphql(GET_WATCHED, {
+    props: ({ data }) => ({ watched: data.watched })
+  })
+)(TalksComponent)
+
+const VideoComponent = () => (
+  <Query query={ALL_VIDEOS}>
+    {({ data: { allVideoses } }) => (
+      <Row>
+        <Talks talks={shuffleArr(allVideoses)} />
+      </Row>
+    )}
+  </Query>
+)
 
 export default VideoComponent

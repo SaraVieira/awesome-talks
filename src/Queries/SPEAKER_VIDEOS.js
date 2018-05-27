@@ -5,6 +5,11 @@ export default gql`
     allSpeakerses(filter: { name: $name }) {
       id
       name
+      twitter
+      bio
+      photo {
+        url
+      }
       videoses {
         id
         description

@@ -1,13 +1,34 @@
 import styled from 'styled-components'
 import YouTube from 'react-youtube'
-import is from 'styled-is'
+import is, { isNot } from 'styled-is'
+import remcalc from 'remcalc'
 
 import Favorite from './Favorite'
+import Play from './Styling/Play'
 import Watched from './Watched'
 
-const Video = styled.section`
+const Video = styled.div``
+
+const VideoWrapper = styled.section`
   position: relative;
   margin: auto;
+
+  ${isNot('cinemaMode')`
+    &:before {
+      display: block;
+      content: '';
+      width: 100%;
+      padding-top: 56.25%;
+    }
+
+    ${Video} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+  `};
 `
 
 const Iframe = styled(YouTube)`
@@ -15,98 +36,61 @@ const Iframe = styled(YouTube)`
   z-index: 3;
   border: none;
   transition: all 200ms ease;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: ${props => props.theme.shadow};
+  height: 100%;
+
+  ${is('cinemaMode')`
+    height: ${remcalc(600)};
+    @media (max-width: ${remcalc(768)}) {
+      height: auto;
+    }
+  `};
 `
 
 const Thumbnail = styled.img`
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.12);
   display: block;
   width: 100%;
-
-  ${is('cinemaMode')`
-    height: 500px;
-  `};
+  height: 100%;
 `
 
 const Image = styled.div`
   position: relative;
   margin: auto;
-  height: 200px;
+  height: 100%;
   overflow: hidden;
-`
+  box-shadow: ${props => props.theme.shadow};
 
-const Play = styled.button`
-  background: #282828;
-  border-radius: 50% / 10%;
-  color: #ffffff;
-  font-size: 1em;
-  height: 3em;
-  padding: 0;
-  text-align: center;
-  text-indent: 0.1em;
-  transition: all 150ms ease-out;
-  width: 4em;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  border: none;
-  opacity: 0.8;
-  cursor: pointer;
-
-  &:hover {
-    background: #ff0000;
-  }
-
-  &:before {
-    background: inherit;
-    border-radius: 5% / 50%;
-    bottom: 9%;
-    content: '';
-    left: -5%;
-    position: absolute;
-    right: -5%;
-    top: 9%;
-  }
-
-  &:after {
-    border-style: solid;
-    border-width: 1em 0 1em 1.732em;
-    border-color: transparent transparent transparent rgba(255, 255, 255, 0.75);
-    content: ' ';
-    font-size: 0.75em;
-    height: 0;
-    margin: -1em 0 0 -0.75em;
-    top: 50%;
-    position: absolute;
-    width: 0;
-  }
+  ${is('cinemaMode')`
+    height: auto;
+  `};
 `
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-  <Video>
-    {showVideo ? (
-      <Iframe
-        videoId={link}
-        id="iframe"
-        onReady={e => e.target.playVideo()}
-        onEnd={onEnd}
-        opts={{
-          width: '100%',
-          height: cinemaMode ? '500' : 180
-        }}
-      />
-    ) : (
-      <Image>
-        <Play onClick={onClick} />
-        <Thumbnail
+  <VideoWrapper cinemaMode={cinemaMode}>
+    <Video cinemaMode={cinemaMode}>
+      {showVideo || cinemaMode ? (
+        <Iframe
+          videoId={link}
+          id={`a-${link} do-not-delete-this-hack`}
+          onReady={e => e.target.playVideo()}
+          onEnd={onEnd}
           cinemaMode={cinemaMode}
-          src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
-          alt={name}
+          opts={{
+            width: '100%'
+          }}
         />
-        <Favorite id={id} />
-        <Watched id={id} />
-      </Image>
-    )}
-  </Video>
+      ) : (
+        <Image cinemaMode={cinemaMode}>
+          <Play onClick={onClick} aria-label="Play Video" />
+          <Thumbnail
+            cinemaMode={cinemaMode}
+            src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+            alt={name}
+          />
+        </Image>
+      )}
+      <Favorite id={id} />
+      <Watched id={id} />
+    </Video>
+  </VideoWrapper>
 )

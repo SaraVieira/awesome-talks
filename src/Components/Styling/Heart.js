@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 import is from 'styled-is'
+import remcalc from 'remcalc'
 
 export default styled.div`
   position: absolute;
   z-index: 10;
-  right: 10px;
-  top: 10px;
+  right: ${remcalc(10)};
+  top: ${remcalc(10)};
 
   ${is('watched')`
-      top: 50px;
+      top: ${remcalc(50)};
   `};
 
   input[type='checkbox'] {
@@ -60,7 +61,7 @@ export default styled.div`
   }
 
   input[type='checkbox']:checked + label svg g {
-    fill: #51b257;
+    fill: ${props => props.theme.green};
   }
 
   input[type='checkbox']:checked + label:after {
@@ -75,7 +76,7 @@ export default styled.div`
   label g {
     display: inline-flex;
     vertical-align: middle;
-    width: 35px;
+    width: ${remcalc(35)};
     fill: rgb(214, 214, 214);
   }
 `

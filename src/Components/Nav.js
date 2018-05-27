@@ -1,12 +1,17 @@
 import { Component } from 'preact'
-import styled from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
+import is from 'styled-is'
 import { Link } from 'preact-router/match'
-import Logo from '../assets/logo.svg'
-import Loading from '../assets/loading.svg'
 import { Grid, Row, Col } from 'react-styled-flexboxgrid'
 import Modal from 'react-modal'
+import remcalc from 'remcalc'
 import { withFormik } from 'formik'
 import { Mutation, Query } from 'react-apollo'
+
+import Logo from '../assets/logo.svg'
+import Loading from '../assets/loading.svg'
+import Button from './Styling/Button'
+import Input from './Styling/Input'
 import CREATE_VIDEO from '../Queries/ADD_VIDEO'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
 
@@ -14,12 +19,23 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 40px 0;
+  padding: ${remcalc(40)} 0;
+
+  @media (max-width: ${remcalc(768)}) {
+    flex-direction: column;
+    padding: ${remcalc(40)} ${remcalc(20)};
+  }
 `
 
 const List = styled.ul`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: ${remcalc(768)}) {
+    justify-content: center;
+    flex-wrap: wrap;
+    line-height: ${remcalc(40)};
+  }
 `
 
 const LogoWrapper = styled(Link)`
@@ -31,102 +47,43 @@ const LogoWrapper = styled(Link)`
 `
 
 const Item = styled.li`
+  @media (max-width: ${remcalc(768)}) {
+    font-size: ${remcalc(16)};
+
+    ${is('hideOnMobile')`
+        display: none;
+    `};
+  }
+
   &:not(:last-child) {
-    margin-right: 10px;
+    margin-right: ${remcalc(10)};
   }
 `
 
-const Input = styled.input`
-  font-size: 15px;
-  color: #666;
-  width: 100%;
-  box-sizing: border-box;
-  letter-spacing: 1px;
-  border: 0;
-  padding: 7px 0;
-  border-bottom: 1px solid #ccc;
-
-  &:focus {
-    outline: none;
-  }
-
-  & ~ span {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #60b7e6;
-    transition: 0.4s;
-  }
-  &:focus ~ span {
-    width: 100%;
-    transition: 0.4s;
-  }
-`
-
-const Button = styled.button`
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  position: relative;
-  display: inline-block;
-  margin-right: 0;
-  margin-left: 0;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  text-align: center;
-  text-shadow: none;
-  vertical-align: middle;
-  border-width: 0.125rem;
-  border-style: solid;
-  border-radius: 0.25rem;
-  outline: 0;
-  transition: background-color 150ms, border-color 150ms, color 75ms ease-out;
-  padding-top: 0.8125rem;
-  padding-bottom: 0.6875rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  min-width: 7.5rem;
-  padding-right: 1.25rem;
-  padding-left: 1.25rem;
-  font-size: 0.75rem;
-  color: #fff;
-  background-color: #60b7e6;
-  border-color: transparent;
-  min-width: 125px;
-
-  img,
-  svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 2.5em;
-    height: 2.5em;
-    margin: auto !important;
-    pointer-events: none;
-    width: 2em;
-    height: 2em;
-
-    path {
-      stroke: #fff;
-      stroke-width: 5;
+injectGlobal`
+    .ReactModalPortal {
+        z-index: 10;
+        position: relative;
     }
-  }
+    @media (max-width: ${remcalc(768)}) {
+        .ReactModal__Content.ReactModal__Content--after-open {
+            width: 80%;
+            height: ${remcalc(300)};
+            z-index: 999;
+        }
+    }
 `
 
 const Name = styled.h2`
   font-size: 400;
-  font-size: 22px;
-  color: #000000;
-  letter-spacing: -0.63px;
+  font-size: ${remcalc(22)};
+  color: ${props => props.theme.black};
+  letter-spacing: ${remcalc(-0.63)};
 `
 
 const Wrapper = styled.div`
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: ${remcalc(20)};
 `
 
 class Navigation extends Component {
@@ -190,7 +147,7 @@ class Navigation extends Component {
                   ) : null
                 }
               </Query>
-              <Item>
+              <Item hideOnMobile>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -261,6 +218,7 @@ class Navigation extends Component {
                           <span />
                         </Wrapper>
                         <Button
+                          name="Add a Talks"
                           type="submit"
                           submitted={submitted}
                           disabled={false}

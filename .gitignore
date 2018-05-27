@@ -160,5 +160,6 @@ $RECYCLE.BIN/
 *.lnk
 # es-module.patch
 *.patch
+build
 
 # End of https://www.gitignore.io/api/node,windows,osx,linux,vim

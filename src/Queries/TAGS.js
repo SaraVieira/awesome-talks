@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost'
 
 export default gql`
   {
-    allTagses {
+    allTagses(orderBy: name_ASC) {
       name
       id
     }

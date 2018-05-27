@@ -3,14 +3,7 @@ import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
 import Video from './../Components/Video'
 import TAG_VIDEOS from '../Queries/TAG_VIDEOS'
-
-const humanize = str => {
-  var frags = str.split('-')
-  for (let i = 0; i < frags.length; i++) {
-    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)
-  }
-  return frags.join(' ').toLowerCase()
-}
+import humanize from '../Utils/strings'
 
 export default ({ category }) => (
   <Grid>
