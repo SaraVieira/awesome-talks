@@ -2,8 +2,6 @@ import { Component } from 'preact'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import shuffle from 'shuffle-array'
 import Video from './Video'
-import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
-import Query from './Query'
 
 const shuffleArr = arr => shuffle(arr, { copy: true })
 
@@ -56,14 +54,12 @@ class Talks extends Component {
   )
 }
 
-const VideoComponent = () => (
-  <Query query={ALL_VIDEOS}>
-    {({ data: { allVideoses } }) => (
-      <Row>
-        <Talks talks={allVideoses} />
-      </Row>
-    )}
-  </Query>
-)
+const VideoComponent = ({ talks }) => {
+  return (
+    <Row>
+      <Talks talks={talks} />
+    </Row>
+  )
+}
 
 export default VideoComponent
