@@ -79,6 +79,10 @@ const Label = styled.label`
     box-shadow: 0 ${remcalc(1)} ${remcalc(2)} 0 rgba(0, 0, 0, 0.2);
     transform: scale(1.01);
   }
+
+  @media (min-width: ${remcalc(768)}) {
+    margin-left: 0;
+  }
 `
 
 const Input = styled.input`
