@@ -5,6 +5,11 @@ import Item from './../Components/Styling/Item'
 import TAGS from '../Queries/TAGS'
 import Slider from './../Components/Slider'
 import Video from './../Components/Video'
+import styled from 'styled-components'
+
+const Styler = styled.div`
+  margin: 40px 0;
+`
 
 const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
 
@@ -22,13 +27,14 @@ export default () => (
                   <Item key={s.id} href={makeLink(s.name)}>
                     {s.name}
                   </Item>
-                  <Row>
+
+                  <Styler>
                     <RowWrapper>
                       {s.videos.map(v => {
                         return <Video key={v.id} speaker={v.speaker} {...v} />
                       })}
                     </RowWrapper>
-                  </Row>
+                  </Styler>
                 </div>
               )
             })}
