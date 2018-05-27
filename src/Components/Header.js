@@ -2,11 +2,13 @@ import styled from 'styled-components'
 import { Row, Col } from 'react-styled-flexboxgrid'
 import { Query } from 'react-apollo'
 import Match from 'preact-router/match'
+import { Component } from 'preact'
 import Flex from 'styled-flex-component'
 import remcalc from 'remcalc'
-// import Search from './Search'
-import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 import is from 'styled-is'
+
+import Search from './Search'
+import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 
 export const Title = styled.h1`
   opacity: 0.8;
@@ -127,7 +129,7 @@ export default ({ title = 'Talks', noSearch, small }) => (
     <Col xs={12}>
       <Flex full alignCenter justifyBetween>
         <Title small={small}>{title}</Title>
-        {/* {noSearch ? null : <Search />} */}
+        {noSearch ? null : <Search onChange={this.props.onSearch} />}
       </Flex>
       <Match path="/">
         {({ matches }) =>

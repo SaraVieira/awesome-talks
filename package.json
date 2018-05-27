@@ -8,6 +8,7 @@
     "apollo-link-state": "^0.4.1",
     "formik": "^0.11.11",
     "graphql": "0.13.2",
+    "lodash.debounce": "^4.0.8",
     "preact": "8.2.5",
     "preact-async-route": "^2.2.0",
     "preact-compat": "3.17.0",
@@ -70,13 +71,7 @@
     "contributors:generate": "all-contributors generate"
   },
   "lint-staged": {
-    "*.{js,css,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,css,md}": ["prettier --write", "git add"],
+    "*.js": ["eslint --fix", "git add"]
   }
 }
