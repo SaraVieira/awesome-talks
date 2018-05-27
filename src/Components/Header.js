@@ -2,11 +2,9 @@ import styled from 'styled-components'
 import { Row, Col } from 'react-styled-flexboxgrid'
 import { Query } from 'react-apollo'
 import Match from 'preact-router/match'
-import { Component } from 'preact'
 import Flex from 'styled-flex-component'
 import remcalc from 'remcalc'
 import is from 'styled-is'
-
 import Search from './Search'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 
@@ -124,12 +122,12 @@ const Wrapper = styled(Row)`
   `};
 `
 
-export default ({ title = 'Talks', noSearch, small }) => (
+export default ({ title = 'Talks', noSearch, small, onSearch }) => (
   <Wrapper small={small}>
     <Col xs={12}>
       <Flex full alignCenter justifyBetween>
         <Title small={small}>{title}</Title>
-        {noSearch ? null : <Search onChange={this.props.onSearch} />}
+        {noSearch ? null : <Search onChange={onSearch} />}
       </Flex>
       <Match path="/">
         {({ matches }) =>
