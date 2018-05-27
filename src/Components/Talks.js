@@ -2,7 +2,10 @@ import { Component } from 'preact'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import shuffle from 'shuffle-array'
 import Video from './Video'
+import Flex from 'styled-flex-component'
+import { Title } from './../Components/Header'
 import { graphql, compose } from 'react-apollo'
+import Fuse from 'fuse.js'
 import Query from './Query'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
@@ -12,26 +15,58 @@ const shuffleArr = arr => shuffle(arr, { copy: true })
 
 class TalksComponent extends Component {
   state = {
-    videos: this.props.talks
+    videos: this.props.talks,
+    noLazy: true
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    const { watched, talks, hideViewed } = this.props
-    const allTalks =
-      hideViewed && !prevProps.hideViewed
-        ? talks.filter(t => !watched.includes(t.id))
-        : talks
+  componentDidUpdate = prevProps => {
+    const { search, watched, talks, hideViewed } = this.props
 
     if (hideViewed !== prevProps.hideViewed) {
+      const allTalks =
+        hideViewed && !prevProps.hideViewed
+          ? talks.filter(t => !watched.includes(t.id))
+          : talks
       this.setState({
-        videos: allTalks
+        videos: allTalks,
+        noLazy: false
       })
+    }
+
+    if (
+      search !== prevProps.search &&
+      search === '' &&
+      prevProps.search !== ''
+    ) {
+      this.setState({
+        videos: talks,
+        noLazy: false
+      })
+    }
+
+    if (search !== prevProps.search && search !== '') {
+      var options = {
+        keys: ['name', 'speaker.name', 'tags.name'],
+        shouldSort: true,
+        threshold: 0.2
+      }
+      var fuse = new Fuse(talks, options)
+
+      const videos = fuse.search(search)
+      this.setState({ videos, noLazy: true })
     }
   }
 
-  render = ({ talks }, { videos }) => (
+  render = ({ search }, { noLazy, videos }) => (
     <Col xs={12}>
-      <Row>{videos.map(v => <Video key={v.id} {...v} />)}</Row>
+      <Row>
+        {!videos.length ? (
+          <Flex justifyCenter full>
+            <Title>No videos match your query</Title>
+          </Flex>
+        ) : null}
+        {videos.map(v => <Video noLazy={noLazy} key={v.id} talk={v} />)}
+      </Row>
     </Col>
   )
 }
@@ -45,11 +80,11 @@ const Talks = compose(
   })
 )(TalksComponent)
 
-const VideoComponent = () => (
+const VideoComponent = ({ search }) => (
   <Query query={ALL_VIDEOS}>
     {({ data: { allVideoses } }) => (
       <Row>
-        <Talks talks={shuffleArr(allVideoses)} />
+        <Talks search={search} talks={shuffleArr(allVideoses)} />
       </Row>
     )}
   </Query>

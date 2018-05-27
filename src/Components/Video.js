@@ -91,7 +91,7 @@ injectGlobal`
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
   `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
-export default class extends Component {
+class VideoWarpper extends Component {
   state = { cinemaMode: false, showVideo: false }
 
   toggleCinemaMode = () => {
@@ -135,62 +135,69 @@ export default class extends Component {
     },
     { cinemaMode, showVideo }
   ) => (
-    <LazyLoad height={310}>
-      <Column
+    <Column
+      cinemaMode={cinemaMode}
+      md={cinemaMode ? 12 : 4}
+      sm={cinemaMode ? 12 : 6}
+      xs={9}
+    >
+      <Player
+        showVideo={showVideo}
         cinemaMode={cinemaMode}
-        md={cinemaMode ? 12 : 4}
-        sm={cinemaMode ? 12 : 6}
-        xs={9}
-      >
-        <Player
-          showVideo={showVideo}
-          cinemaMode={cinemaMode}
-          id={id}
-          onClick={this.showVideo}
-          link={link}
-          name={name}
-          onEnd={() => this.endVideo(id)}
-        />
-        <Flex justifyBetween alignCenter>
-          <Name>{this.videoTitle(name)}</Name>
-          <Speaker>
-            {speaker.map(s => (
-              <Link
-                key={s.id}
-                activeClassName="active"
-                href={makeLink('speaker', s.name)}
-              >
-                <span>{s.name}</span>
-              </Link>
-            ))}
-          </Speaker>
-        </Flex>
-        <Flex>
-          {tags.map(s => (
-            <Tag
+        id={id}
+        onClick={this.showVideo}
+        link={link}
+        name={name}
+        onEnd={() => this.endVideo(id)}
+      />
+      <Flex justifyBetween alignCenter>
+        <Name>{this.videoTitle(name)}</Name>
+        <Speaker>
+          {speaker.map(s => (
+            <Link
               key={s.id}
               activeClassName="active"
-              href={makeLink('category', s.name)}
+              href={makeLink('speaker', s.name)}
             >
-              #{s.name.toLowerCase()}
-            </Tag>
+              <span>{s.name}</span>
+            </Link>
           ))}
-        </Flex>
+        </Speaker>
+      </Flex>
+      <Flex>
+        {tags.map(s => (
+          <Tag
+            key={s.id}
+            activeClassName="active"
+            href={makeLink('category', s.name)}
+          >
+            #{s.name.toLowerCase()}
+          </Tag>
+        ))}
+      </Flex>
 
-        <Button name="Toggle Cinema Mode" onClick={this.toggleCinemaMode}>
-          {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
-        </Button>
+      <Button name="Toggle Cinema Mode" onClick={this.toggleCinemaMode}>
+        {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
+      </Button>
 
-        {cinemaMode && description ? (
-          <Description>{description}</Description>
-        ) : null}
+      {cinemaMode && description ? (
+        <Description>{description}</Description>
+      ) : null}
 
-        {cinemaMode ? (
-          <Portal into="body">
-            <Overlay onClick={this.toggleCinemaMode} />
-          </Portal>
-        ) : null}
-      </Column>
-    </LazyLoad>
+      {cinemaMode ? (
+        <Portal into="body">
+          <Overlay onClick={this.toggleCinemaMode} />
+        </Portal>
+      ) : null}
+    </Column>
   )
 }
+
+export default ({ noLazy = false, talk }) =>
+  noLazy ? (
+    <VideoWarpper {...talk} />
+  ) : (
+    <LazyLoad height={310}>
+      <VideoWarpper {...talk} />
+    </LazyLoad>
+  )

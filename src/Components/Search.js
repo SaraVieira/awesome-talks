@@ -30,6 +30,19 @@ const Input = styled.input`
   }
 `
 
+const SearchInputStyle = {
+  border: '0 none',
+  borderBottom: '1px solid #808080',
+  height: 36,
+  lineHeight: 1.4,
+  padding: '4px 6px',
+  boxSizing: 'border-box',
+  fontSize: '1rem',
+  marginRight: '1rem',
+  transition: 'border 250ms ease',
+  outline: 'none'
+}
+
 export default class Search extends Component {
   state = {
     term: ''
