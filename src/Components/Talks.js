@@ -62,7 +62,7 @@ class TalksComponent extends Component {
       <Row>
         {!videos.length ? (
           <Flex justifyCenter full>
-            <Title>No videos match your query</Title>
+            <Title small>No videos match your query</Title>
           </Flex>
         ) : null}
         {videos.map(v => <Video noLazy={noLazy} key={v.id} talk={v} />)}
