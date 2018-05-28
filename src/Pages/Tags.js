@@ -1,14 +1,29 @@
 import Header from './../Components/Header'
-import { Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
-import Item from './../Components/Styling/Item'
 import TAGS from '../Queries/TAGS'
 import Slider from './../Components/Slider'
-import Video from './../Components/Video'
+import { SimpleVideo } from './../Components/Video'
+import { Grid } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
+import remcalc from 'remcalc'
+import LazyLoad from 'react-lazyload'
+import { Link } from 'preact-router/match'
 
-const Styler = styled.div`
-  margin: 40px 0;
+const Column = styled.div`
+  transition: all 200ms ease;
+  justify-content: center;
+  margin: 0 auto;
+  min-height: 310px
+  margin-bottom: ${remcalc(40)};
+`
+
+const Item = styled(Link)`
+  color: black;
+  font-size: 27px;
+  font-weight: bold;
+  &:hover {
+    background: white;
+  }
 `
 
 const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
@@ -21,20 +36,23 @@ export default () => (
         return (
           <div>
             {allTagses.map(s => {
-              const RowWrapper = s.videos.length > 3 ? Slider : Row
               return (
                 <div key={s.id}>
                   <Item key={s.id} href={makeLink(s.name)}>
                     {s.name}
                   </Item>
 
-                  <Styler>
-                    <RowWrapper>
-                      {s.videos.map(v => {
-                        return <Video key={v.id} speaker={v.speaker} {...v} />
-                      })}
-                    </RowWrapper>
-                  </Styler>
+                  <Slider>
+                    {s.videos.map(v => {
+                      return (
+                        <Column key={v.id}>
+                          <LazyLoad height={310}>
+                            <SimpleVideo {...v} />
+                          </LazyLoad>
+                        </Column>
+                      )
+                    })}
+                  </Slider>
                 </div>
               )
             })}

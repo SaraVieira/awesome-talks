@@ -6,7 +6,7 @@ const doNotRender = () => {
 
 const rightControl = props => {
   const currentSlide = props.currentSlide + props.slidesToShow
-  if (currentSlide === props.slideCount) {
+  if (currentSlide >= props.slideCount) {
     return null
   }
   return <button onClick={props.nextSlide}>Next</button>
