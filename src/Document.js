@@ -127,17 +127,17 @@ export default class Document extends React.Component {
           <AfterRoot />
           <AfterData data={data} />
           <script
-            type="text/javascript"
-            src={assets.client.js}
-            defer
-            crossOrigin="anonymous"
-          />
-          <script
             dangerouslySetInnerHTML={{
               __html: `window.__APOLLO_STATE__=${JSON.stringify(
                 initialApolloState
               ).replace(/</g, '\\u003c')};`
             }}
+          />
+          <script
+            type="text/javascript"
+            src={assets.client.js}
+            defer
+            crossOrigin="anonymous"
           />
         </body>
       </html>

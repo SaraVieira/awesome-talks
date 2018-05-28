@@ -13,8 +13,6 @@ import 'isomorphic-fetch'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { stateLink } from './client'
 
-const window = {}
-
 const client = new ApolloClient({
   ssrMode: true,
   link: ApolloLink.from([
@@ -37,7 +35,7 @@ server
       const App = (
         <ApolloProvider client={client}>
           <StaticRouter location={req.url} context={context}>
-            {node}
+            <Document />
           </StaticRouter>
         </ApolloProvider>
       )
