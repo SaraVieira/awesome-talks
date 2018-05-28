@@ -9,7 +9,7 @@ server.listen(process.env.PORT || 3000, error => {
     console.log(error)
   }
 
-  console.log('🚀 started')
+  console.log('🚀 started on http://localhost:3000')
 })
 
 if (module.hot) {

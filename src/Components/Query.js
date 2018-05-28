@@ -14,7 +14,7 @@ export default ({ children, ...props }) => {
           )
         }
         if (error) return `Error!: ${error}`
-        return children[0]({
+        return children({
           data,
           fetchMore,
           client

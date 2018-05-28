@@ -7,10 +7,13 @@ import routes from './routes'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
+import { StaticRouter } from 'react-router'
 import Document from './Document'
 import 'isomorphic-fetch'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { stateLink } from './client'
+
+const window = {}
 
 const client = new ApolloClient({
   ssrMode: true,
@@ -22,7 +25,7 @@ const client = new ApolloClient({
   ]),
   cache: new InMemoryCache()
 })
-
+const context = {}
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const server = express()
@@ -31,7 +34,13 @@ server
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', async (req, res) => {
     const customRenderer = node => {
-      const App = <ApolloProvider client={client}>{node}</ApolloProvider>
+      const App = (
+        <ApolloProvider client={client}>
+          <StaticRouter location={req.url} context={context}>
+            {node}
+          </StaticRouter>
+        </ApolloProvider>
+      )
       return getDataFromTree(App).then(() => {
         const initialApolloState = client.extract()
         const html = renderToString(App)

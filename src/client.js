@@ -12,7 +12,6 @@ import { ApolloProvider } from 'react-apollo'
 import routes from './routes'
 import { ThemeProvider } from 'styled-components'
 
-import Nav from './Components/Nav'
 import './Utils/global-styles'
 import './Utils/icons'
 import theme from './Utils/theme'
@@ -114,21 +113,13 @@ const client = new ApolloClient({
 
 ensureReady(routes).then(data =>
   hydrate(
-    <ThemeProvider theme={theme}>
-      <div
-        style={{
-          width: '100%',
-          overflow: 'hidden'
-        }}
-      >
-        <Nav />
-        <BrowserRouter>
-          <ApolloProvider client={client}>
-            <After data={data} routes={routes} />
-          </ApolloProvider>
-        </BrowserRouter>
-      </div>
-    </ThemeProvider>,
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <After data={data} routes={routes} />
+        </ThemeProvider>
+      </BrowserRouter>
+    </ApolloProvider>,
     document.getElementById('root')
   )
 )

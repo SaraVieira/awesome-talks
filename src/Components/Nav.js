@@ -114,144 +114,153 @@ class Navigation extends Component {
     })
   }
 
-  render = (
-    { values, handleChange, handleBlur, setSubmitting, handleReset },
-    { modalIsOpen, submitted }
-  ) => (
-    <Grid>
-      <Row>
-        <Col xs={12}>
-          <Nav>
-            <LogoWrapper href="/">
-              <img src={Logo} width="70" alt="Logo" />
-            </LogoWrapper>
-            <List>
-              <Item>
-                <Link to="/speakers">
-                  <span>Speakers</span>
-                </Link>
-              </Item>
-              <Item>
-                <Link to="/categories">
-                  <span>Categories</span>
-                </Link>
-              </Item>
-              <Query query={GET_FAVORITES}>
-                {({ data: { favorites } }) =>
-                  favorites.length ? (
-                    <Item>
-                      <Link to="/favorites">
-                        <span>Favorites</span>
-                      </Link>
-                    </Item>
-                  ) : null
-                }
-              </Query>
-              <Item hideOnMobile>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://github.com/SaraVieira/awesome-talks"
-                >
-                  <span>GitHub</span>
-                </a>
-              </Item>
-              <Item>
-                <a onClick={this.openModal}>
-                  <span>Add a Talk</span>
-                </a>
-                <Modal
-                  isOpen={modalIsOpen}
-                  onRequestClose={this.closeModal}
-                  contentLabel="Add a Talk"
-                  style={{
-                    overlay: {
-                      backgroundColor: 'rgba(0,0,0,0.3)'
-                    },
-                    content: {
-                      color: '#666',
-                      border: 'none',
-                      borderRadius: 0,
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)'
-                    }
-                  }}
-                >
-                  <Name> Add a Talk </Name>
-                  <Mutation mutation={CREATE_VIDEO}>
-                    {(createVideos, { data, loading }) => (
-                      <form
-                        onSubmit={e =>
-                          this.submit(
-                            e,
-                            createVideos,
-                            values,
-                            setSubmitting,
-                            handleReset
-                          )
-                        }
-                      >
-                        {submitted ? (
-                          <Name>
-                            You are the Best{' '}
-                            <span role="img" aria-label="party">
-                              🎉
-                            </span>
-                          </Name>
-                        ) : null}
-                        <Wrapper>
-                          <Input
-                            id="name"
-                            placeholder="Enter the title of the talk"
-                            type="text"
-                            value={values.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            required
-                          />
-                          <span />
-                        </Wrapper>
-                        <Wrapper>
-                          <Input
-                            id="link"
-                            placeholder="Enter the Youtube Video ID"
-                            type="text"
-                            value={values.link}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            required
-                          />
-                          <span />
-                        </Wrapper>
-                        <Button
-                          name="Add a Talks"
-                          type="submit"
-                          submitted={submitted}
-                          disabled={false}
+  render = () => {
+    const {
+      values,
+      handleChange,
+      handleBlur,
+      setSubmitting,
+      handleReset
+    } = this.props
+    return (
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <Nav>
+              <LogoWrapper href="/">
+                <img src={Logo} width="70" alt="Logo" />
+              </LogoWrapper>
+              <List>
+                <Item>
+                  <Link to="/speakers">
+                    <span>Speakers</span>
+                  </Link>
+                </Item>
+                <Item>
+                  <Link to="/categories">
+                    <span>Categories</span>
+                  </Link>
+                </Item>
+                <Query query={GET_FAVORITES}>
+                  {({ data: { favorites } }) =>
+                    favorites.length ? (
+                      <Item>
+                        <Link to="/favorites">
+                          <span>Favorites</span>
+                        </Link>
+                      </Item>
+                    ) : null
+                  }
+                </Query>
+                <Item hideOnMobile>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://github.com/SaraVieira/awesome-talks"
+                  >
+                    <span>GitHub</span>
+                  </a>
+                </Item>
+                <Item>
+                  <a onClick={this.openModal}>
+                    <span>Add a Talk</span>
+                  </a>
+                  <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Add a Talk"
+                    style={{
+                      overlay: {
+                        backgroundColor: 'rgba(0,0,0,0.3)'
+                      },
+                      content: {
+                        color: '#666',
+                        border: 'none',
+                        borderRadius: 0,
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                      }
+                    }}
+                  >
+                    <Name> Add a Talk </Name>
+                    <Mutation mutation={CREATE_VIDEO}>
+                      {(createVideos, { data, loading }) => (
+                        <form
+                          onSubmit={e =>
+                            this.submit(
+                              e,
+                              createVideos,
+                              values,
+                              setSubmitting,
+                              handleReset
+                            )
+                          }
                         >
-                          {loading ? <img src={Loading} alt="Loading" /> : null}
-                          {!loading && !submitted ? 'Submit' : null}
-                          {submitted ? (
-                            <svg className="checkmark" viewBox="0 0 70 70">
-                              <path d="m31.5,46.5l15.3,-23.2" />
-                              <path d="m31.5,46.5l-8.5,-7.1" />
-                            </svg>
+                          {this.state.submitted ? (
+                            <Name>
+                              You are the Best{' '}
+                              <span role="img" aria-label="party">
+                                🎉
+                              </span>
+                            </Name>
                           ) : null}
-                        </Button>
-                      </form>
-                    )}
-                  </Mutation>
-                </Modal>
-              </Item>
-            </List>
-          </Nav>
-        </Col>
-      </Row>
-    </Grid>
-  )
+                          <Wrapper>
+                            <Input
+                              id="name"
+                              placeholder="Enter the title of the talk"
+                              type="text"
+                              value={values.name}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              required
+                            />
+                            <span />
+                          </Wrapper>
+                          <Wrapper>
+                            <Input
+                              id="link"
+                              placeholder="Enter the Youtube Video ID"
+                              type="text"
+                              value={values.link}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              required
+                            />
+                            <span />
+                          </Wrapper>
+                          <Button
+                            name="Add a Talks"
+                            type="submit"
+                            submitted={this.state.submitted}
+                            disabled={false}
+                          >
+                            {loading ? (
+                              <img src={Loading} alt="Loading" />
+                            ) : null}
+                            {!loading && !this.state.submitted
+                              ? 'Submit'
+                              : null}
+                            {this.state.submitted ? (
+                              <svg className="checkmark" viewBox="0 0 70 70">
+                                <path d="m31.5,46.5l15.3,-23.2" />
+                                <path d="m31.5,46.5l-8.5,-7.1" />
+                              </svg>
+                            ) : null}
+                          </Button>
+                        </form>
+                      )}
+                    </Mutation>
+                  </Modal>
+                </Item>
+              </List>
+            </Nav>
+          </Col>
+        </Row>
+      </Grid>
+    )
+  }
 }
-
 export default withFormik({
   mapPropsToValues: () => ({ name: '', link: '' }),
   displayName: 'AddTalk'

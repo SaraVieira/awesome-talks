@@ -56,18 +56,22 @@ class TalksComponent extends Component {
     }
   }
 
-  render = ({ search }, { noLazy, videos }) => (
-    <Col xs={12}>
-      <Row>
-        {!videos.length ? (
-          <Flex justifyCenter full>
-            <Title small>No videos match your query</Title>
-          </Flex>
-        ) : null}
-        {videos.map(v => <Video noLazy={noLazy} key={v.id} talk={v} />)}
-      </Row>
-    </Col>
-  )
+  render = () => {
+    return (
+      <Col xs={12}>
+        <Row>
+          {!this.state.videos.length ? (
+            <Flex justifyCenter full>
+              <Title small>No videos match your query</Title>
+            </Flex>
+          ) : null}
+          {this.state.videos.map(v => (
+            <Video noLazy={this.state.noLazy} key={v.id} talk={v} />
+          ))}
+        </Row>
+      </Col>
+    )
+  }
 }
 
 const Talks = compose(
