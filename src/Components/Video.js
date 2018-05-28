@@ -94,24 +94,16 @@ export class SimpleVideo extends Component {
         <Flex justifyBetween alignCenter>
           <Name title={name}>{this.videoTitle(name)}</Name>
           <Speaker>
-            {speaker.map(a => (
-              <Link
-                key={a.id}
-                activeClassName="active"
-                href={makeLink('speaker', a.name)}
-              >
-                <span>{a.name}</span>
+            {speaker.map(s => (
+              <Link key={s.id} to={makeLink('speaker', s.name)}>
+                <span>{s.name}</span>
               </Link>
             ))}
           </Speaker>
         </Flex>
         <Flex>
           {tags.map(s => (
-            <Tag
-              key={s.id}
-              activeClassName="active"
-              top={makeLink('category', s.name)}
-            >
+            <Tag key={s.id} to={makeLink('category', s.name)}>
               #{s.name.toLowerCase()}
             </Tag>
           ))}
