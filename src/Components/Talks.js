@@ -16,7 +16,7 @@ const shuffleArr = arr => shuffle(arr, { copy: true })
 class TalksComponent extends Component {
   state = {
     videos: this.props.talks,
-    noLazy: true
+    noLazy: false
   }
 
   componentDidUpdate = prevProps => {
