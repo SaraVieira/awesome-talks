@@ -24,11 +24,8 @@ const defaultState = {
   search: ''
 }
 
-const cache = new InMemoryCache().restore(
-  typeof window !== 'undefined' ? window.__APOLLO_STATE__ : {}
-)
-
-console.log(typeof window !== 'undefined' ? window.__APOLLO_STATE__ : {})
+const cache = new InMemoryCache()
+// .restore(window.__APOLLO_STATE__)
 
 export const stateLink = withClientState({
   defaults: defaultState,
@@ -104,6 +101,8 @@ export const stateLink = withClientState({
 })
 
 const client = new ApolloClient({
+  connectToDevTools: process.browser,
+  ssrMode: !process.browser,
   link: ApolloLink.from([
     stateLink,
     new HttpLink({

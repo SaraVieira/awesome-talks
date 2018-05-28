@@ -17,7 +17,7 @@ export default () => (
             return (
               <Row>
                 {allTagses.map(s => (
-                  <Item key={s.id} href={makeLink(s.name)}>
+                  <Item key={s.id} to={makeLink(s.name)}>
                     {s.name}
                   </Item>
                 ))}

@@ -18,6 +18,7 @@
     "fuse.js": "^3.2.0",
     "graphql": "0.13.2",
     "graphql-tag": "^2.9.2",
+    "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "lodash.debounce": "^4.0.8",
     "random-id": "^0.0.2",

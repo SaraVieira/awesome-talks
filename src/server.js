@@ -14,7 +14,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { stateLink } from './client'
 
 const client = new ApolloClient({
-  ssrMode: true,
+  connectToDevTools: process.browser,
+  ssrMode: !process.browser,
   link: ApolloLink.from([
     stateLink,
     new HttpLink({
@@ -35,7 +36,7 @@ server
       const App = (
         <ApolloProvider client={client}>
           <StaticRouter location={req.url} context={context}>
-            <Document />
+            {node}
           </StaticRouter>
         </ApolloProvider>
       )
@@ -46,19 +47,19 @@ server
       })
     }
 
-    try {
-      const html = await render({
-        req,
-        res,
-        routes,
-        assets,
-        customRenderer,
-        document: Document
-      })
-      res.send(html)
-    } catch (error) {
-      res.json(error)
-    }
+    // try {
+    const html = await render({
+      req,
+      res,
+      routes,
+      assets,
+      customRenderer,
+      document: Document
+    })
+    res.send(html)
+    // } catch (error) {
+    //   res.json(error)
+    // }
   })
 
 export default server

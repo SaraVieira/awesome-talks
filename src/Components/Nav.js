@@ -127,7 +127,7 @@ class Navigation extends Component {
         <Row>
           <Col xs={12}>
             <Nav>
-              <LogoWrapper href="/">
+              <LogoWrapper to="/">
                 <img src={Logo} width="70" alt="Logo" />
               </LogoWrapper>
               <List>
