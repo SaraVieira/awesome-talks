@@ -1,17 +1,25 @@
-import App from './App'
-import { render } from 'preact'
-import { default as renderToString } from 'preact-render-to-string'
-import { ServerStyleSheet } from 'styled-components'
-import * as OfflinePluginRuntime from 'offline-plugin/runtime'
+import app from './server'
+import http from 'http'
+const server = http.createServer(app)
 
-if (typeof window === 'undefined') {
-  /* eslint-disable */
-  const sheet = new ServerStyleSheet()
-  const html = renderToString(sheet.collectStyles(<App />))
-  const styleTags = sheet.getStyleTags()
-  /* eslint-enable */
-}
-if (typeof window !== 'undefined') {
-  render(<App />, document.getElementById('root'))
-  OfflinePluginRuntime.install()
+let currentApp = app
+
+server.listen(process.env.PORT || 3000, error => {
+  if (error) {
+    console.log(error)
+  }
+
+  console.log('🚀 started')
+})
+
+if (module.hot) {
+  console.log('✅  Server-side HMR Enabled!')
+
+  module.hot.accept('./server', () => {
+    console.log('🔁  HMR Reloading `./server`...')
+    server.removeListener('request', currentApp)
+    const newApp = require('./server').default
+    server.on('request', newApp)
+    currentApp = newApp
+  })
 }

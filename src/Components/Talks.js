@@ -1,4 +1,4 @@
-import { Component } from 'preact'
+import React, { Component } from 'react'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import shuffle from 'shuffle-array'
 import Flex from 'styled-flex-component'

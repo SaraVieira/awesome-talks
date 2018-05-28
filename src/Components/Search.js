@@ -1,7 +1,7 @@
-import { Component } from 'preact'
-import { Query, withApollo } from 'react-apollo'
-import remcalc from 'remcalc'
+import React, { Component } from 'react'
 import styled from 'styled-components'
+import remcalc from 'remcalc'
+import { Query } from 'react-apollo'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 import GET_SEARCH from '../Queries/GET_SEARCH'
@@ -107,4 +107,4 @@ class Search extends Component {
   }
 }
 
-export default withApollo(Search)
+export default Search

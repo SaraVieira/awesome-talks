@@ -1,12 +1,12 @@
+import React from 'react'
 import styled from 'styled-components'
 import { Row, Col } from 'react-styled-flexboxgrid'
-import { Query } from 'react-apollo'
-import Match from 'preact-router/match'
+// import { Query } from 'react-apollo'
 import Flex from 'styled-flex-component'
 import remcalc from 'remcalc'
 import is from 'styled-is'
 import Search from './Search'
-import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
+// import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 
 export const Title = styled.h1`
   opacity: 0.8;
@@ -48,80 +48,80 @@ const SearchWrapper = styled(Flex)`
   }
 `
 
-const Label = styled.label`
-  display: block;
-  width: ${remcalc(54)};
-  height: ${remcalc(32)};
-  margin: 0 auto;
-  border-radius: ${remcalc(100)};
-  transition: all 0.2s ease-in-out;
-  background-color: ${props => props.theme.lightGrey};
+// const Label = styled.label`
+//   display: block;
+//   width: ${remcalc(54)};
+//   height: ${remcalc(32)};
+//   margin: 0 auto;
+//   border-radius: ${remcalc(100)};
+//   transition: all 0.2s ease-in-out;
+//   background-color: ${props => props.theme.lightGrey};
 
-  &:after {
-    display: inline-block;
-    content: 'Hide Watched Talks';
-    position: relative;
-    width: ${remcalc(150)};
-    left: ${remcalc(60)};
-    top: ${remcalc(-30)};
-  }
+//   &:after {
+//     display: inline-block;
+//     content: 'Hide Watched Talks';
+//     position: relative;
+//     width: ${remcalc(150)};
+//     left: ${remcalc(60)};
+//     top: ${remcalc(-30)};
+//   }
 
-  & i {
-    height: ${remcalc(28)};
-    width: ${remcalc(28)};
-    background: ${props => props.theme.white};
-    display: inline-block;
-    border-radius: ${remcalc(100)};
-    margin-top: ${remcalc(2)};
-    margin-left: ${remcalc(2)};
-    transition: all 0.2s ease-in-out;
-    pointer-events: none;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
+//   & i {
+//     height: ${remcalc(28)};
+//     width: ${remcalc(28)};
+//     background: ${props => props.theme.white};
+//     display: inline-block;
+//     border-radius: ${remcalc(100)};
+//     margin-top: ${remcalc(2)};
+//     margin-left: ${remcalc(2)};
+//     transition: all 0.2s ease-in-out;
+//     pointer-events: none;
+//     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+//   }
 
-  &:active {
-    background-color: #a6b9cb;
+//   &:active {
+//     background-color: #a6b9cb;
 
-    & > i {
-      width: ${remcalc(34)};
-      box-shadow: 0 ${remcalc(2)} ${remcalc(4)} 0 rgba(0, 0, 0, 0.2);
-    }
-  }
+//     & > i {
+//       width: ${remcalc(34)};
+//       box-shadow: 0 ${remcalc(2)} ${remcalc(4)} 0 rgba(0, 0, 0, 0.2);
+//     }
+//   }
 
-  &:active &:hover > i {
-    box-shadow: 0 ${remcalc(1)} ${remcalc(2)} 0 rgba(0, 0, 0, 0.2);
-    transform: scale(1.01);
-  }
+//   &:active &:hover > i {
+//     box-shadow: 0 ${remcalc(1)} ${remcalc(2)} 0 rgba(0, 0, 0, 0.2);
+//     transform: scale(1.01);
+//   }
 
-  @media (min-width: ${remcalc(768)}) {
-    margin-left: 0;
-  }
-`
+//   @media (min-width: ${remcalc(768)}) {
+//     margin-left: 0;
+//   }
+// `
 
-const Input = styled.input`
-  display: none;
+// const Input = styled.input`
+//   display: none;
 
-  &:checked + label {
-    background-color: ${props => props.theme.green};
-  }
+//   &:checked + label {
+//     background-color: ${props => props.theme.green};
+//   }
 
-  &:checked + label > i {
-    margin-left: ${remcalc(24)};
-  }
+//   &:checked + label > i {
+//     margin-left: ${remcalc(24)};
+//   }
 
-  &:checked + label:active > i {
-    margin-left: ${remcalc(18)};
-  }
-`
+//   &:checked + label:active > i {
+//     margin-left: ${remcalc(18)};
+//   }
+// `
 
-const Section = styled.div`
-  @media (max-width: ${remcalc(768)}) {
-    margin: auto;
-    left: ${remcalc(-70)};
-    position: relative;
-    top: ${remcalc(-65)};
-  }
-`
+// const Section = styled.div`
+//   @media (max-width: ${remcalc(768)}) {
+//     margin: auto;
+//     left: ${remcalc(-70)};
+//     position: relative;
+//     top: ${remcalc(-65)};
+//   }
+// `
 
 const Wrapper = styled(Row)`
   margin-bottom: ${remcalc(60)};
@@ -143,7 +143,7 @@ export default ({ title = 'Talks', noSearch, small, onSearch }) => (
         <Title small={small}>{title}</Title>
         {noSearch ? null : <Search onChange={onSearch} />}
       </SearchWrapper>
-      <Match path="/">
+      {/* <Match path="/">
         {({ matches }) =>
           matches && (
             <Query query={SHOW_VIEWED}>
@@ -166,7 +166,7 @@ export default ({ title = 'Talks', noSearch, small, onSearch }) => (
             </Query>
           )
         }
-      </Match>
+      </Match> */}
     </Col>
   </Wrapper>
 )

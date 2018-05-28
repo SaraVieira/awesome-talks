@@ -1,3 +1,4 @@
+import React from 'react'
 import { Query } from 'react-apollo'
 import Loading from './Styling/Loading'
 

@@ -1,3 +1,4 @@
+import React from 'react'
 import { graphql, compose } from 'react-apollo'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
 import ADD_FAVORITE from '../Queries/ADD_FAVORITE'

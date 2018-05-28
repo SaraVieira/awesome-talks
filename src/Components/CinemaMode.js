@@ -1,9 +1,8 @@
-import { Component } from 'preact'
+import React, { Component, createPortal } from 'react'
 import { Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
 import styled, { injectGlobal } from 'styled-components'
 import is from 'styled-is'
-import Portal from 'preact-portal'
 
 const Column = styled(Col)`
   transition: all 200ms ease;
@@ -79,11 +78,12 @@ export default class CinemaMode extends Component {
           {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
         </Button>
 
-        {cinemaMode ? (
-          <Portal into="body">
-            <Overlay onClick={this.toggleCinemaMode} />
-          </Portal>
-        ) : null}
+        {cinemaMode
+          ? createPortal(
+            <Overlay onClick={this.toggleCinemaMode} />,
+            document.getElementsByTagName('body')[0]
+          )
+          : null}
       </Column>
     )
   }

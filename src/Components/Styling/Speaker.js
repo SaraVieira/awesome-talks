@@ -40,9 +40,7 @@ export const Figure = styled.figure`
   }
 
   * {
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
   }
 

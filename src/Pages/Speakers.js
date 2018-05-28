@@ -1,3 +1,4 @@
+import React from 'react'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import styled from 'styled-components'
@@ -39,7 +40,14 @@ export default ({ speaker }) => (
                           </span>
                         </Name>
                       </Caption>
-                      <a className="no-hover" href={makeLink(s.name)} />
+                      {/* eslint-disable-jsx-a11y/anchor-has-content */}
+                      <a
+                        aria-label="go to spaker"
+                        className="no-hover"
+                        href={makeLink(s.name)}
+                      >
+                        a
+                      </a>
                     </Figure>
                   ))}
                 </Wrapper>

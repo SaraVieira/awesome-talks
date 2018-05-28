@@ -1,8 +1,11 @@
-import Home from './Pages/Home'
-import AsyncRoute from 'preact-async-route'
+import React from 'react'
+import { hydrate } from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { ensureReady, After } from '@jaredpalmer/after'
 import ApolloClient, { gql } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import Router from 'preact-router'
+import routes from './routes'
+import * as OfflinePluginRuntime from 'offline-plugin/runtime'
 import { ThemeProvider } from 'styled-components'
 
 import Nav from './Components/Nav'
@@ -95,9 +98,9 @@ const client = new ApolloClient({
   clientState: stateLink
 })
 
-export default () => (
-  <ThemeProvider theme={theme}>
-    <ApolloProvider client={client}>
+ensureReady(routes).then(data =>
+  hydrate(
+    <ThemeProvider theme={theme}>
       <div
         style={{
           width: '100%',
@@ -105,40 +108,19 @@ export default () => (
         }}
       >
         <Nav />
-        <Router>
-          <Home path="/" />
-          <AsyncRoute
-            path="/speaker/:speaker"
-            getComponent={() =>
-              import('./Pages/Speaker').then(module => module.default)
-            }
-          />
-          <AsyncRoute
-            path="/speakers"
-            getComponent={() =>
-              import('./Pages/Speakers').then(module => module.default)
-            }
-          />
-          <AsyncRoute
-            path="/category/:category"
-            getComponent={() =>
-              import('./Pages/Tag').then(module => module.default)
-            }
-          />
-          <AsyncRoute
-            path="/categories"
-            getComponent={() =>
-              import('./Pages/Tags').then(module => module.default)
-            }
-          />
-          <AsyncRoute
-            path="/favorites"
-            getComponent={() =>
-              import('./Pages/Favorites').then(module => module.default)
-            }
-          />
-        </Router>
+        <BrowserRouter>
+          <ApolloProvider client={client}>
+            <After data={data} routes={routes} />
+          </ApolloProvider>
+        </BrowserRouter>
       </div>
-    </ApolloProvider>
-  </ThemeProvider>
+    </ThemeProvider>,
+    document.getElementById('root')
+  )
 )
+
+if (module.hot) {
+  module.hot.accept()
+}
+
+OfflinePluginRuntime.install()

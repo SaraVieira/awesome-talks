@@ -1,3 +1,4 @@
+import React from 'react'
 import { graphql, compose } from 'react-apollo'
 import remcalc from 'remcalc'
 import randomID from 'random-id'

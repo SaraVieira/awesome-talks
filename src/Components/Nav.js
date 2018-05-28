@@ -1,7 +1,7 @@
-import { Component } from 'preact'
+import React, { Component } from 'react'
 import styled, { injectGlobal } from 'styled-components'
 import is from 'styled-is'
-import { Link } from 'preact-router/match'
+import { Link } from 'react-router-dom'
 import { Grid, Row, Col } from 'react-styled-flexboxgrid'
 import Modal from 'react-modal'
 import remcalc from 'remcalc'
@@ -127,12 +127,12 @@ class Navigation extends Component {
             </LogoWrapper>
             <List>
               <Item>
-                <Link href="/speakers">
+                <Link to="/speakers">
                   <span>Speakers</span>
                 </Link>
               </Item>
               <Item>
-                <Link href="/categories">
+                <Link to="/categories">
                   <span>Categories</span>
                 </Link>
               </Item>
@@ -140,7 +140,7 @@ class Navigation extends Component {
                 {({ data: { favorites } }) =>
                   favorites.length ? (
                     <Item>
-                      <Link href="/favorites">
+                      <Link to="/favorites">
                         <span>Favorites</span>
                       </Link>
                     </Item>
@@ -192,7 +192,14 @@ class Navigation extends Component {
                           )
                         }
                       >
-                        {submitted ? <Name> You are the Best 🎉</Name> : null}
+                        {submitted ? (
+                          <Name>
+                            You are the Best{' '}
+                            <span role="img" aria-label="party">
+                              🎉
+                            </span>
+                          </Name>
+                        ) : null}
                         <Wrapper>
                           <Input
                             id="name"
@@ -223,7 +230,7 @@ class Navigation extends Component {
                           submitted={submitted}
                           disabled={false}
                         >
-                          {loading ? <img src={Loading} /> : null}
+                          {loading ? <img src={Loading} alt="Loading" /> : null}
                           {!loading && !submitted ? 'Submit' : null}
                           {submitted ? (
                             <svg className="checkmark" viewBox="0 0 70 70">

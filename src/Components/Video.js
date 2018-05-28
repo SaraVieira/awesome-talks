@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-
-import { Component } from 'preact'
-
+import React, { Component } from 'react'
 import Flex from 'styled-flex-component'
 import { Link } from 'preact-router/match'
 

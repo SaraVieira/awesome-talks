@@ -43,7 +43,7 @@ There is a form on the page where you can add talk and it will be sent to the CM
 
 ## What did you use to make this?
 
-The website was made with Preact, Styled Components, React-Apollo and the backend is hosted on GraphCMS
+The website was made with React, Styled Components, React-Apollo and the backend is hosted on GraphCMS
 
 ## Anything else I should add please let me know
 

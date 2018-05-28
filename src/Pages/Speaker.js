@@ -1,3 +1,4 @@
+import React from 'react'
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
