@@ -11,10 +11,10 @@ import Watched from './Watched'
 const Video = styled.div``
 
 const VideoWrapper = styled.section`
-  position: relative;
-  margin: auto;
+    position: relative;
+    margin: auto;
 
-  ${isNot('cinemaMode')`
+    ${isNot('cinemaMode')`
     &:before {
       display: block;
       content: '';
@@ -33,14 +33,14 @@ const VideoWrapper = styled.section`
 `
 
 const Iframe = styled(YouTube)`
-  position: relative;
-  z-index: 3;
-  border: none;
-  transition: all 200ms ease;
-  box-shadow: ${props => props.theme.shadow};
-  height: 100%;
+    position: relative;
+    z-index: 3;
+    border: none;
+    transition: all 200ms ease;
+    box-shadow: ${props => props.theme.shadow};
+    height: 100%;
 
-  ${is('cinemaMode')`
+    ${is('cinemaMode')`
     height: ${remcalc(600)};
     @media (max-width: ${remcalc(768)}) {
       height: auto;
@@ -49,25 +49,25 @@ const Iframe = styled(YouTube)`
 `
 
 const Thumbnail = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 `
 
 const Image = styled.div`
-  position: relative;
-  margin: auto;
-  height: 100%;
-  overflow: hidden;
-  box-shadow: ${props => props.theme.shadow};
+    position: relative;
+    margin: auto;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: ${props => props.theme.shadow};
 
-  ${is('cinemaMode')`
+    ${is('cinemaMode')`
     height: auto;
   `};
 `
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-  <VideoWrapper cinemaMode={cinemaMode}>
+  <VideoWrapper key={id} cinemaMode={cinemaMode}>
     <Video cinemaMode={cinemaMode}>
       {showVideo || cinemaMode ? (
         <Iframe

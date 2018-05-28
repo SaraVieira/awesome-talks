@@ -12,6 +12,8 @@ import Document from './Document'
 import 'isomorphic-fetch'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { stateLink } from './client'
+import { ThemeProvider } from 'styled-components'
+import theme from './Utils/theme'
 
 const client = new ApolloClient({
   connectToDevTools: process.browser,
@@ -36,7 +38,7 @@ server
       const App = (
         <ApolloProvider client={client}>
           <StaticRouter location={req.url} context={context}>
-            {node}
+            <ThemeProvider theme={theme}>{node}</ThemeProvider>
           </StaticRouter>
         </ApolloProvider>
       )

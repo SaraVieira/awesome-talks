@@ -13,7 +13,13 @@ export default class Document extends React.Component {
   }
 
   render() {
-    const { helmet, assets, data, styleTags, initialApolloState } = this.props
+    const {
+      helmet,
+      assets,
+      data,
+      styleTags,
+      initialApolloState
+    } = this.props
     // Get attributes from React Helmet
     const htmlAttrs = helmet.htmlAttributes.toComponent()
     const bodyAttrs = helmet.bodyAttributes.toComponent()
@@ -23,10 +29,6 @@ export default class Document extends React.Component {
         <head>
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta charSet="utf-8" />
-          <meta
-            name="description"
-            content="Amazing Tech Talks curated by the community ❤️"
-          />
           <link
             rel="apple-touch-icon"
             sizes="57x57"
@@ -104,18 +106,11 @@ export default class Document extends React.Component {
           <meta name="theme-color" content="#337294" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content="@NikkitaFTW" />
-          <meta name="twitter:title" content="Awesome Talks" />
-          <meta
-            name="twitter:description"
-            content="Amazing Tech Talks curated by the community ❤️"
-          />
-          <meta
-            name="twitter:image"
-            content="https://file-iloqdynwox.now.sh/"
-          />
-          <meta name="twitter:image:alt" content="awesome talks" />
 
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1"
+          />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           {helmet.title.toComponent()}

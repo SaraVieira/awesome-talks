@@ -1,4 +1,5 @@
 import React from 'react'
+import Loading from './Components/Styling/Loading'
 import { asyncComponent } from '@jaredpalmer/after'
 
 export default [
@@ -7,7 +8,7 @@ export default [
     exact: true,
     component: asyncComponent({
       loader: () => import('./Pages/Home'),
-      Placeholder: () => <div>...LOADING...</div>
+      Placeholder: () => <Loading />
     })
   },
   {
@@ -15,7 +16,7 @@ export default [
     exact: true,
     component: asyncComponent({
       loader: () => import('./Pages/Speakers'),
-      Placeholder: () => <div>...LOADING...</div>
+      Placeholder: () => <Loading />
     })
   },
   {
@@ -23,7 +24,7 @@ export default [
     exact: true,
     component: asyncComponent({
       loader: () => import('./Pages/Speaker'),
-      Placeholder: () => <div>...LOADING...</div>
+      Placeholder: () => <Loading />
     })
   },
   {
@@ -31,7 +32,7 @@ export default [
     exact: true,
     component: asyncComponent({
       loader: () => import('./Pages/Tag'),
-      Placeholder: () => <div>...LOADING...</div>
+      Placeholder: () => <Loading />
     })
   },
   {
@@ -39,7 +40,7 @@ export default [
     exact: true,
     component: asyncComponent({
       loader: () => import('./Pages/Tags'),
-      Placeholder: () => <div>...LOADING...</div>
+      Placeholder: () => <Loading />
     })
   },
   {
@@ -47,7 +48,7 @@ export default [
     exact: true,
     component: asyncComponent({
       loader: () => import('./Pages/Favorites'),
-      Placeholder: () => <div>...LOADING...</div>
+      Placeholder: () => <Loading />
     })
   }
 ]
