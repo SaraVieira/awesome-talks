@@ -13,7 +13,7 @@ export default class Document extends React.Component {
   }
 
   render() {
-    const { helmet, assets, data, styleTags } = this.props
+    const { helmet, assets, data, styleTags, initialApolloState } = this.props
     // Get attributes from React Helmet
     const htmlAttrs = helmet.htmlAttributes.toComponent()
     const bodyAttrs = helmet.bodyAttributes.toComponent()
@@ -132,7 +132,13 @@ export default class Document extends React.Component {
             defer
             crossOrigin="anonymous"
           />
-          <script>window.__APOLLO_STATE__ = client.extract();</script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__APOLLO_STATE__=${JSON.stringify(
+                initialApolloState
+              ).replace(/</g, '\\u003c')};`
+            }}
+          />
         </body>
       </html>
     )

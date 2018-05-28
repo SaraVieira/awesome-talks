@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 export const WATCHED_KEY = 'watched__awesome-talks'
 export const FAV_KEY = 'favorites__awesome-talks'
