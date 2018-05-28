@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid } from 'react-styled-flexboxgrid'
-import { Query } from 'react-apollo'
+import Query from './../Components/Query'
 import GET_SEARCH from '../Queries/GET_SEARCH'
 import Header from './../Components/Header'
 import Talks from './../Components/Talks'
