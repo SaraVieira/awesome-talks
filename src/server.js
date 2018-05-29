@@ -71,18 +71,16 @@ server
     .disable('x-powered-by')
     .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
     .get('/*', (req, res) => {
-        const apolloState = getDataFromTree(App).then(() => {
+        getDataFromTree(App).then(() => {
             const initialApolloState = client.extract()
-            return initialApolloState
-        })
-        // Create the server side style sheet
-        const sheet = new ServerStyleSheet()
-        // When the app is rendered collect the styles that are used inside it
-        const markup = renderToString(sheet.collectStyles(<App />))
-        // Generate all the style tags so they can be rendered into the page
-        const styleTags = sheet.getStyleTags()
+            // Create the server side style sheet
+            const sheet = new ServerStyleSheet()
+            // When the app is rendered collect the styles that are used inside it
+            const markup = renderToString(sheet.collectStyles(<App />))
+            // Generate all the style tags so they can be rendered into the page
+            const styleTags = sheet.getStyleTags()
 
-        res.send(`<!doctype html>
+            res.send(`<!doctype html>
     <html lang="">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -107,7 +105,12 @@ server
     </head>
     <body>
         <div id="root">${markup}</div>
-        ${apolloState()}
+                <script>
+          window.__APOLLO_STATE__ = ${JSON.stringify(
+              initialApolloState
+          ).replace(/</g, '\\u003c')}
+        </script>
     </body>
 </html>`)
+        })
     })

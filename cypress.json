@@ -1,7 +1,0 @@
-{
-  "integrationFolder": "src/Tests/",
-  "fixturesFolder": "src/Tests/fixteures",
-  "screenshotsFolder": "src/Tests/screenshots",
-  "supportFile": "src/Tests/support",
-  "videosFolder": "src/Tests/videos"
-}
