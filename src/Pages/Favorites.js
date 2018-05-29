@@ -15,7 +15,7 @@ export default () => (
             <Row>
               {favorites.map(id => (
                 <Query key={id} query={GET_VIDEO} variables={{ id }}>
-                  {({ data: { Videos: v } }) => <Video key={v.id} {...v} />}
+                  {({ data: { Videos: v } }) => <Video key={v.id} talk={v} />}
                 </Query>
               ))}
             </Row>
