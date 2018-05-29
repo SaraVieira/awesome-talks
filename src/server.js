@@ -2,7 +2,11 @@ import App from './App'
 import React from 'react'
 import express from 'express'
 import { renderToString } from 'react-dom/server'
-import { ServerStyleSheet, ThemeProvider } from 'styled-components'
+import {
+    ServerStyleSheet,
+    ThemeProvider,
+    StyleSheetManager
+} from 'styled-components'
 import { getDataFromTree, ApolloProvider } from 'react-apollo'
 import { Helmet } from 'react-helmet'
 import { StaticRouter } from 'react-router'
@@ -19,22 +23,24 @@ server
     .disable('x-powered-by')
     .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
     .get('/*', (req, res) => {
-        getDataFromTree(App).then(() => {
+        const sheet = new ServerStyleSheet()
+        const Root = () => (
+            <ApolloProvider client={client}>
+                <StyleSheetManager sheet={sheet.instance}>
+                    <ThemeProvider theme={theme}>
+                        <StaticRouter location={req.url} context={context}>
+                            <App />
+                        </StaticRouter>
+                    </ThemeProvider>
+                </StyleSheetManager>
+            </ApolloProvider>
+        )
+
+        getDataFromTree(Root()).then(() => {
             const initialApolloState = client.extract()
-            // Create the server side style sheet
-            const sheet = new ServerStyleSheet()
+
             // When the app is rendered collect the styles that are used inside it
-            const markup = renderToString(
-                sheet.collectStyles(
-                    <StaticRouter location={req.url} context={context}>
-                        <ApolloProvider client={client}>
-                            <ThemeProvider theme={theme}>
-                                <App />
-                            </ThemeProvider>
-                        </ApolloProvider>
-                    </StaticRouter>
-                )
-            )
+            const markup = renderToString(sheet.collectStyles(<Root />))
 
             // Generate all the style tags so they can be rendered into the page
             const styleTags = sheet.getStyleTags()
