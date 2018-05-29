@@ -38,16 +38,10 @@ const Speaker = styled.p`
 `
 
 const Name = styled.h2`
-<<<<<<< HEAD
-  font-weight: 600;
-  font-size: ${remcalc(18)};
-  color: ${props => props.theme.black};
-=======
     font-size: 400;
     font-size: ${remcalc(22)};
     color: ${props => props.theme.black};
     letter-spacing: ${remcalc(-0.63)};
->>>>>>> more stiff
 `
 
 const Description = styled.p`
@@ -59,76 +53,23 @@ const Description = styled.p`
     line-height: ${remcalc(21)};
 `
 
-<<<<<<< HEAD
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
   `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export class SimpleVideo extends Component {
   state = { showVideo: false }
-=======
-const Column = styled(Col)`
-    transition: all 200ms ease;
-    justify-content: center;
-    margin: 0 auto;
-    margin-bottom: ${remcalc(40)};
-
-    ${is('cinemaMode')`
-    position: fixed;
-    z-index: 9999;
-    top: 10%;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: ${props => props.theme.white};
-    padding: ${remcalc(20)};
-    max-height: 90%;
-    overflow: scroll;
-    padding-bottom: ${remcalc(50)};
-  `};
-`
-
-const Overlay = styled.div`
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-`
-
-injectGlobal`
-  body.cinema-mode {
-      overflow: hidden;
-  }
-`
-
-const makeLink = (url = 'speaker', name = 'FIX ME') =>
-  `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
-
-class VideoWrapper extends Component {
-    state = { cinemaMode: false, showVideo: false }
-
-    toggleCinemaMode = () => {
-      this.setState(({ cinemaMode }) => ({
-        cinemaMode: !cinemaMode,
-        showVideo: true
-      }))
-      document.body.classList.toggle('cinema-mode', this.state.cinemaMode)
-    }
->>>>>>> more stiff
 
     showVideo = () => {
-      this.setState(({ showVideo }) => ({
-        showVideo: true
-      }))
+        this.setState(({ showVideo }) => ({
+            showVideo: true
+        }))
     }
 
     endVideo = id => {
-      this.props.addWatched(id)
-      this.setState(({ showVideo }) => ({
-        showVideo: false
-      }))
+        this.props.addWatched(id)
+        this.setState(({ showVideo }) => ({
+            showVideo: false
+        }))
     }
 
   videoTitle = name => {
@@ -202,10 +143,10 @@ const VideoWrapper = props => (
 )
 
 export default ({ noLazy = false, talk }) =>
-  noLazy ? (
-    <VideoWrapper {...talk} />
-  ) : (
-    <LazyLoad height={310}>
-      <VideoWrapper {...talk} />
-    </LazyLoad>
-  )
+    !process.browser ? (
+        <VideoWrapper key={talk.id} {...talk} />
+    ) : (
+        <LazyLoad height={310}>
+            <VideoWrapper key={talk.id} {...talk} />
+        </LazyLoad>
+    )

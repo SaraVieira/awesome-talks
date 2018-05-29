@@ -1,14 +1,15 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["standard", "plugin:react/recommended"],
-  "rules": {
-    "react/react-in-jsx-scope": 0,
-    "react/prop-types": 0,
-    "react/display-name": 0,
-    "space-before-function-paren": 0
-  },
-  "globals": {
-    "localStorage": true,
-    "fetch": true
-  }
+    "parser": "babel-eslint",
+    "extends": ["standard", "plugin:react/recommended"],
+    "rules": {
+        "indent": ["error", 4],
+        "react/react-in-jsx-scope": 0,
+        "react/prop-types": 0,
+        "react/display-name": 0,
+        "space-before-function-paren": 0
+    },
+    "globals": {
+        "localStorage": true,
+        "fetch": true
+    }
 }

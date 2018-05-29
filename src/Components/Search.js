@@ -7,104 +7,108 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import GET_SEARCH from '../Queries/GET_SEARCH'
 
 const Form = styled.form`
-  display: flex;
-  width: ${remcalc(300)};
+    display: flex;
+    width: ${remcalc(300)};
 
-  position: relative;
+    position: relative;
 
-  transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
 
-  @media (min-width: ${remcalc(769)}) {
-    &.expanded {
-      margin-left: -100%;
-      width: 100%;
+    @media (min-width: ${remcalc(769)}) {
+        &.expanded {
+            margin-left: -100%;
+            width: 100%;
+        }
     }
-  }
 `
 
 const Icon = styled(FontAwesomeIcon)`
-  position: absolute;
-  top: 50%;
+    position: absolute;
+    top: 50%;
 
-  transform: translateY(-50%);
+    transform: translateY(-50%);
 `
 
 const SearchIcon = Icon.extend`
-  left: ${remcalc(20)};
+    left: ${remcalc(20)};
 `
 
 const CloseIcon = Icon.extend`
-  right: ${remcalc(20)};
+    right: ${remcalc(20)};
 `
 
 const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  padding: ${remcalc(20)} ${remcalc(20)} ${remcalc(20)} ${remcalc(58)};
-  width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    padding: ${remcalc(20)} ${remcalc(20)} ${remcalc(20)} ${remcalc(58)};
+    width: 100%;
 
-  font-size: ${remcalc(32)};
-  font-weight: 300;
+    font-size: ${remcalc(32)};
+    font-weight: 300;
 
-  outline: none;
+    outline: none;
 
-  @media (max-width: ${remcalc(768)}) {
-    font-size: ${remcalc(20)};
-  }
+    @media (max-width: ${remcalc(768)}) {
+        font-size: ${remcalc(20)};
+    }
 `
 
 class Search extends Component {
-  input
+    input
 
-  state = {
-    focused: false
-  }
+    state = {
+        focused: false
+    }
 
-  onFocus = () => {
-    this.setState({ focused: true })
-  }
+    onFocus = () => {
+        this.setState({ focused: true })
+    }
 
-  onBlur = () => {
-    this.setState({ focused: false })
-  }
+    onBlur = () => {
+        this.setState({ focused: false })
+    }
 
-  onSubmit = e => {
-    e.preventDefault()
+    onSubmit = e => {
+        e.preventDefault()
 
-    this.props.client.writeData({ data: { search: this.input.value } })
-  }
+        this.props.client.writeData({ data: { search: this.input.value } })
+    }
 
-  render() {
-    return (
-      <Query query={GET_SEARCH}>
-        {({ data: { search }, client }) => (
-          <Form
-            className={`${
-              this.state.focused || search.length ? 'expanded' : ''
-            }`}
-            onSubmit={this.onSubmit}
-          >
-            <SearchIcon icon="search" size="lg" />
-            {search.length > 0 && (
-              <CloseIcon
-                icon="times"
-                size="lg"
-                onClick={() => client.writeData({ data: { search: '' } })}
-              />
-            )}
-            <Input
-              innerRef={node => (this.input = node)}
-              onBlur={this.onBlur}
-              onFocus={this.onFocus}
-              placeholder="Search"
-              type="text"
-              value={search}
-            />
-          </Form>
-        )}
-      </Query>
-    )
-  }
+    render() {
+        return (
+            <Query query={GET_SEARCH}>
+                {({ data: { search }, client }) => (
+                    <Form
+                        className={`${
+                            this.state.focused || search.length
+                                ? 'expanded'
+                                : ''
+                        }`}
+                        onSubmit={this.onSubmit}
+                    >
+                        <SearchIcon icon="search" size="lg" />
+                        {search.length > 0 && (
+                            <CloseIcon
+                                icon="times"
+                                size="lg"
+                                onClick={() =>
+                                    client.writeData({ data: { search: '' } })
+                                }
+                            />
+                        )}
+                        <Input
+                            innerRef={node => (this.input = node)}
+                            onBlur={this.onBlur}
+                            onFocus={this.onFocus}
+                            placeholder="Search"
+                            type="text"
+                            value={search}
+                        />
+                    </Form>
+                )}
+            </Query>
+        )
+    }
 }
 
 export default Search

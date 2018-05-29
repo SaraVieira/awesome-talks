@@ -66,85 +66,85 @@ const Section = styled.div`
 `
 
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
-  <Wrapper>
-    <Nav />
-    <Helmet>
-      <title>Awesome Talks - {name}</title>
-      <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
-      <meta name="twitter:image" content={photo.url} />
-      <meta name="twitter:image:alt" content={name} />
-      <meta
-        name="description"
-        content={`Amazing Tech Talks by ${name}`}
-      />
-      <meta
-        name="twitter:description"
-        content={`Amazing Tech Talks by ${name}`}
-      />
-    </Helmet>
-    <Desc>
-      {photo ? (
-        <Img src={photo.url} alt={name} height="200" width="200" />
-      ) : null}
-      <Section>
-        <Header title={humanize(name)} noSearch small />
-        <p dangerouslySetInnerHTML={{ __html: urlify(bio) }} />{' '}
-        <Flex justifyBetween alignCenter>
-          {twitter ? (
-            <a
-              className="no-hover"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://twitter.com/${twitter}`}
-            >
-              <img src={TwitterIcon} alt="Twitter" width="24" />
-            </a>
-          ) : null}
-          <a
-            className="no-hover"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://github.com/SaraVieira/awesome-talks/issues/new?title=Wrong%20Speaker%20info%20for%20${name}&body=Hey!%20The%20info%20on%20${name}%20is%20wrong,%20what%20is%20wrong%20is`}
-          >
+    <Wrapper>
+        <Nav />
+        <Helmet>
+            <title>Awesome Talks - {name}</title>
+            <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
+            <meta name="twitter:image" content={photo.url} />
+            <meta name="twitter:image:alt" content={name} />
+            <meta
+                name="description"
+                content={`Amazing Tech Talks by ${name}`}
+            />
+            <meta
+                name="twitter:description"
+                content={`Amazing Tech Talks by ${name}`}
+            />
+        </Helmet>
+        <Desc>
+            {photo ? (
+                <Img src={photo.url} alt={name} height="200" width="200" />
+            ) : null}
+            <Section>
+                <Header title={humanize(name)} noSearch small />
+                <p dangerouslySetInnerHTML={{ __html: urlify(bio) }} />{' '}
+                <Flex justifyBetween alignCenter>
+                    {twitter ? (
+                        <a
+                            className="no-hover"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`https://twitter.com/${twitter}`}
+                        >
+                            <img src={TwitterIcon} alt="Twitter" width="24" />
+                        </a>
+                    ) : null}
+                    <a
+                        className="no-hover"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`https://github.com/SaraVieira/awesome-talks/issues/new?title=Wrong%20Speaker%20info%20for%20${name}&body=Hey!%20The%20info%20on%20${name}%20is%20wrong,%20what%20is%20wrong%20is`}
+                    >
                         Wrong Info?
-          </a>
-        </Flex>
-      </Section>
-    </Desc>
-  </Wrapper>
+                    </a>
+                </Flex>
+            </Section>
+        </Desc>
+    </Wrapper>
 )
 
 export default ({
-  match: {
-    params: { speaker }
-  }
+    match: {
+        params: { speaker }
+    }
 }) => (
-  <Grid>
-    <Row>
-      <Col xs={12}>
-        <Query
-          query={SPEAKER_VIDEOS}
-          variables={{ name: humanize(speaker) }}
-        >
-          {({ data: { allSpeakerses } }) => {
-            return (
-              <Section>
-                <SpeakerInfo {...allSpeakerses[0]} />
-                <Row>
-                  <Header title="Talks" noSearch />
-                </Row>
-                <Row>
-                  {allSpeakerses.length &&
+    <Grid>
+        <Row>
+            <Col xs={12}>
+                <Query
+                    query={SPEAKER_VIDEOS}
+                    variables={{ name: humanize(speaker) }}
+                >
+                    {({ data: { allSpeakerses } }) => {
+                        return (
+                            <Section>
+                                <SpeakerInfo {...allSpeakerses[0]} />
+                                <Row>
+                                    <Header title="Talks" noSearch />
+                                </Row>
+                                <Row>
+                                    {allSpeakerses.length &&
                                         allSpeakerses[0].videoses.length &&
                                         allSpeakerses[0].videoses.map(v => (
-                                          <Video key={v.id} talk={v} />
+                                            <Video key={v.id} talk={v} />
                                         ))}
-                </Row>
-              </Section>
-            )
-          }}
-        </Query>
-      </Col>
-    </Row>
-  </Grid>
+                                </Row>
+                            </Section>
+                        )
+                    }}
+                </Query>
+            </Col>
+        </Row>
+    </Grid>
 )

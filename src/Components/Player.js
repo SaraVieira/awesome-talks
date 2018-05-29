@@ -67,31 +67,31 @@ const Image = styled.div`
 `
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-  <VideoWrapper key={id} cinemaMode={cinemaMode}>
-    <Video cinemaMode={cinemaMode}>
-      {showVideo || cinemaMode ? (
-        <Iframe
-          videoId={link}
-          id={`a-${link} do-not-delete-this-hack`}
-          onReady={e => e.target.playVideo()}
-          onEnd={onEnd}
-          cinemaMode={cinemaMode}
-          opts={{
-            width: '100%'
-          }}
-        />
-      ) : (
-        <Image cinemaMode={cinemaMode}>
-          <Play onClick={onClick} aria-label="Play Video" />
-          <Thumbnail
-            cinemaMode={cinemaMode}
-            src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
-            alt={name}
-          />
-        </Image>
-      )}
-      <Favorite id={id} />
-      <Watched id={id} />
-    </Video>
-  </VideoWrapper>
+    <VideoWrapper key={id} cinemaMode={cinemaMode}>
+        <Video cinemaMode={cinemaMode}>
+            {showVideo || cinemaMode ? (
+                <Iframe
+                    videoId={link}
+                    id={`a-${link} do-not-delete-this-hack`}
+                    onReady={e => e.target.playVideo()}
+                    onEnd={onEnd}
+                    cinemaMode={cinemaMode}
+                    opts={{
+                        width: '100%'
+                    }}
+                />
+            ) : (
+                <Image cinemaMode={cinemaMode}>
+                    <Play onClick={onClick} aria-label="Play Video" />
+                    <Thumbnail
+                        cinemaMode={cinemaMode}
+                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                        alt={name}
+                    />
+                </Image>
+            )}
+            <Favorite id={id} />
+            <Watched id={id} />
+        </Video>
+    </VideoWrapper>
 )
