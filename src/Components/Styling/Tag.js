@@ -20,4 +20,7 @@ export default styled(Link)`
   &:after {
     display: none;
   }
+  @media (max-width: ${remcalc(768)}) {
+    font-size: ${remcalc(13)};
+  }
 `

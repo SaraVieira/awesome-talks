@@ -1,30 +1,70 @@
 import Header from './../Components/Header'
-import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
-import Item from './../Components/Styling/Item'
 import TAGS from '../Queries/TAGS'
+import Slider from './../Components/Slider'
+import { SimpleVideo } from './../Components/Video'
+import { Grid } from 'react-styled-flexboxgrid'
+import styled from 'styled-components'
+import remcalc from 'remcalc'
+import LazyLoad from 'react-lazyload'
+import { Link } from 'preact-router/match'
+
+const Column = styled.div`
+  transition: all 200ms ease;
+  justify-content: center;
+  margin: 0 auto;
+  min-height: 310px
+  margin-bottom: ${remcalc(40)};
+`
+
+const Item = styled(Link)`
+  color: black;
+  font-size: 27px;
+  font-weight: bold;
+  &:hover {
+    background: white;
+  }
+`
+
+const VideoWrapper = styled.div`
+  margin: 0 5px;
+`
 
 const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export default () => (
   <Grid>
     <Header title="Categories" noSearch />
-    <Row>
-      <Col xs={12}>
-        <Query query={TAGS}>
-          {({ data: { allTagses } }) => {
-            return (
-              <Row>
-                {allTagses.map(s => (
+    <Query query={TAGS}>
+      {({ data: { allTagses } }) => {
+        return (
+          <div>
+            {allTagses.map(s => {
+              return (
+                <div key={s.id}>
                   <Item key={s.id} href={makeLink(s.name)}>
                     {s.name}
                   </Item>
-                ))}
-              </Row>
-            )
-          }}
-        </Query>
-      </Col>
-    </Row>
+
+                  <Slider>
+                    {s.videos.map(v => {
+                      return (
+                        <Column key={v.id}>
+                          <LazyLoad height={310}>
+                            <VideoWrapper>
+                              <SimpleVideo {...v} />
+                            </VideoWrapper>
+                          </LazyLoad>
+                        </Column>
+                      )
+                    })}
+                  </Slider>
+                </div>
+              )
+            })}
+          </div>
+        )
+      }}
+    </Query>
   </Grid>
 )
