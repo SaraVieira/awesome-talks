@@ -5,12 +5,8 @@ import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { getDataFromTree } from 'react-apollo'
 import { StaticRouter } from 'react-router'
-import { HttpLink } from 'apollo-link-http'
-import { ApolloClient } from 'apollo-client'
-import { ApolloLink } from 'apollo-link'
 import 'isomorphic-fetch'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { stateLink } from './Utils/stateLink'
+import client from './Utils/stateLink'
 
 // const context = {}
 // const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
@@ -51,18 +47,6 @@ import { stateLink } from './Utils/stateLink'
 //   })
 
 // export default server
-
-const client = new ApolloClient({
-    connectToDevTools: process.browser,
-    ssrMode: !process.browser,
-    link: ApolloLink.from([
-        stateLink,
-        new HttpLink({
-            uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
-        })
-    ]),
-    cache: new InMemoryCache()
-})
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
