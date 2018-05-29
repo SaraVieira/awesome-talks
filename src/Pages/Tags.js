@@ -26,6 +26,10 @@ const Item = styled(Link)`
   }
 `
 
+const VideoWrapper = styled.div`
+  margin: 0 5px;
+`
+
 const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export default () => (
@@ -47,7 +51,9 @@ export default () => (
                       return (
                         <Column key={v.id}>
                           <LazyLoad height={310}>
-                            <SimpleVideo {...v} />
+                            <VideoWrapper>
+                              <SimpleVideo {...v} />
+                            </VideoWrapper>
                           </LazyLoad>
                         </Column>
                       )

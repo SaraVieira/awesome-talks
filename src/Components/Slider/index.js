@@ -1,4 +1,9 @@
 import Carousel from 'nuka-carousel'
+import styled from 'styled-components'
+
+const SlideWrapper = styled(Carousel)`
+  margin-top: 40px;
+`
 
 const doNotRender = () => {
   return null
@@ -21,13 +26,13 @@ const leftControl = props => {
 
 export default props => {
   const carouselSettings = {
-    slidesToShow: 3,
-    slidesToScroll: 2,
+    slidesToShow: 4,
+    slidesToScroll: 3,
     renderBottomCenterControls: doNotRender,
     renderCenterLeftControls: doNotRender,
     renderCenterRightControls: doNotRender,
     renderBottomLeftControls: leftControl,
     renderBottomRightControls: rightControl
   }
-  return <Carousel {...carouselSettings}>{props.children}</Carousel>
+  return <SlideWrapper {...carouselSettings}>{props.children}</SlideWrapper>
 }

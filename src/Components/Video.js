@@ -19,6 +19,10 @@ const Speaker = styled.p`
     display: block;
     padding: ${remcalc(5)};
     text-align: center;
+    @media (max-width: ${remcalc(768)}) {
+      font-size: ${remcalc(13)};
+      padding: 0;
+    }
 
     &:after {
       left: 0;
@@ -30,6 +34,9 @@ const Name = styled.h2`
   font-weight: 600;
   font-size: ${remcalc(18)};
   color: ${props => props.theme.black};
+  @media (max-width: ${remcalc(768)}) {
+    font-size: ${remcalc(13)};
+  }
 `
 
 const Description = styled.p`
