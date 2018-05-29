@@ -10,7 +10,7 @@ import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import 'isomorphic-fetch'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { stateLink } from './client'
+import { stateLink } from './Utils/stateLink'
 
 // const context = {}
 // const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
