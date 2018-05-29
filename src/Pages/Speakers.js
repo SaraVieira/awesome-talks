@@ -46,7 +46,7 @@ export default () => (
                     {({ data: { allSpeakerses } }) => {
                         return (
                             <Row>
-                                <Wrapper wrap justifyBetween>
+                                <Wrapper wrap="true" justifyBetween>
                                     {allSpeakerses.map(s => (
                                         <Figure key={s.id}>
                                             <Img

@@ -7,6 +7,8 @@ import Tags from './Pages/Tags'
 import Tag from './Pages/Tag'
 import Favorites from './Pages/Favorites'
 
+import './Utils/global-styles'
+
 export default () => (
     <Switch>
         <Route exact path="/" component={Home} />
