@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 import React, { Component } from 'react'
 import Flex from 'styled-flex-component'
+<<<<<<< HEAD
 import { Link } from 'preact-router/match'
 
 import LazyLoad from 'react-lazyload'
+=======
+import { Link } from 'react-router-dom'
+import { createPortal } from 'react-dom'
+>>>>>>> apollo is not dumb i am
 import remcalc from 'remcalc'
 
 import Tag from './Styling/Tag'
@@ -142,11 +147,6 @@ const VideoWrapper = props => (
   />
 )
 
-export default ({ noLazy = false, talk }) =>
-    noLazy ? (
-        <VideoWrapper key={talk.id} {...talk} />
-    ) : (
-        <LazyLoad height={310}>
-            <VideoWrapper key={talk.id} {...talk} />
-        </LazyLoad>
-    )
+export default ({ noLazy = false, talk }) => (
+    <VideoWrapper key={talk.id} {...talk} />
+)

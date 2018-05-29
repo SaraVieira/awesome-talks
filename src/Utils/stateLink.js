@@ -98,5 +98,8 @@ export default new ApolloClient({
             uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
         })
     ]),
-    cache
+    cache:
+        typeof window !== 'undefined'
+            ? new InMemoryCache().restore(window.__APOLLO_STATE__)
+            : new InMemoryCache()
 })
