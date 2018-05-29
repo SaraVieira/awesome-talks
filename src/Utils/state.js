@@ -11,6 +11,14 @@ export const getStorage = key => {
     return []
 }
 
+export const setStorage = (key, data) => {
+    if (typeof window !== 'undefined') {
+        return localStorage.setItem(key, JSON.stringify(data))
+    }
+
+    return null
+}
+
 export const GetFavorites = gql`
     query GetFavorites {
         favorites @client

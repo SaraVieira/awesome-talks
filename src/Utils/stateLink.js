@@ -5,7 +5,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 
-import { WATCHED_KEY, FAV_KEY, getStorage } from './state'
+import { WATCHED_KEY, FAV_KEY, getStorage, setStorage } from './state'
 
 const defaultState = {
     favorites: getStorage(FAV_KEY),
@@ -33,7 +33,7 @@ const stateLink = withClientState({
                     favorites: [...previous.favorites, id]
                 }
 
-                localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
+                setStorage(FAV_KEY, data.favorites)
 
                 cache.writeQuery({ query, data })
             },
@@ -49,7 +49,7 @@ const stateLink = withClientState({
                     favorites: previous.favorites.filter(a => a !== id)
                 }
 
-                localStorage.setItem(FAV_KEY, JSON.stringify(data.favorites))
+                setStorage(FAV_KEY, data.favorites)
 
                 cache.writeQuery({ query, data })
             },
@@ -65,7 +65,7 @@ const stateLink = withClientState({
                     watched: [...previous.watched, id]
                 }
 
-                localStorage.setItem(WATCHED_KEY, JSON.stringify(data.watched))
+                setStorage(WATCHED_KEY, data.watched)
 
                 cache.writeQuery({ query, data })
             },
@@ -81,7 +81,7 @@ const stateLink = withClientState({
                     watched: previous.watched.filter(a => a !== id)
                 }
 
-                localStorage.setItem(WATCHED_KEY, JSON.stringify(data.watched))
+                setStorage(WATCHED_KEY, data.watched)
 
                 cache.writeQuery({ query, data })
             }
