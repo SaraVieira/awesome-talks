@@ -27,10 +27,9 @@ const Speaker = styled.p`
 `
 
 const Name = styled.h2`
-  font-size: 400;
-  font-size: ${remcalc(22)};
+  font-weight: 600;
+  font-size: ${remcalc(18)};
   color: ${props => props.theme.black};
-  letter-spacing: ${remcalc(-0.63)};
 `
 
 const Description = styled.p`
@@ -62,7 +61,7 @@ export class SimpleVideo extends Component {
   }
 
   videoTitle = name => {
-    if (name.length > 100) return `${name.substring(0, 100)}...`
+    if (name.length > 40) return `${name.substring(0, 40)}...`
     return name
   }
 
@@ -95,7 +94,7 @@ export class SimpleVideo extends Component {
           onEnd={() => this.endVideo(id)}
         />
         <Flex justifyBetween alignCenter>
-          <Name>{this.videoTitle(name)}</Name>
+          <Name title={name}>{this.videoTitle(name)}</Name>
           <Speaker>
             {speaker.map(s => (
               <Link
