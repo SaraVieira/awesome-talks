@@ -8,6 +8,7 @@ import Tag from './Pages/Tag'
 import Favorites from './Pages/Favorites'
 
 import './Utils/global-styles'
+import './Utils/icons'
 
 export default () => (
     <Switch>

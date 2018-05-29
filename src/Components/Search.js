@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import { Query, withApollo } from 'react-apollo'
 import remcalc from 'remcalc'
-import { Query } from 'react-apollo'
+import styled from 'styled-components'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 import GET_SEARCH from '../Queries/GET_SEARCH'
@@ -9,11 +9,8 @@ import GET_SEARCH from '../Queries/GET_SEARCH'
 const Form = styled.form`
     display: flex;
     width: ${remcalc(300)};
-
     position: relative;
-
     transition: all 0.25s ease-in-out;
-
     @media (min-width: ${remcalc(769)}) {
         &.expanded {
             margin-left: -100%;
@@ -25,7 +22,6 @@ const Form = styled.form`
 const Icon = styled(FontAwesomeIcon)`
     position: absolute;
     top: 50%;
-
     transform: translateY(-50%);
 `
 
@@ -42,12 +38,9 @@ const Input = styled.input`
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     padding: ${remcalc(20)} ${remcalc(20)} ${remcalc(20)} ${remcalc(58)};
     width: 100%;
-
     font-size: ${remcalc(32)};
     font-weight: 300;
-
     outline: none;
-
     @media (max-width: ${remcalc(768)}) {
         font-size: ${remcalc(20)};
     }
@@ -100,6 +93,11 @@ class Search extends Component {
                             innerRef={node => (this.input = node)}
                             onBlur={this.onBlur}
                             onFocus={this.onFocus}
+                            onChange={() =>
+                                client.writeData({
+                                    data: { search: this.input.value }
+                                })
+                            }
                             placeholder="Search"
                             type="text"
                             value={search}
@@ -111,4 +109,4 @@ class Search extends Component {
     }
 }
 
-export default Search
+export default withApollo(Search)
