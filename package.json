@@ -6,6 +6,7 @@
   "dependencies": {
     "apollo-boost": "0.1.6",
     "apollo-link-state": "^0.4.1",
+    "date-fns": "^1.29.0",
     "formik": "^0.11.11",
     "fuse.js": "^3.2.0",
     "graphql": "0.13.2",
@@ -73,13 +74,7 @@
     "contributors:generate": "all-contributors generate"
   },
   "lint-staged": {
-    "*.{js,css,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,css,md}": ["prettier --write", "git add"],
+    "*.js": ["eslint --fix", "git add"]
   }
 }
