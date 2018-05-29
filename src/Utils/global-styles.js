@@ -71,24 +71,6 @@ injectGlobal`
     }
   }
 
-  .search-input {
-    border: 0 none;
-    border-bottom: ${remcalc(1)} solid #666;
-    height: ${remcalc(36)};
-    line-height: 1.4;
-    padding: ${remcalc(4)} ${remcalc(6)};
-    box-sizing: border-box;
-    font-size: ${remcalc(16)};
-    margin-right: ${remcalc(20)};
-    transition: border 250ms ease;
-    outline: none;
-
-    &:hover,
-    &:focus {
-        border-bottom-color: #337294;
-    }
-  }
-
   ul {
     padding: 0;
     margin: 0;

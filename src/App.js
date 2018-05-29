@@ -7,6 +7,7 @@ import { ThemeProvider } from 'styled-components'
 
 import Nav from './Components/Nav'
 import './Utils/global-styles'
+import './Utils/icons'
 import theme from './Utils/theme'
 import { WATCHED_KEY, FAV_KEY, getStorage } from './Utils/state'
 
