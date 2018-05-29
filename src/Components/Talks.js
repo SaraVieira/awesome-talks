@@ -1,17 +1,33 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-styled-flexboxgrid'
-import shuffle from 'shuffle-array'
 import Flex from 'styled-flex-component'
 import { graphql, compose } from 'react-apollo'
-import Fuse from 'fuse.js'
+// import Fuse from 'fuse.js'
 import Video from './Video'
 import { Title } from './../Components/Header'
 import Query from './Query'
+import Scroll from './Scroll'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
 import GET_WATCHED from '../Queries/GET_WATCHED'
+import COUNT from '../Queries/COUNT'
 
-const shuffleArr = arr => shuffle(arr, { copy: true })
+const getMore = (fetchMore, allVideoses) =>
+    fetchMore({
+        variables: {
+            first: 9,
+            after: allVideoses[allVideoses.length - 1].id
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev
+            return {
+                allVideoses: [
+                    ...prev.allVideoses,
+                    ...fetchMoreResult.allVideoses
+                ]
+            }
+        }
+    })
 
 class TalksComponent extends Component {
     state = {
@@ -20,39 +36,15 @@ class TalksComponent extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { search, watched, talks, hideViewed } = this.props
-        var options = {
-            keys: ['name', 'speaker.name', 'tags.name'],
-            shouldSort: true,
-            threshold: 0.2
-        }
+        const { watched, talks, hideViewed } = this.props
 
-        if (hideViewed !== prevProps.hideViewed) {
-            const allTalks =
+        if (talks !== prevProps.talks || hideViewed !== prevProps.hideViewed) {
+            const videos =
                 hideViewed && !prevProps.hideViewed
                     ? talks.filter(t => !watched.includes(t.id))
                     : talks
-            this.setState({
-                videos: allTalks,
-                noLazy: false
-            })
-        }
 
-        if (
-            search !== prevProps.search &&
-            search === '' &&
-            prevProps.search !== ''
-        ) {
-            this.setState({
-                videos: talks,
-                noLazy: false
-            })
-        }
-
-        if (search !== prevProps.search && search !== '') {
-            const fuse = new Fuse(this.props.talks, options)
-            const videos = fuse.search(search)
-            this.setState({ videos, noLazy: true })
+            this.setState({ videos })
         }
     }
 
@@ -86,12 +78,43 @@ const Talks = compose(
 )(TalksComponent)
 
 const VideoComponent = ({ search }) => (
-    <Query query={ALL_VIDEOS}>
-        {({ data: { allVideoses } }) => (
-            <Row>
-                <Talks search={search} talks={shuffleArr(allVideoses)} />
-            </Row>
-        )}
+    <Query
+        query={ALL_VIDEOS}
+        variables={{
+            first: 9,
+            search
+        }}
+    >
+        {({ data: { allVideoses }, fetchMore }) => {
+            return (
+                <Row style={{ justifyContent: 'center' }}>
+                    <Col xs={12}>
+                        <Row>
+                            <Talks search={search} talks={allVideoses} />
+                        </Row>
+
+                        <Query
+                            query={COUNT}
+                            variables={{
+                                search
+                            }}
+                        >
+                            {({ data: { _allVideosesMeta } }) => (
+                                <Scroll
+                                    show={
+                                        _allVideosesMeta.count >
+                                        allVideoses.length
+                                    }
+                                    onBottom={() =>
+                                        getMore(fetchMore, allVideoses)
+                                    }
+                                />
+                            )}
+                        </Query>
+                    </Col>
+                </Row>
+            )
+        }}
     </Query>
 )
 
