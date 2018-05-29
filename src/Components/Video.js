@@ -27,7 +27,7 @@ const Speaker = styled.p`
 `
 
 const Name = styled.h2`
-  font-weight: 400;
+  font-weight: 600;
   font-size: ${remcalc(18)};
   color: ${props => props.theme.black};
 `
