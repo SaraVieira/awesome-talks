@@ -1,12 +1,13 @@
-import App from './App'
+import App from './Pages/Home'
 import React from 'react'
 import express from 'express'
 import { renderToString } from 'react-dom/server'
-import { ServerStyleSheet } from 'styled-components'
-import { getDataFromTree } from 'react-apollo'
+import { ServerStyleSheet, ThemeProvider } from 'styled-components'
+import { getDataFromTree, ApolloProvider } from 'react-apollo'
 import { StaticRouter } from 'react-router'
 import 'isomorphic-fetch'
 import client from './Utils/stateLink'
+import theme from './Utils/theme'
 
 // const context = {}
 // const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
@@ -65,11 +66,14 @@ server
             const markup = renderToString(
                 sheet.collectStyles(
                     <StaticRouter location={req.url} context={context}>
-                        <App />
+                        <ApolloProvider client={client}>
+                            <ThemeProvider theme={theme}>
+                                <App />
+                            </ThemeProvider>
+                        </ApolloProvider>
                     </StaticRouter>
                 )
             )
-            console.log(markup)
             // Generate all the style tags so they can be rendered into the page
             const styleTags = sheet.getStyleTags()
 

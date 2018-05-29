@@ -143,7 +143,7 @@ const VideoWrapper = props => (
 )
 
 export default ({ noLazy = false, talk }) =>
-    !process.browser ? (
+    noLazy ? (
         <VideoWrapper key={talk.id} {...talk} />
     ) : (
         <LazyLoad height={310}>
