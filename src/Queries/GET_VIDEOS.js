@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost'
 
 export default gql`
-  query getVideo($id: ID) {
-    Videos(id: $id) {
+  query getVideos($ids: [ID!]) {
+    allVideoses(filter: { id_in: $ids }) {
       id
       speaker {
         name
