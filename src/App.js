@@ -4,6 +4,7 @@ import ApolloClient, { gql } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import Router from 'preact-router'
 import { ThemeProvider } from 'styled-components'
+import { Helmet } from 'react-helmet'
 
 import Nav from './Components/Nav'
 import './Utils/global-styles'
@@ -104,6 +105,22 @@ export default () => (
           overflow: 'hidden'
         }}
       >
+        <Helmet>
+          <meta
+            name="description"
+            content="Amazing Tech Talks curated by the community ❤️"
+          />
+          <meta name="twitter:title" content="Awesome Talks" />
+          <meta
+            name="twitter:description"
+            content="Amazing Tech Talks curated by the community ❤️"
+          />
+          <meta
+            name="twitter:image"
+            content="https://file-iloqdynwox.now.sh/"
+          />
+          <meta name="twitter:image:alt" content="awesome talks" />
+        </Helmet>
         <Nav />
         <Router>
           <Home path="/" />
