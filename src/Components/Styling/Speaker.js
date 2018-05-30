@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Figure = styled.figure`
+    <<<<<<<HEAD
     position: relative;
     float: left;
     overflow: hidden;
@@ -15,8 +16,20 @@ export const Figure = styled.figure`
     text-align: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
     background: ${props => props.theme.blue};
-
-    &:hover img {
+    =======position: relative;
+    float: left;
+    overflow: hidden;
+    margin: 10px 1%;
+    min-width: 220px;
+    max-width: 220px;
+    max-height: 220px;
+    width: 100%;
+    background: ${props => props.theme.main};
+    color: ${props => props.theme.primary};
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    background: ${props => props.theme.blue};
+    >>>>>>>Enable global theming &:hover img {
         opacity: 1;
         transform: scale(1.1);
     }
@@ -72,6 +85,7 @@ export const Caption = styled.figcaption`
 `
 
 export const Name = styled.h2`
+    <<<<<<<HEAD
     position: absolute;
     left: 20px;
     right: 20px;
@@ -83,8 +97,18 @@ export const Name = styled.h2`
     bottom: 0;
     text-transform: uppercase;
     font-weight: 400;
-
-    span {
+    =======position: absolute;
+    left: 20px;
+    right: 20px;
+    display: inline-block;
+    background: ${props => props.theme.main};
+    transform: skew(-10deg) rotate(-10deg) translate(0, -50%);
+    padding: 12px 5px;
+    margin: 0;
+    bottom: 0;
+    text-transform: uppercase;
+    font-weight: 400;
+    >>>>>>>Enable global theming span {
         font-weight: 800;
         display: block;
     }

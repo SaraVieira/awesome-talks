@@ -18,7 +18,7 @@ const Column = styled(Col)`
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
-  background: ${props => props.theme.white};
+  background: ${props => props.theme.primary};
   padding: ${remcalc(20)};
   max-height: 90%;
   overflow: scroll;

@@ -3,7 +3,7 @@ import remcalc from 'remcalc'
 
 export default styled.input`
     font-size: ${remcalc(15)};
-    color: ${props => props.theme.darkGrey};
+    color: ${props => props.theme.tertiary};
     width: 100%;
     box-sizing: border-box;
     letter-spacing: ${remcalc(1)};
