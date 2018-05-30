@@ -10,6 +10,7 @@ import {
 import { getDataFromTree, ApolloProvider } from 'react-apollo'
 import { Helmet } from 'react-helmet'
 import { StaticRouter } from 'react-router'
+import fontawesome from '@fortawesome/fontawesome'
 import 'isomorphic-fetch'
 import client from './Utils/stateLink'
 import theme from './Utils/theme'
@@ -69,6 +70,9 @@ server
 }
         <!-- Render the style tags gathered from the components into the DOM -->
         ${styleTags}
+        <style>
+        ${fontawesome.dom.css()}
+        </style>
     </head>
     <body>
         <div id="root">${markup}</div>
