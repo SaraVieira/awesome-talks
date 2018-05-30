@@ -27,6 +27,7 @@ const Icon = styled(FontAwesomeIcon)`
 
 const SearchIcon = Icon.extend`
     left: ${remcalc(20)};
+    max-width: ${remcalc(20)};
 `
 
 const CloseIcon = Icon.extend`
