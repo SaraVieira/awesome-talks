@@ -58,11 +58,18 @@ export default class CinemaMode extends Component {
         showVideo: false
     }
     toggleCinemaMode = () => {
-        this.setState(({ cinemaMode }) => ({
-            cinemaMode: !cinemaMode,
-            showVideo: !cinemaMode
-        }))
-        document.body.classList.toggle('cinema-mode', this.state.cinemaMode)
+        this.setState(
+            ({ cinemaMode }) => ({
+                cinemaMode: !cinemaMode,
+                showVideo: !cinemaMode
+            }),
+            () => {
+                document.body.classList.toggle(
+                    'cinema-mode',
+                    this.state.cinemaMode
+                )
+            }
+        )
     }
     render() {
         const { render } = this.props
@@ -74,20 +81,22 @@ export default class CinemaMode extends Component {
                 sm={cinemaMode ? 12 : 6}
                 xs={9}
             >
-                {render(cinemaMode, showVideo)}
-                <Button
-                    name="Toggle Cinema Mode"
-                    onClick={this.toggleCinemaMode}
-                >
-                    {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
-                </Button>
+                <div>
+                    {render(cinemaMode, showVideo)}
+                    <Button
+                        name="Toggle Cinema Mode"
+                        onClick={this.toggleCinemaMode}
+                    >
+                        {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
+                    </Button>
 
-                {cinemaMode
-                    ? createPortal(
-                        <Overlay onClick={this.toggleCinemaMode} />,
-                        document.getElementsByTagName('body')[0]
-                    )
-                    : null}
+                    {cinemaMode
+                        ? createPortal(
+                              <Overlay onClick={this.toggleCinemaMode} />,
+                              document.getElementsByTagName('body')[0]
+                          )
+                        : null}
+                </div>
             </Column>
         )
     }
