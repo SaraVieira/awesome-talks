@@ -110,7 +110,9 @@ export class SimpleVideo extends Component {
                         </Tag>
                     ))}
                 </Flex>
-                <Duration>{this.state.duration}</Duration>
+                {this.state.duration ? (
+                    <Duration>{this.state.duration}</Duration>
+                ) : null}
                 {cinemaMode && description ? (
                     <Description>{description}</Description>
                 ) : null}

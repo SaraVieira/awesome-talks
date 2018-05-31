@@ -23,7 +23,6 @@ class Scroll extends Component {
         )
         const windowBottom = windowHeight + window.pageYOffset
         if (windowBottom >= docHeight) {
-            console.log('here')
             this.props.onBottom()
         }
     }
