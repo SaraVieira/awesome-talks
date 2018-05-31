@@ -1,13 +1,13 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 export default gql`
-  {
-    allSpeakerses(orderBy: name_ASC) {
-      name
-      id
-      photo {
-        url
-      }
+    {
+        allSpeakerses(orderBy: name_ASC) {
+            name
+            id
+            photo {
+                url
+            }
+        }
     }
-  }
 `

@@ -1,17 +1,21 @@
-import App from './App'
-import { render } from 'preact'
-import { default as renderToString } from 'preact-render-to-string'
-import { ServerStyleSheet } from 'styled-components'
-import * as OfflinePluginRuntime from 'offline-plugin/runtime'
+import express from 'express'
+import app from './server'
 
-if (typeof window === 'undefined') {
-  /* eslint-disable */
-  const sheet = new ServerStyleSheet()
-  const html = renderToString(sheet.collectStyles(<App />))
-  const styleTags = sheet.getStyleTags()
-  /* eslint-enable */
+if (module.hot) {
+    module.hot.accept('./server', function() {
+        console.log('🔁  HMR Reloading `./server`...')
+    })
+    console.info('✅  Server-side HMR Enabled!')
 }
-if (typeof window !== 'undefined') {
-  render(<App />, document.getElementById('root'))
-  OfflinePluginRuntime.install()
-}
+
+const port = process.env.PORT || 3000
+
+export default express()
+    .use((req, res) => app.handle(req, res))
+    .listen(port, function(err) {
+        if (err) {
+            console.error(err)
+            return
+        }
+        console.log(`> Started on port ${port}`)
+    })

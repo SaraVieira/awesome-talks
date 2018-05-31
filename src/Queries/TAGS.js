@@ -1,10 +1,10 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 export default gql`
-  {
-    allTagses(orderBy: name_ASC) {
-      name
-      id
+    {
+        allTagses(orderBy: name_ASC) {
+            name
+            id
+        }
     }
-  }
 `

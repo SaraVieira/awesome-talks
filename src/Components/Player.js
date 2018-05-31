@@ -1,7 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
 import YouTube from 'react-youtube'
 import is, { isNot } from 'styled-is'
 import remcalc from 'remcalc'
+import Card from 'card-vibes'
 
 import Favorite from './Favorite'
 import Play from './Styling/Play'
@@ -10,10 +12,10 @@ import Watched from './Watched'
 const Video = styled.div``
 
 const VideoWrapper = styled.section`
-  position: relative;
-  margin: auto;
+    position: relative;
+    margin: auto;
 
-  ${isNot('cinemaMode')`
+    ${isNot('cinemaMode')`
     &:before {
       display: block;
       content: '';
@@ -32,14 +34,14 @@ const VideoWrapper = styled.section`
 `
 
 const Iframe = styled(YouTube)`
-  position: relative;
-  z-index: 3;
-  border: none;
-  transition: all 200ms ease;
-  box-shadow: ${props => props.theme.shadow};
-  height: 100%;
+    position: relative;
+    z-index: 3;
+    border: none;
+    transition: all 200ms ease;
+    box-shadow: ${props => props.theme.shadow};
+    height: 100%;
 
-  ${is('cinemaMode')`
+    ${is('cinemaMode')`
     height: ${remcalc(600)};
     @media (max-width: ${remcalc(768)}) {
       height: auto;
@@ -48,49 +50,58 @@ const Iframe = styled(YouTube)`
 `
 
 const Thumbnail = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 `
 
 const Image = styled.div`
-  position: relative;
-  margin: auto;
-  height: 100%;
-  overflow: hidden;
-  box-shadow: ${props => props.theme.shadow};
+    position: relative;
+    margin: auto;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: ${props => props.theme.shadow};
 
-  ${is('cinemaMode')`
+    ${is('cinemaMode')`
     height: auto;
   `};
 `
 
-export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-  <VideoWrapper cinemaMode={cinemaMode}>
-    <Video cinemaMode={cinemaMode}>
-      {showVideo || cinemaMode ? (
-        <Iframe
-          videoId={link}
-          id={`a-${link} do-not-delete-this-hack`}
-          onReady={e => e.target.playVideo()}
-          onEnd={onEnd}
-          cinemaMode={cinemaMode}
-          opts={{
-            width: '100%'
-          }}
-        />
-      ) : (
-        <Image cinemaMode={cinemaMode}>
-          <Play onClick={onClick} aria-label="Play Video" />
-          <Thumbnail
-            cinemaMode={cinemaMode}
-            src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
-            alt={name}
-          />
-        </Image>
-      )}
-      <Favorite id={id} />
-      <Watched id={id} />
-    </Video>
-  </VideoWrapper>
+const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
+    <VideoWrapper key={id} cinemaMode={cinemaMode}>
+        <Video cinemaMode={cinemaMode}>
+            {showVideo || cinemaMode ? (
+                <Iframe
+                    videoId={link}
+                    id={`a-${link} do-not-delete-this-hack`}
+                    onReady={e => e.target.playVideo()}
+                    onEnd={onEnd}
+                    cinemaMode={cinemaMode}
+                    opts={{
+                        width: '100%'
+                    }}
+                />
+            ) : (
+                <Image cinemaMode={cinemaMode}>
+                    <Play onClick={onClick} aria-label="Play Video" />
+                    <Thumbnail
+                        cinemaMode={cinemaMode}
+                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                        alt={name}
+                    />
+                </Image>
+            )}
+            <Favorite id={id} />
+            <Watched id={id} />
+        </Video>
+    </VideoWrapper>
 )
+
+export default props =>
+    props.cinemaMode ? (
+        <Player {...props} />
+    ) : (
+        <Card style={{ padding: 0 }}>
+            <Player {...props} />
+        </Card>
+    )

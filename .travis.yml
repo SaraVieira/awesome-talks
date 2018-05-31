@@ -5,3 +5,5 @@ cache:
   yarn: true
 node_js:
   - 9
+after_success:
+  - npx now-cd

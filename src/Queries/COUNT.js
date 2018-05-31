@@ -1,9 +1,11 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 export default gql`
-  {
-    _allVideosesMeta {
-      count
+    query allVideos($search: String) {
+        _allVideosesMeta(
+            filter: { isPublished: true, name_contains: $search }
+        ) {
+            count
+        }
     }
-  }
 `

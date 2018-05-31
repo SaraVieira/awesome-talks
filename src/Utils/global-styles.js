@@ -6,7 +6,7 @@ injectGlobal`
   body {
     margin: 0;
     padding: 0;
-    font-family: Montserrat;
+    font-family: Montserrat, Arial, sans-serif;
     font-size: ${remcalc(14)};
     color: #666;
     letter-spacing: ${remcalc(0.11)};

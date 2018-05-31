@@ -1,7 +1,7 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 export default gql`
-  mutation addFavorite($id: String!) {
-    addFavorite(id: $id) @client
-  }
+    mutation addFavorite($id: String!) {
+        addFavorite(id: $id) @client
+    }
 `
