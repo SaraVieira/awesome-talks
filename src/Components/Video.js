@@ -1,11 +1,7 @@
 import styled from 'styled-components'
-
-import { Component } from 'preact'
-
+import React, { Component } from 'react'
 import Flex from 'styled-flex-component'
-import { Link } from 'preact-router/match'
-
-import LazyLoad from 'react-lazyload'
+import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
 
 import Tag from './Styling/Tag'
@@ -14,148 +10,129 @@ import CinemaMode from './CinemaMode'
 import { getDuration } from './../Utils/youtube'
 
 const Speaker = styled.p`
-  padding-left: ${remcalc(20)};
-  a {
-    min-width: ${remcalc(50)};
-    display: block;
-    padding: ${remcalc(5)};
-    text-align: center;
+    padding-left: ${remcalc(20)};
+    a {
+        min-width: ${remcalc(50)};
+        display: block;
+        padding: ${remcalc(5)};
+        text-align: center;
 
-    &:after {
-      left: 0;
+        &:after {
+            left: 0;
+        }
     }
-  }
 `
 
 const Name = styled.h2`
-  font-weight: 600;
-  font-size: ${remcalc(18)};
-  color: ${props => props.theme.black};
+    font-size: 400;
+    font-size: ${remcalc(22)};
+    color: ${props => props.theme.black};
+    letter-spacing: ${remcalc(-0.63)};
 `
 
 const Description = styled.p`
-  opacity: 0.8;
-  font-family: Montserrat-Light;
-  font-size: ${remcalc(14)};
-  color: ${props => props.theme.black};
-  letter-spacing: ${remcalc(0.11)};
-  line-height: ${remcalc(21)};
+    opacity: 0.8;
+    font-family: Montserrat-Light;
+    font-size: ${remcalc(14)};
+    color: ${props => props.theme.black};
+    letter-spacing: ${remcalc(0.11)};
+    line-height: ${remcalc(21)};
 `
 
 const Duration = styled.span`
-  margin-bottom: ${remcalc(10)};
-  display: block;
-  margin-top: ${remcalc(-5)};
-  opacity: 0.8;
-  font-weight: 500;
-  color: ${props => props.theme.darkGrey};
+    margin-bottom: ${remcalc(10)};
+    display: block;
+    margin-top: ${remcalc(-5)};
+    opacity: 0.8;
+    font-weight: 500;
+    color: ${props => props.theme.darkGrey};
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
-  `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
+    `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export class SimpleVideo extends Component {
-  state = { showVideo: false, duration: null }
+    state = { showVideo: false, duration: null }
 
-  showVideo = () => {
-    this.setState(({ showVideo }) => ({ showVideo: true }))
-  }
+    showVideo = () => this.setState(({ showVideo }) => ({ showVideo: true }))
 
-  endVideo = id => {
-    this.props.addWatched(id)
-    this.setState(({ showVideo }) => ({ showVideo: false }))
-  }
+    endVideo = id => {
+        this.props.addWatched(id)
+        this.setState(({ showVideo }) => ({ showVideo: false }))
+    }
 
-  componentDidMount = async () => {
-    const duration = await getDuration(this.props.link)
+    componentDidMount = async () => {
+        const duration = await getDuration(this.props.link)
 
-    this.setState({ duration })
-  }
+        this.setState({ duration })
+    }
 
-  videoTitle = name => {
-    if (name.length > 40) return `${name.substring(0, 40)}...`
-    return name
-  }
+    videoTitle = name =>
+        name.length > 40 ? `${name.substring(0, 40)}...` : name
 
-  render = (
-    {
-      speaker,
-      description,
-      link,
-      name,
-      tags,
-      id,
-      removeFavorite,
-      addFavorite,
-      removeWatched,
-      addWatched,
-      cinemaMode,
-      showCinemaVideo
-    },
-    { showVideo }
-  ) => {
-    return (
-      <span>
-        <Player
-          showVideo={showVideo || showCinemaVideo}
-          cinemaMode={cinemaMode}
-          id={id}
-          onClick={this.showVideo}
-          link={link}
-          name={name}
-          onEnd={() => this.endVideo(id)}
-        />
-        <Flex justifyBetween alignCenter>
-          <Name title={name}>{this.videoTitle(name)}</Name>
-          <Speaker>
-            {speaker.map(s => (
-              <Link
-                key={s.id}
-                activeClassName="active"
-                href={makeLink('speaker', s.name)}
-              >
-                <span>{s.name}</span>
-              </Link>
-            ))}
-          </Speaker>
-        </Flex>
-        <Flex>
-          {tags.map(s => (
-            <Tag
-              key={s.id}
-              activeClassName="active"
-              href={makeLink('category', s.name)}
-            >
-              #{s.name.toLowerCase()}
-            </Tag>
-          ))}
-        </Flex>
-        <Duration>{this.state.duration}</Duration>
-        {cinemaMode && description ? (
-          <Description>{description}</Description>
-        ) : null}
-      </span>
-    )
-  }
+    render = () => {
+        const {
+            speaker,
+            description,
+            link,
+            name,
+            tags,
+            id,
+            cinemaMode,
+            showCinemaVideo
+        } = this.props
+
+        const { showVideo } = this.state
+        return (
+            <span>
+                <Player
+                    showVideo={showVideo || showCinemaVideo}
+                    id={id}
+                    onClick={this.showVideo}
+                    link={link}
+                    name={name}
+                    onEnd={() => this.endVideo(id)}
+                />
+                <Flex justifyBetween alignCenter>
+                    <Name title={name}>{this.videoTitle(name)}</Name>
+                    <Speaker>
+                        {speaker.map(s => (
+                            <Link key={s.id} to={makeLink('speaker', s.name)}>
+                                <span>{s.name}</span>
+                            </Link>
+                        ))}
+                    </Speaker>
+                </Flex>
+                <Flex>
+                    {tags.map(s => (
+                        <Tag key={s.id} to={makeLink('category', s.name)}>
+                            #{s.name.toLowerCase()}
+                        </Tag>
+                    ))}
+                </Flex>
+                {this.state.duration ? (
+                    <Duration>{this.state.duration}</Duration>
+                ) : null}
+                {cinemaMode && description ? (
+                    <Description>{description}</Description>
+                ) : null}
+            </span>
+        )
+    }
 }
 
 const VideoWrapper = props => (
-  <CinemaMode
-    render={(cinemaMode, showCinemaVideo) => (
-      <SimpleVideo
-        {...props}
-        cinemaMode={cinemaMode}
-        showCinemaVideo={showCinemaVideo}
-      />
-    )}
-  />
+    <CinemaMode
+        render={(cinemaMode, showCinemaVideo) => (
+            <SimpleVideo
+                {...props}
+                cinemaMode={cinemaMode}
+                showCinemaVideo={showCinemaVideo}
+            />
+        )}
+    />
 )
 
-export default ({ noLazy = false, talk }) =>
-  noLazy ? (
-    <VideoWrapper {...talk} />
-  ) : (
-    <LazyLoad height={310}>
-      <VideoWrapper {...talk} />
-    </LazyLoad>
-  )
+export default ({ noLazy = false, talk }) => (
+    <VideoWrapper key={talk.id} {...talk} />
+)

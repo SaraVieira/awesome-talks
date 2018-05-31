@@ -1,4 +1,4 @@
-import { Link } from 'preact-router/match'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import remcalc from 'remcalc'
 

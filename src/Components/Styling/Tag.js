@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Link } from 'preact-router/match'
+import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
 
 export default styled(Link)`
