@@ -15,6 +15,8 @@ import Input from './Styling/Input'
 import CREATE_VIDEO from '../Queries/ADD_VIDEO'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
 
+import linkParser from '../Utils/link-parser'
+
 const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -102,7 +104,11 @@ class Navigation extends Component {
 
   submit = async (e, createVideos, values, setSubmitting, handleReset) => {
     e.preventDefault()
-    await createVideos({ variables: { ...values } })
+    const valuesToBeSaved = {
+      ...values,
+      link: linkParser(values.link)
+    }
+    await createVideos({ variables: { ...valuesToBeSaved } })
     setSubmitting(false)
     handleReset()
     this.setState({ submitted: true }, () => {
