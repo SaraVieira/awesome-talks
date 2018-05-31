@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import YouTube from 'react-youtube'
 import is, { isNot } from 'styled-is'
 import remcalc from 'remcalc'
+import Card from 'card-vibes'
 
 import Favorite from './Favorite'
 import Play from './Styling/Play'
@@ -67,31 +68,33 @@ const Image = styled.div`
 `
 
 export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-    <VideoWrapper key={id} cinemaMode={cinemaMode}>
-        <Video cinemaMode={cinemaMode}>
-            {showVideo || cinemaMode ? (
-                <Iframe
-                    videoId={link}
-                    id={`a-${link} do-not-delete-this-hack`}
-                    onReady={e => e.target.playVideo()}
-                    onEnd={onEnd}
-                    cinemaMode={cinemaMode}
-                    opts={{
-                        width: '100%'
-                    }}
-                />
-            ) : (
-                <Image cinemaMode={cinemaMode}>
-                    <Play onClick={onClick} aria-label="Play Video" />
-                    <Thumbnail
+    <Card style={{ padding: 0 }}>
+        <VideoWrapper key={id} cinemaMode={cinemaMode}>
+            <Video cinemaMode={cinemaMode}>
+                {showVideo || cinemaMode ? (
+                    <Iframe
+                        videoId={link}
+                        id={`a-${link} do-not-delete-this-hack`}
+                        onReady={e => e.target.playVideo()}
+                        onEnd={onEnd}
                         cinemaMode={cinemaMode}
-                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
-                        alt={name}
+                        opts={{
+                            width: '100%'
+                        }}
                     />
-                </Image>
-            )}
-            <Favorite id={id} />
-            <Watched id={id} />
-        </Video>
-    </VideoWrapper>
+                ) : (
+                    <Image cinemaMode={cinemaMode}>
+                        <Play onClick={onClick} aria-label="Play Video" />
+                        <Thumbnail
+                            cinemaMode={cinemaMode}
+                            src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                            alt={name}
+                        />
+                    </Image>
+                )}
+                <Favorite id={id} />
+                <Watched id={id} />
+            </Video>
+        </VideoWrapper>
+    </Card>
 )
