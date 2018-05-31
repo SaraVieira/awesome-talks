@@ -1,14 +1,16 @@
+import debounce from 'lodash.debounce'
 import React, { Component } from 'react'
 import { Query, withApollo } from 'react-apollo'
 import remcalc from 'remcalc'
 import styled from 'styled-components'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
-const Form = styled.form`
+const Wrapper = styled.div`
     display: flex;
     width: ${remcalc(300)};
     position: relative;
     transition: all 0.25s ease-in-out;
+
     @media (min-width: ${remcalc(769)}) {
         &.expanded {
             margin-left: -100%;
@@ -40,6 +42,7 @@ const Input = styled.input`
     font-size: ${remcalc(34)};
     font-weight: 300;
     outline: none;
+
     @media (max-width: ${remcalc(768)}) {
         font-size: ${remcalc(20)};
     }
@@ -60,55 +63,47 @@ class Search extends Component {
         this.setState({ focused: false })
     }
 
-    onSubmit = e => {
-        e.preventDefault()
-
+    onChange = debounce(() => {
         this.props.client.writeData({
             data: { [this.props.keyName]: this.input.value }
         })
-    }
+    }, 200)
 
     render() {
         const { keyName, query } = this.props
+
         return (
             <Query query={query}>
                 {({ data, client }) => (
-                    <Form
+                    <Wrapper
                         className={`${
                             this.state.focused || data[keyName].length
                                 ? 'expanded'
                                 : ''
                         }`}
-                        onSubmit={this.onSubmit}
                     >
                         <SearchIcon icon="search" size="lg" />
                         {data[keyName].length > 0 && (
                             <CloseIcon
                                 icon="times"
                                 size="lg"
-                                onClick={() =>
+                                onClick={() => {
+                                    this.input.value = ''
                                     client.writeData({
                                         data: { [keyName]: '' }
                                     })
-                                }
+                                }}
                             />
                         )}
                         <Input
                             innerRef={node => (this.input = node)}
                             onBlur={this.onBlur}
+                            onChange={this.onChange}
                             onFocus={this.onFocus}
-                            onChange={() =>
-                                client.writeData({
-                                    data: {
-                                        [keyName]: this.input.value
-                                    }
-                                })
-                            }
                             placeholder="Search"
                             type="text"
-                            value={data[[keyName]]}
                         />
-                    </Form>
+                    </Wrapper>
                 )}
             </Query>
         )

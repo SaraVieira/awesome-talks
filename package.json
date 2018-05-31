@@ -21,6 +21,7 @@
         "graphql-tag": "^2.9.2",
         "history": "^4.7.2",
         "isomorphic-fetch": "^2.2.1",
+        "lodash.debounce": "4.0.8",
         "random-id": "^0.0.2",
         "razzle": "^2.0.0-alpha.12",
         "react": "^16.4.0",
