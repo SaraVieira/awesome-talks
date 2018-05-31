@@ -4,8 +4,6 @@ import remcalc from 'remcalc'
 import styled from 'styled-components'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
-import GET_SEARCH from '../Queries/GET_SEARCH'
-
 const Form = styled.form`
     display: flex;
     width: ${remcalc(300)};
@@ -37,9 +35,9 @@ const CloseIcon = Icon.extend`
 const Input = styled.input`
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    padding: ${remcalc(20)} ${remcalc(20)} ${remcalc(20)} ${remcalc(58)};
+    padding: ${remcalc(30)} ${remcalc(30)} ${remcalc(30)} ${remcalc(58)};
     width: 100%;
-    font-size: ${remcalc(32)};
+    font-size: ${remcalc(34)};
     font-weight: 300;
     outline: none;
     @media (max-width: ${remcalc(768)}) {
@@ -65,28 +63,33 @@ class Search extends Component {
     onSubmit = e => {
         e.preventDefault()
 
-        this.props.client.writeData({ data: { search: this.input.value } })
+        this.props.client.writeData({
+            data: { [this.props.keyName]: this.input.value }
+        })
     }
 
     render() {
+        const { keyName, query } = this.props
         return (
-            <Query query={GET_SEARCH}>
-                {({ data: { search }, client }) => (
+            <Query query={query}>
+                {({ data, client }) => (
                     <Form
                         className={`${
-                            this.state.focused || search.length
+                            this.state.focused || data[keyName].length
                                 ? 'expanded'
                                 : ''
                         }`}
                         onSubmit={this.onSubmit}
                     >
                         <SearchIcon icon="search" size="lg" />
-                        {search.length > 0 && (
+                        {data[keyName].length > 0 && (
                             <CloseIcon
                                 icon="times"
                                 size="lg"
                                 onClick={() =>
-                                    client.writeData({ data: { search: '' } })
+                                    client.writeData({
+                                        data: { [keyName]: '' }
+                                    })
                                 }
                             />
                         )}
@@ -96,12 +99,14 @@ class Search extends Component {
                             onFocus={this.onFocus}
                             onChange={() =>
                                 client.writeData({
-                                    data: { search: this.input.value }
+                                    data: {
+                                        [keyName]: this.input.value
+                                    }
                                 })
                             }
                             placeholder="Search"
                             type="text"
-                            value={search}
+                            value={data[[keyName]]}
                         />
                     </Form>
                 )}

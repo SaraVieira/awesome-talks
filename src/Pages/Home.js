@@ -27,7 +27,7 @@ export default () => (
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
         <Nav />
-        <Header />
+        <Header query={GET_SEARCH} keyName="search" />
         <Query query={GET_SEARCH}>
             {({ data: { search }, client }) => <Talks search={search} />}
         </Query>

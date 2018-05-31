@@ -11,7 +11,8 @@ const defaultState = {
     favorites: getStorage(FAV_KEY),
     watched: getStorage(WATCHED_KEY),
     hideViewed: false,
-    search: ''
+    search: '',
+    searchSpeakers: ''
 }
 
 const cache = new InMemoryCache()

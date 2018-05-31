@@ -137,12 +137,19 @@ const Wrapper = styled(Row)`
   `};
 `
 
-const Header = ({ title = 'Talks', noSearch, small, onSearch, match }) => (
+const Header = ({
+    title = 'Talks',
+    noSearch,
+    small,
+    match,
+    keyName,
+    query
+}) => (
     <Wrapper small={small}>
         <Col xs={12}>
             <SearchWrapper full alignCenter justifyBetween>
                 <Title small={small}>{title}</Title>
-                {noSearch ? null : <Search onChange={onSearch} />}
+                {noSearch ? null : <Search keyName={keyName} query={query} />}
             </SearchWrapper>
             {match.path === '/' ? (
                 <Query query={SHOW_VIEWED}>
