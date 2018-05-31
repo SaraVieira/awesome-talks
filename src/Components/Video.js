@@ -11,6 +11,7 @@ import remcalc from 'remcalc'
 import Tag from './Styling/Tag'
 import Player from './Player'
 import CinemaMode from './CinemaMode'
+import { getDuration } from './../Utils/youtube'
 
 const Speaker = styled.p`
   padding-left: ${remcalc(20)};
@@ -41,23 +42,34 @@ const Description = styled.p`
   line-height: ${remcalc(21)};
 `
 
+const Duration = styled.span`
+  margin-bottom: ${remcalc(10)};
+  display: block;
+  margin-top: ${remcalc(-5)};
+  opacity: 0.8;
+  font-weight: 500;
+  color: ${props => props.theme.darkGrey};
+`
+
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
   `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export class SimpleVideo extends Component {
-  state = { showVideo: false }
+  state = { showVideo: false, duration: null }
 
   showVideo = () => {
-    this.setState(({ showVideo }) => ({
-      showVideo: true
-    }))
+    this.setState(({ showVideo }) => ({ showVideo: true }))
   }
 
   endVideo = id => {
     this.props.addWatched(id)
-    this.setState(({ showVideo }) => ({
-      showVideo: false
-    }))
+    this.setState(({ showVideo }) => ({ showVideo: false }))
+  }
+
+  componentDidMount = async () => {
+    const duration = await getDuration(this.props.link)
+
+    this.setState({ duration })
   }
 
   videoTitle = name => {
@@ -118,6 +130,7 @@ export class SimpleVideo extends Component {
             </Tag>
           ))}
         </Flex>
+        <Duration>{this.state.duration}</Duration>
         {cinemaMode && description ? (
           <Description>{description}</Description>
         ) : null}
