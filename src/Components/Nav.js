@@ -116,7 +116,7 @@ class Navigation extends Component {
                 this.setState({
                     submitted: false
                 })
-            })
+            }, 3000)
         })
     }
 
