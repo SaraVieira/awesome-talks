@@ -27,9 +27,8 @@ export const getDuration = async id => {
   var date = new Date(null)
   date.setSeconds(duration)
   if (duration > 3600) {
-    console.log(format(date, 'H[ hour][ and ]m[ minutes]'))
-    return format(date, 'H[ hour][ and ]m[ minutes]')
+    return format(date, 'H[h][ ]m[m]')
   }
 
-  return format(date, 'm[ minutes]')
+  return format(date, 'm[m]')
 }

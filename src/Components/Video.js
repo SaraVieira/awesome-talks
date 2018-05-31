@@ -43,9 +43,12 @@ const Description = styled.p`
 `
 
 const Duration = styled.span`
-  margin-bottom: 10px;
+  margin-bottom: ${remcalc(10)};
   display: block;
-  margin-top: -5px;
+  margin-top: ${remcalc(-5)};
+  opacity: 0.8;
+  font-weight: 500;
+  color: ${props => props.theme.darkGrey};
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
@@ -127,9 +130,7 @@ export class SimpleVideo extends Component {
             </Tag>
           ))}
         </Flex>
-        <Duration>
-          <b>Duration:</b> {this.state.duration}
-        </Duration>
+        <Duration>{this.state.duration}</Duration>
         {cinemaMode && description ? (
           <Description>{description}</Description>
         ) : null}
