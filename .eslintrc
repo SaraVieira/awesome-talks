@@ -2,7 +2,7 @@
     "parser": "babel-eslint",
     "extends": ["standard", "plugin:react/recommended"],
     "rules": {
-        "indent": ["error", 4],
+        "indent": ["warning", 4],
         "react/react-in-jsx-scope": 0,
         "react/prop-types": 0,
         "react/display-name": 0,
