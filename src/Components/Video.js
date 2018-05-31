@@ -86,6 +86,7 @@ export class SimpleVideo extends Component {
         return (
             <span>
                 <Player
+                    cinemaMode={cinemaMode}
                     showVideo={showVideo || showCinemaVideo}
                     id={id}
                     onClick={this.showVideo}

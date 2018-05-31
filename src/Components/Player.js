@@ -67,34 +67,41 @@ const Image = styled.div`
   `};
 `
 
-export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
-    <Card style={{ padding: 0 }}>
-        <VideoWrapper key={id} cinemaMode={cinemaMode}>
-            <Video cinemaMode={cinemaMode}>
-                {showVideo || cinemaMode ? (
-                    <Iframe
-                        videoId={link}
-                        id={`a-${link} do-not-delete-this-hack`}
-                        onReady={e => e.target.playVideo()}
-                        onEnd={onEnd}
+const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
+    <VideoWrapper key={id} cinemaMode={cinemaMode}>
+        <Video cinemaMode={cinemaMode}>
+            {showVideo || cinemaMode ? (
+                <Iframe
+                    videoId={link}
+                    id={`a-${link} do-not-delete-this-hack`}
+                    onReady={e => e.target.playVideo()}
+                    onEnd={onEnd}
+                    cinemaMode={cinemaMode}
+                    opts={{
+                        width: '100%'
+                    }}
+                />
+            ) : (
+                <Image cinemaMode={cinemaMode}>
+                    <Play onClick={onClick} aria-label="Play Video" />
+                    <Thumbnail
                         cinemaMode={cinemaMode}
-                        opts={{
-                            width: '100%'
-                        }}
+                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                        alt={name}
                     />
-                ) : (
-                    <Image cinemaMode={cinemaMode}>
-                        <Play onClick={onClick} aria-label="Play Video" />
-                        <Thumbnail
-                            cinemaMode={cinemaMode}
-                            src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
-                            alt={name}
-                        />
-                    </Image>
-                )}
-                <Favorite id={id} />
-                <Watched id={id} />
-            </Video>
-        </VideoWrapper>
-    </Card>
+                </Image>
+            )}
+            <Favorite id={id} />
+            <Watched id={id} />
+        </Video>
+    </VideoWrapper>
 )
+
+export default props =>
+    props.cinemaMode ? (
+        <Player {...props} />
+    ) : (
+        <Card style={{ padding: 0 }}>
+            <Player {...props} />
+        </Card>
+    )
