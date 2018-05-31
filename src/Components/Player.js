@@ -67,7 +67,7 @@ const Image = styled.div`
   `};
 `
 
-const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
+export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
     <VideoWrapper key={id} cinemaMode={cinemaMode}>
         <Video cinemaMode={cinemaMode}>
             {showVideo || cinemaMode ? (
@@ -84,11 +84,13 @@ const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
             ) : (
                 <Image cinemaMode={cinemaMode}>
                     <Play onClick={onClick} aria-label="Play Video" />
-                    <Thumbnail
-                        cinemaMode={cinemaMode}
-                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
-                        alt={name}
-                    />
+                    <Card style={{ padding: 0 }}>
+                        <Thumbnail
+                            cinemaMode={cinemaMode}
+                            src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                            alt={name}
+                        />
+                    </Card>
                 </Image>
             )}
             <Favorite id={id} />
@@ -96,12 +98,3 @@ const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
         </Video>
     </VideoWrapper>
 )
-
-export default props =>
-    props.cinemaMode ? (
-        <Player {...props} />
-    ) : (
-        <Card style={{ padding: 0 }}>
-            <Player {...props} />
-        </Card>
-    )
