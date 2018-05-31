@@ -69,16 +69,18 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
   <VideoWrapper cinemaMode={cinemaMode}>
     <Video cinemaMode={cinemaMode}>
       {showVideo || cinemaMode ? (
-        <Iframe
-          videoId={link}
-          id={`a-${link} do-not-delete-this-hack`}
-          onReady={e => e.target.playVideo()}
-          onEnd={onEnd}
-          cinemaMode={cinemaMode}
-          opts={{
-            width: '100%'
-          }}
-        />
+        <div>
+          <Iframe
+            videoId={link}
+            id={`a-${link} do-not-delete-this-hack`}
+            onReady={e => e.target.playVideo()}
+            onEnd={onEnd}
+            cinemaMode={cinemaMode}
+            opts={{
+              width: '100%'
+            }}
+          />
+        </div>
       ) : (
         <Image cinemaMode={cinemaMode}>
           <Play onClick={onClick} aria-label="Play Video" />
