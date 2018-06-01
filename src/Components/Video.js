@@ -4,10 +4,10 @@ import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
 
-import Tag from '../Styling/Tag'
-import Player from '../Player'
-import CinemaMode from '../CinemaMode'
-import { getDuration } from './../../Utils/youtube'
+import Tag from './Styling/Tag'
+import Player from './Player'
+import CinemaMode from './CinemaMode'
+import { getDuration } from './../Utils/youtube'
 
 const Speaker = styled.p`
     padding-left: ${remcalc(20)};
@@ -79,8 +79,7 @@ export class SimpleVideo extends Component {
             tags,
             id,
             cinemaMode,
-            showCinemaVideo,
-            Player
+            showCinemaVideo
         } = this.props
 
         const { showVideo } = this.state
@@ -130,7 +129,6 @@ const VideoWrapper = props => (
                 {...props}
                 cinemaMode={cinemaMode}
                 showCinemaVideo={showCinemaVideo}
-                Player={Player}
             />
         )}
     />
