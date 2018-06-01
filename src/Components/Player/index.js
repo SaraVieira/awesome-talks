@@ -109,4 +109,6 @@ export const Player = ({
     </VideoWrapper>
 )
 
-export default props => <Player Favorite={Favorite} Watched={Watched} />
+export default props => (
+    <Player Favorite={Favorite} Watched={Watched} {...props} />
+)
