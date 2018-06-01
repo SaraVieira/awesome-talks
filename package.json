@@ -3,12 +3,9 @@
     "description": "Awesome Talks",
     "license": "MIT",
     "version": "0.0.1",
-<<<<<<< HEAD
     "engines": {
         "node": "^9.0.0"
     },
-=======
->>>>>>> e77077ae28210f6c5cd3bbdc3345b68f9788d213
     "dependencies": {
         "@fortawesome/fontawesome": "1.1.8",
         "@fortawesome/fontawesome-free-solid": "5.0.13",
