@@ -78,7 +78,13 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
                     onEnd={onEnd}
                     cinemaMode={cinemaMode}
                     opts={{
-                        width: '100%'
+                        width: '100%',
+                        host: 'https://www.youtube-nocookie.com',
+                        playerVars: {
+                            rel: 0,
+                            showinfo: 0,
+                            controls: 0,
+                        }
                     }}
                 />
             ) : (
