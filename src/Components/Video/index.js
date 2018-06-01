@@ -24,10 +24,11 @@ const Speaker = styled.p`
 `
 
 const Name = styled.h2`
-    font-size: 400;
-    font-size: ${remcalc(22)};
+    font-size: 300;
+    font-size: ${remcalc(20)};
     color: ${props => props.theme.black};
-    letter-spacing: ${remcalc(-0.63)};
+    line-height: ${remcalc(25)};
+    letter-spacing: ${remcalc(-0.01)};
 `
 
 const Description = styled.p`

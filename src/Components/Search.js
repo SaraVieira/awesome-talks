@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     display: flex;
     width: ${remcalc(300)};
     position: relative;
-    transition: all 0.25s ease-in-out;
+    transition: all 0.35s ease-in-out;
 
     @media (min-width: ${remcalc(769)}) {
         &.expanded {
