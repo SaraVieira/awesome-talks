@@ -77,24 +77,26 @@ class Search extends Component {
                 {({ data, client }) => (
                     <Wrapper
                         className={`${
-                            this.state.focused || data[keyName].length
+                            this.state.focused ||
+                            (data[keyName] && data[keyName].length)
                                 ? 'expanded'
                                 : ''
                         }`}
                     >
                         <SearchIcon icon="search" size="lg" />
-                        {data[keyName].length > 0 && (
-                            <CloseIcon
-                                icon="times"
-                                size="lg"
-                                onClick={() => {
-                                    this.input.value = ''
-                                    client.writeData({
-                                        data: { [keyName]: '' }
-                                    })
-                                }}
-                            />
-                        )}
+                        {data[keyName] &&
+                            data[keyName].length && (
+                                <CloseIcon
+                                    icon="times"
+                                    size="lg"
+                                    onClick={() => {
+                                        this.input.value = ''
+                                        client.writeData({
+                                            data: { [keyName]: '' }
+                                        })
+                                    }}
+                                />
+                            )}
                         <Input
                             innerRef={node => (this.input = node)}
                             onBlur={this.onBlur}

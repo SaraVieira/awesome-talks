@@ -62,6 +62,15 @@ server
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="twitter:card" content="summary">
         <meta name="twitter:site" content="@NikkitaFTW">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37411302-9"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-37411302-9');
+        </script>
         ${
     assets.client.css
         ? `<link rel="stylesheet" href="${assets.client.css}">`
