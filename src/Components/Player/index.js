@@ -5,9 +5,9 @@ import is, { isNot } from 'styled-is'
 import remcalc from 'remcalc'
 import Card from 'card-vibes'
 
-import Favorite from './Favorite'
-import Play from './Styling/Play'
-import Watched from './Watched'
+import Favorite from '../Favorite'
+import Play from '../Styling/Play'
+import Watched from '../Watched'
 
 const Video = styled.div``
 
@@ -67,7 +67,17 @@ const Image = styled.div`
   `};
 `
 
-export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
+export const Player = ({
+    cinemaMode,
+    id,
+    link,
+    showVideo,
+    name,
+    onClick,
+    onEnd,
+    Favorite,
+    Watched
+}) => (
     <VideoWrapper key={id} cinemaMode={cinemaMode}>
         <Video cinemaMode={cinemaMode}>
             {showVideo || cinemaMode ? (
@@ -82,8 +92,7 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
                         host: 'https://www.youtube-nocookie.com',
                         playerVars: {
                             rel: 0,
-                            showinfo: 0,
-                            controls: 0,
+                            showinfo: 0
                         }
                     }}
                 />
@@ -103,4 +112,8 @@ export default ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
             <Watched id={id} />
         </Video>
     </VideoWrapper>
+)
+
+export default props => (
+    <Player Favorite={Favorite} Watched={Watched} {...props} />
 )
