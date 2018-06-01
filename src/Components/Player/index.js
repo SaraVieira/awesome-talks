@@ -89,6 +89,12 @@ export const Player = ({
                     cinemaMode={cinemaMode}
                     opts={{
                         width: '100%'
+                        host: 'https://www.youtube-nocookie.com',
++                       playerVars: {
++                            rel: 0,
++                            showinfo: 0,
++                            controls: 0,
++                        }
                     }}
                 />
             ) : (
