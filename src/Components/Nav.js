@@ -78,7 +78,7 @@ injectGlobal`
 
 const Name = styled.h2`
     font-size: 400;
-    font-size: ${remcalc(22)};
+    font-size: ${remcalc(18)};
     color: ${props => props.theme.black};
     letter-spacing: ${remcalc(-0.63)};
 `
@@ -91,7 +91,8 @@ const Wrapper = styled.div`
 class Navigation extends Component {
     state = {
         modalIsOpen: false,
-        submitted: false
+        submitted: false,
+        submitError: false
     }
 
     openModal = () => {
@@ -104,10 +105,47 @@ class Navigation extends Component {
 
     submit = async (e, createVideos, values, setSubmitting, handleReset) => {
         e.preventDefault()
+
+        let error = false
+        let link = false
+
+        if (values.name.trim() === '' || values.link.trim() === '') {
+            this.setState({
+                submitError: 'You must fill in all of the fields'
+            })
+            error = true
+        } else {
+            link = linkParser(values.link)
+
+            if (!link) {
+                this.setState({
+                    submitError: 'Oops! invalid video ID'
+                })
+                error = true
+            }
+        }
+
+        if (error) {
+            handleReset()
+            setTimeout(() => {
+                this.setState({
+                    submitError: false
+                })
+            }, 3000)
+
+            return
+        }
+
+        // remove multiple spaces from name
+        values.name = String(values.name)
+            .replace(/\s{2,}/gu, ' ')
+            .trim()
+
         const valuesToBeSaved = {
             ...values,
-            link: linkParser(values.link)
+            link
         }
+
         await createVideos({ variables: { ...valuesToBeSaved } })
         setSubmitting(false)
         handleReset()
@@ -217,6 +255,19 @@ class Navigation extends Component {
                                                             >
                                                                 🎉
                                                             </span>
+                                                        </Name>
+                                                    ) : null}
+
+                                                    {this.state.submitError ? (
+                                                        <Name
+                                                            style={{
+                                                                color: '#e64c4c'
+                                                            }}
+                                                        >
+                                                            {
+                                                                this.state
+                                                                    .submitError
+                                                            }
                                                         </Name>
                                                     ) : null}
                                                     <Wrapper>
