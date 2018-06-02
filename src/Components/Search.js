@@ -63,6 +63,16 @@ class Search extends Component {
         this.setState({ focused: false })
     }
 
+    handleKeyDown = event => {
+        if (event.keyCode === 27) {
+            this.input.value = ''
+            this.props.client.writeData({
+                data: { [this.props.keyName]: '' }
+            })
+            this.input.blur()
+        }
+    }
+
     onChange = debounce(() => {
         this.props.client.writeData({
             data: { [this.props.keyName]: this.input.value }
@@ -102,6 +112,7 @@ class Search extends Component {
                             onBlur={this.onBlur}
                             onChange={this.onChange}
                             onFocus={this.onFocus}
+                            onKeyDown={this.handleKeyDown}
                             placeholder="Search"
                             type="text"
                         />
