@@ -24,7 +24,7 @@ injectGlobal`
     padding-bottom: ${remcalc(2)};
     border-bottom: ${remcalc(2)} solid #337294;
     position: relative;
-    padding: ${remcalc(5)};
+    padding: 7px 14px;
     opacity: 0.8;
     font-wheight: 300;
     letter-spacing: ${remcalc(0.09)};
@@ -48,8 +48,15 @@ injectGlobal`
       z-index: 10;
     }
 
+    &.active_nav{
+
+        &:hover{
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,.12), 0 2px 4px 0 rgba(0,0,0,.08);
+        }
+    }
+
     @media (pointer: fine) {
-      &:after {
+     &:after {
         transition: height 200ms ease;
         content: '';
         width: 100%;
@@ -61,7 +68,7 @@ injectGlobal`
         z-index: 0;
       }
 
-      &:hover {
+      &.active_nav, &:hover {
         color: white;
 
         &:after {

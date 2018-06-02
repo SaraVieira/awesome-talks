@@ -206,7 +206,10 @@ class Navigation extends Component {
                                     </a>
                                 </Item>
                                 <Item>
-                                    <a onClick={this.openModal}>
+                                    <a
+                                        className="active_nav"
+                                        onClick={this.openModal}
+                                    >
                                         <span>Add a Talk</span>
                                     </a>
                                     <Modal
