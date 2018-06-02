@@ -83,6 +83,15 @@ const Name = styled.h2`
     letter-spacing: ${remcalc(-0.63)};
 `
 
+const ErrorEl = styled.strong`
+    font-weight: 400;
+    display: block;
+    margin-bottom: ${remcalc(15)};
+    font-size: ${remcalc(18)};
+    color: ${props => props.theme.red};
+    letter-spacing: ${remcalc(-0.63)};
+`
+
 const Wrapper = styled.div`
     position: relative;
     margin-bottom: ${remcalc(20)};
@@ -262,16 +271,12 @@ class Navigation extends Component {
                                                     ) : null}
 
                                                     {this.state.submitError ? (
-                                                        <Name
-                                                            style={{
-                                                                color: '#e64c4c'
-                                                            }}
-                                                        >
+                                                        <ErrorEl>
                                                             {
                                                                 this.state
                                                                     .submitError
                                                             }
-                                                        </Name>
+                                                        </ErrorEl>
                                                     ) : null}
                                                     <Wrapper>
                                                         <Input
