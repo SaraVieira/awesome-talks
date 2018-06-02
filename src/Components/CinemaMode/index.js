@@ -57,6 +57,13 @@ export default class CinemaMode extends Component {
         cinemaMode: false,
         showVideo: false
     }
+
+    handleKeyDown = event => {
+        if (event.keyCode === 27) {
+            this.toggleCinemaMode()
+        }
+    }
+
     toggleCinemaMode = () => {
         this.setState(
             ({ cinemaMode }) => ({
@@ -80,6 +87,7 @@ export default class CinemaMode extends Component {
                 md={cinemaMode ? 12 : 4}
                 sm={cinemaMode ? 12 : 6}
                 xs={9}
+                onKeyDown={this.handleKeyDown}
             >
                 <div>
                     {render(cinemaMode, showVideo)}
