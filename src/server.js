@@ -14,6 +14,7 @@ import fontawesome from '@fortawesome/fontawesome'
 import 'isomorphic-fetch'
 import client from './Utils/stateLink'
 import theme from './Utils/theme'
+import feed from './Utils/rss'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
@@ -23,6 +24,16 @@ const context = {}
 server
     .disable('x-powered-by')
     .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+    .get('/feed', async (req, res) => {
+        try {
+            const rss = await feed
+            res.type('application/xml')
+
+            res.send(rss)
+        } catch (e) {
+            console.log(e)
+        }
+    })
     .get('/*', (req, res) => {
         const sheet = new ServerStyleSheet()
         const Root = () => (
