@@ -76,6 +76,7 @@ export const Player = ({
     onClick,
     onEnd,
     Favorite,
+    toggleCinemaMode,
     Watched
 }) => (
     <VideoWrapper key={id} cinemaMode={cinemaMode}>
@@ -101,6 +102,7 @@ export const Player = ({
                     <Play onClick={onClick} aria-label="Play Video" />
                     <Card style={{ padding: 0 }}>
                         <Thumbnail
+                            onClick={toggleCinemaMode}
                             cinemaMode={cinemaMode}
                             src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
                             alt={name}

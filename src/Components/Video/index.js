@@ -81,10 +81,12 @@ export class SimpleVideo extends Component {
             id,
             cinemaMode,
             showCinemaVideo,
-            Player
+            Player,
+            toggleCinemaMode
         } = this.props
 
         const { showVideo } = this.state
+
         return (
             <span>
                 <Player
@@ -94,6 +96,7 @@ export class SimpleVideo extends Component {
                     onClick={this.showVideo}
                     link={link}
                     name={name}
+                    toggleCinemaMode={toggleCinemaMode}
                     onEnd={() => this.endVideo(id)}
                 />
                 <Flex justifyBetween alignCenter>
@@ -126,12 +129,13 @@ export class SimpleVideo extends Component {
 
 const VideoWrapper = props => (
     <CinemaMode
-        render={(cinemaMode, showCinemaVideo) => (
+        render={(cinemaMode, showCinemaVideo, toggleCinemaMode) => (
             <SimpleVideo
                 {...props}
                 cinemaMode={cinemaMode}
                 showCinemaVideo={showCinemaVideo}
                 Player={Player}
+                toggleCinemaMode={toggleCinemaMode}
             />
         )}
     />

@@ -90,7 +90,7 @@ export default class CinemaMode extends Component {
                 onKeyDown={this.handleKeyDown}
             >
                 <div>
-                    {render(cinemaMode, showVideo)}
+                    {render(cinemaMode, showVideo, this.toggleCinemaMode)}
                     <Button
                         name="Toggle Cinema Mode"
                         onClick={this.toggleCinemaMode}
