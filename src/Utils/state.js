@@ -5,7 +5,7 @@ export const FAV_KEY = 'favorites__awesome-talks'
 
 export const getStorage = key => {
     if (typeof window !== 'undefined') {
-        return JSON.parse(localStorage.getItem(FAV_KEY)) || []
+        return JSON.parse(localStorage.getItem(key)) || []
     }
 
     return []

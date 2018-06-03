@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Figure = styled.figure`
-    <<<<<<<HEAD
     position: relative;
     float: left;
     overflow: hidden;
@@ -11,25 +10,12 @@ export const Figure = styled.figure`
     max-height: 220px;
     min-height: 220px;
     width: 100%;
-    background: ${props => props.theme.black};
-    color: ${props => props.theme.white};
-    text-align: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    background: ${props => props.theme.blue};
-    =======position: relative;
-    float: left;
-    overflow: hidden;
-    margin: 10px 1%;
-    min-width: 220px;
-    max-width: 220px;
-    max-height: 220px;
-    width: 100%;
     background: ${props => props.theme.main};
     color: ${props => props.theme.primary};
     text-align: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
     background: ${props => props.theme.blue};
-    >>>>>>>Enable global theming &:hover img {
+    &:hover img {
         opacity: 1;
         transform: scale(1.1);
     }
@@ -47,7 +33,7 @@ export const Figure = styled.figure`
         top: 0;
         left: 0;
         content: '';
-        background: ${props => props.theme.white};
+        background: ${props => props.theme.primary};
         position: absolute;
         transition: all 0.3s ease-in-out;
         transform: rotate(110deg) translateY(-33%) translateX(-7px);
@@ -85,19 +71,7 @@ export const Caption = styled.figcaption`
 `
 
 export const Name = styled.h2`
-    <<<<<<<HEAD
     position: absolute;
-    left: 20px;
-    right: 20px;
-    display: inline-block;
-    background: ${props => props.theme.black};
-    transform: skew(-10deg) rotate(-10deg) translate(0, -50%);
-    padding: 12px 5px;
-    margin: 0;
-    bottom: 0;
-    text-transform: uppercase;
-    font-weight: 400;
-    =======position: absolute;
     left: 20px;
     right: 20px;
     display: inline-block;
@@ -108,7 +82,7 @@ export const Name = styled.h2`
     bottom: 0;
     text-transform: uppercase;
     font-weight: 400;
-    >>>>>>>Enable global theming span {
+    span {
         font-weight: 800;
         display: block;
     }

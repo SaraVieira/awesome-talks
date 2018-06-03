@@ -8,14 +8,17 @@ import 'isomorphic-fetch'
 
 import App from './App'
 import theme from './Utils/theme'
+import Global from './Utils/global-styles'
 import client from './Utils/stateLink'
 
 hydrate(
     <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
-            <Router>
-                <App />
-            </Router>
+            <Global>
+                <Router>
+                    <App />
+                </Router>
+            </Global>
         </ThemeProvider>
     </ApolloProvider>,
     document.getElementById('root')

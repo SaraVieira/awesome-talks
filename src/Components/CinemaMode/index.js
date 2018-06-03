@@ -36,7 +36,7 @@ const Button = styled.button`
     background: transparent;
     display: block;
     border: none;
-    color: ${props => props.theme.red};
+    color: ${props => props.theme.cinema};
     font-weight: 600;
     text-align: right;
     padding: 6px 0px;
