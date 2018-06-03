@@ -20,9 +20,9 @@ const Global = ({ theme, children }) => {
     background-color: ${theme.primary};
   }
 
-  div[id*='do-not-delete-this-hack'] {
-    display: none;
-  }
+        div[id*='do-not-delete-this-hack'] {
+          display: none;
+        }
 
   code {
     font-family: 'Space Mono', monospace;
@@ -50,20 +50,20 @@ const Global = ({ theme, children }) => {
     cursor: pointer;
     transition: color 200ms ease;
 
-    &.no-hover {
-        line-height: 1.8;
-        &:hover {
-            color: ${theme.blue};
-        }
-        &:after {
-            display: none;
-        }
-    }
+          &.no-hover {
+              line-height: 1.8;
+              &:hover {
+                  color: ${theme.blue};
+              }
+              &:after {
+                  display: none;
+              }
+          }
 
-    span {
-      position: relative;
-      z-index: 10;
-    }
+          span {
+            position: relative;
+            z-index: 10;
+          }
 
     &.active_nav{
         color: #fff;
@@ -104,19 +104,23 @@ const Global = ({ theme, children }) => {
       &.active_nav, &:hover  {
         color: ${theme.primary};
 
-        &:after {
-          height: 100%;
+              &:after {
+                height: 100%;
+              }
+            }
+          }
         }
-      }
-    }
-  }
 
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-`
+        ul {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+        }
+        /* HACK! I'm using the table tag so this does not affect any styles. This should work till https://github.com/styled-components/styled-components/pull/1493 gets merged*/
+        table {
+          border-image-width: ${Math.random()};
+        }
+      `
     return Children.only(children)
 }
 
