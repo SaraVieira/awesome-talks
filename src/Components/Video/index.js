@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
@@ -88,7 +88,7 @@ export class SimpleVideo extends Component {
         const { showVideo } = this.state
 
         return (
-            <span>
+            <Fragment>
                 <Player
                     cinemaMode={cinemaMode}
                     showVideo={showVideo || showCinemaVideo}
@@ -122,7 +122,7 @@ export class SimpleVideo extends Component {
                 {cinemaMode && description ? (
                     <Description>{description}</Description>
                 ) : null}
-            </span>
+            </Fragment>
         )
     }
 }
