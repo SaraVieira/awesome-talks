@@ -141,6 +141,6 @@ const VideoWrapper = props => (
     />
 )
 
-export default ({ noLazy = false, talk }) => (
-    <VideoWrapper key={talk.id} {...talk} />
+export default ({ noLazy = false, talk, addWatched }) => (
+    <VideoWrapper key={talk.id} {...talk} addWatched={addWatched} />
 )
