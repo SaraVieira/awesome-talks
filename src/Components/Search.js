@@ -34,6 +34,17 @@ const CloseIcon = Icon.extend`
     right: ${remcalc(20)};
 `
 
+const SlashIcon = styled.span`
+    position: absolute;
+    top: 58%;
+    transform: translateY(-50%);
+    background: #666;
+    right: 0;
+    padding: 10px 10px;
+    font-size: 20px;
+    color: #fff;
+`
+
 const Input = styled.input`
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
@@ -49,10 +60,16 @@ const Input = styled.input`
 `
 
 class Search extends Component {
-    input
-
     state = {
         focused: false
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyDown)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyDown)
     }
 
     onFocus = () => {
@@ -64,7 +81,12 @@ class Search extends Component {
     }
 
     handleKeyDown = event => {
-        if (event.keyCode === 27) {
+        if (event.keyCode === 191 && this.state.focused === false) {
+            setTimeout(() => {
+                this.input.focus()
+                this.input.value = ''
+            })
+        } else if (event.keyCode === 27) {
             this.input.value = ''
             this.props.client.writeData({
                 data: { [this.props.keyName]: '' }
@@ -106,6 +128,10 @@ class Search extends Component {
                                         })
                                     }}
                                 />
+                            )}
+                        {!data[keyName] &&
+                            this.state.focused === false && (
+                                <SlashIcon>/</SlashIcon>
                             )}
                         <Input
                             innerRef={node => (this.input = node)}
