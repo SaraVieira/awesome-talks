@@ -9,6 +9,7 @@ import { Query } from 'react-apollo'
 import Logo from '../assets/logo.svg'
 import AddTalk from './AddTalk'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
+import SWITCH_MODE, { GET_MODE } from '../Queries/SWITCH_MODE'
 
 import linkParser from '../Utils/link-parser'
 
@@ -189,6 +190,19 @@ export default class Navigation extends Component {
                                         submitted={this.state.submitted}
                                         submitError={this.state.submitError}
                                     />
+                                </Item>
+                                <Item>
+                                    <Mutation mutation={SWITCH_MODE}>
+                                        {(switchMode, { data, loading }) => (
+                                            <Query query={GET_MODE}>
+                                                {({ data: { mode } }) => (
+                                                    <a onClick={switchMode}>
+                                                        <span>{mode}</span>
+                                                    </a>
+                                                )}
+                                            </Query>
+                                        )}
+                                    </Mutation>
                                 </Item>
                             </List>
                         </Nav>

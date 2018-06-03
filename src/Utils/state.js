@@ -2,13 +2,14 @@ import gql from 'graphql-tag'
 
 export const WATCHED_KEY = 'watched__awesome-talks'
 export const FAV_KEY = 'favorites__awesome-talks'
+export const MODE_KEY = 'mode__awesome-talks'
 
-export const getStorage = key => {
+export const getStorage = (key, defaultValue) => {
     if (typeof window !== 'undefined') {
-        return JSON.parse(localStorage.getItem(key)) || []
+        return JSON.parse(localStorage.getItem(key)) || defaultValue
     }
 
-    return []
+    return defaultValue
 }
 
 export const setStorage = (key, data) => {
