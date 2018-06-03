@@ -10,25 +10,30 @@ import CinemaMode from '../CinemaMode'
 import { getDuration } from './../../Utils/youtube'
 
 const Speaker = styled.p`
-    padding-left: ${remcalc(20)};
+    margin-bottom: 0;
+    margin-top: ${remcalc(5)};
     a {
-        min-width: ${remcalc(50)};
         display: block;
-        padding: ${remcalc(5)};
-        text-align: center;
-
-        &:after {
-            left: 0;
-        }
+        text-align: left;
+        border: 0;
+        margin-top: ${remcalc(10)};
+        padding-left: 0;
+        transition: color 200ms ease;
+        color: #168fd0;
     }
 `
 
 const Name = styled.h2`
-    font-size: 300;
-    font-size: ${remcalc(20)};
+    font-weight: 700;
+    font-size: ${remcalc(17)};
     color: ${props => props.theme.black};
     line-height: ${remcalc(25)};
     letter-spacing: ${remcalc(-0.01)};
+    margin-top: 0;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
 const Description = styled.p`
@@ -45,7 +50,10 @@ const Duration = styled.span`
     display: block;
     margin-top: ${remcalc(-5)};
     opacity: 0.8;
-    font-weight: 500;
+    font-weight: 400;
+    position: relative
+    right: ${remcalc(10)};
+    top: ${remcalc(15)};
     color: ${props => props.theme.darkGrey};
 `
 
@@ -99,16 +107,24 @@ export class SimpleVideo extends Component {
                     toggleCinemaMode={toggleCinemaMode}
                     onEnd={() => this.endVideo(id)}
                 />
+
                 <Flex justifyBetween alignCenter>
-                    <Name title={name}>{this.videoTitle(name)}</Name>
                     <Speaker>
                         {speaker.map(s => (
-                            <Link key={s.id} to={makeLink('speaker', s.name)}>
-                                <span>{s.name}</span>
+                            <Link
+                                key={s.id}
+                                to={makeLink('speaker', s.name)}
+                                className="no-hover"
+                            >
+                                {s.name}
                             </Link>
                         ))}
                     </Speaker>
+                    {this.state.duration ? (
+                        <Duration>{this.state.duration}</Duration>
+                    ) : null}
                 </Flex>
+                <Name title={name}>{this.videoTitle(name)}</Name>
                 <Flex>
                     {tags.map(s => (
                         <Tag key={s.id} to={makeLink('category', s.name)}>
@@ -116,9 +132,7 @@ export class SimpleVideo extends Component {
                         </Tag>
                     ))}
                 </Flex>
-                {this.state.duration ? (
-                    <Duration>{this.state.duration}</Duration>
-                ) : null}
+
                 {cinemaMode && description ? (
                     <Description>{description}</Description>
                 ) : null}

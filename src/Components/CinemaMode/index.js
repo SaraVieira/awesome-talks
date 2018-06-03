@@ -36,10 +36,20 @@ const Button = styled.button`
     background: transparent;
     display: block;
     border: none;
-    color: #d62d22;
-    font-weight: bold;
+    color: #fff;
+    font-weight: 400;
     text-align: right;
-    padding: 0;
+    background: #7d8084;
+    padding: 6px 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    text-transform: uppercase;
+    transition: background 200ms ease;
+    outline: none;
+    user-select: none;
+    &:hover {
+        background: #8a8c8e;
+    }
 `
 
 const Overlay = styled.div`
