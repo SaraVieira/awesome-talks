@@ -112,37 +112,31 @@ class Navigation extends Component {
         this.setState({ modalIsOpen: false })
     }
 
+    handleError = errorMsg => {
+        this.setState({
+            submitError: errorMsg
+        })
+        this.props.handleReset()
+        setTimeout(() => {
+            this.setState({
+                submitError: false
+            })
+        }, 3000)
+    }
+
     submit = async (e, createVideos, values, setSubmitting, handleReset) => {
         e.preventDefault()
 
-        let error = false
-        let link = false
-
         if (values.name.trim() === '' || values.link.trim() === '') {
-            this.setState({
-                submitError: 'You must fill in all of the fields'
-            })
-            error = true
-        } else {
-            link = linkParser(values.link)
-
-            if (!link) {
-                this.setState({
-                    submitError: 'Oops! invalid video ID'
-                })
-                error = true
-            }
+            this.handleError('You must fill in all of the fields')
+            return false
         }
 
-        if (error) {
-            handleReset()
-            setTimeout(() => {
-                this.setState({
-                    submitError: false
-                })
-            }, 3000)
+        const link = linkParser(values.link)
 
-            return
+        if (!link) {
+            this.handleError('Oops! invalid video ID')
+            return false
         }
 
         // remove multiple spaces from name
@@ -155,7 +149,17 @@ class Navigation extends Component {
             link
         }
 
-        await createVideos({ variables: { ...valuesToBeSaved } })
+        try {
+            await createVideos({ variables: { ...valuesToBeSaved } })
+        } catch (err) {
+            const msg = err.message.includes('A unique constraint')
+                ? 'Awesome! we already have this. thanks anyway.'
+                : err.message
+
+            this.handleError(msg)
+            return false
+        }
+
         setSubmitting(false)
         handleReset()
         this.setState({ submitted: true }, () => {
