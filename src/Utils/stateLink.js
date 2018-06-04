@@ -96,7 +96,7 @@ export default new ApolloClient({
     link: ApolloLink.from([
         stateLink,
         new HttpLink({
-            uri: 'https://api.graphcms.com/simple/v1/cjhdcwrb98if90109o4pzawaq'
+            uri: 'http://localhost:3000/graphql'
         })
     ]),
     cache:

@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 
-export default gql`
-    {
+export const ALL_SPEAKRS = `{
         allSpeakerses(orderBy: name_ASC) {
             name
             id
@@ -9,5 +8,7 @@ export default gql`
                 url
             }
         }
-    }
+    }`
+export default gql`
+    ${ALL_SPEAKRS}
 `

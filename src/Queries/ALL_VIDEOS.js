@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
-export default gql`
-    query allVideos($first: Int, $after: String, $search: String) {
+export const ALL_VIDEOS = `
+query allVideos($first: Int, $after: String, $search: String) {
         allVideoses(
             first: $first
             after: $after
@@ -33,5 +33,7 @@ export default gql`
                 id
             }
         }
-    }
+    }`
+export default gql`
+    ${ALL_VIDEOS}
 `

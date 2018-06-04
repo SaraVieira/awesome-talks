@@ -15,11 +15,48 @@ import 'isomorphic-fetch'
 import client from './Utils/stateLink'
 import theme from './Utils/theme'
 import feed from './Utils/rss'
+import hash from './Utils/hash'
+import schema from './Utils/schema'
+import graphqlHTTP from 'express-graphql'
+import { request } from 'graphql-request'
+import { ALL_SPEAKRS } from './Queries/SPEAKERS'
+import { ALL_TAGS } from './Queries/TAGS'
+import { ALL_VIDEOS } from './Queries/ALL_VIDEOS'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
+const endpoint = 'https://api.graphcms.com/simple/v1/awesometalks'
 
 const server = express()
 const context = {}
+const cache = {}
+
+const getData = async (query, args, root) => {
+    if (cache[hash(query)]) {
+        return cache[hash(query)]
+    }
+
+    try {
+        const req = await request(endpoint, query, args)
+        cache[hash(query)] = req[root]
+
+        return cache[hash(query)]
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+// Root resolver
+var root = {
+    allSpeakerses: async args => {
+        return getData(ALL_SPEAKRS, args, 'allSpeakerses')
+    },
+    allTagses: async args => {
+        return getData(ALL_TAGS, args, 'allTagses')
+    },
+    allVideoses: async args => {
+        return getData(ALL_VIDEOS, args, 'allVideoses')
+    }
+}
 
 server
     .disable('x-powered-by')
@@ -34,6 +71,14 @@ server
             console.log(e)
         }
     })
+    .use(
+        '/graphql',
+        graphqlHTTP({
+            schema: schema,
+            rootValue: root,
+            graphiql: true
+        })
+    )
     .get('/*', (req, res) => {
         const sheet = new ServerStyleSheet()
         const Root = () => (
