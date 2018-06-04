@@ -40,18 +40,20 @@ export default ({
         </div>
         <Row>
             <Col xs={12}>
-                <Query
-                    query={TAG_VIDEOS}
-                    variables={{ name: humanize(category) }}
-                >
-                    {({ data: { allTagses } }) => (
-                        <Row>
-                            {allTagses[0].videos.map(v => (
-                                <Video key={v.id} talk={v} />
-                            ))}
-                        </Row>
-                    )}
-                </Query>
+                <main>
+                    <Query
+                        query={TAG_VIDEOS}
+                        variables={{ name: humanize(category) }}
+                    >
+                        {({ data: { allTagses } }) => (
+                            <Row>
+                                {allTagses[0].videos.map(v => (
+                                    <Video key={v.id} talk={v} />
+                                ))}
+                            </Row>
+                        )}
+                    </Query>
+                </main>
             </Col>
         </Row>
     </Grid>

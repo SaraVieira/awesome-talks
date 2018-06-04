@@ -81,9 +81,6 @@ const SpeakerInfo = ({ photo, name, bio, twitter }) => (
                 content={`Amazing Tech Talks by ${name}`}
             />
         </Helmet>
-        <div role="banner">
-            <Nav />
-        </div>
         <Desc>
             {photo ? (
                 <Img src={photo.url} alt={name} height="200" width="200" />
@@ -122,31 +119,36 @@ export default ({
     }
 }) => (
     <Grid>
-        <Row>
-            <Col xs={12}>
-                <Query
-                    query={SPEAKER_VIDEOS}
-                    variables={{ name: humanize(speaker) }}
-                >
-                    {({ data: { allSpeakerses } }) => {
-                        return (
-                            <Section>
-                                <SpeakerInfo {...allSpeakerses[0]} />
-                                <Row>
-                                    <Header title="Talks" noSearch />
-                                </Row>
-                                <Row>
-                                    {allSpeakerses.length &&
-                                        allSpeakerses[0].videoses.length &&
-                                        allSpeakerses[0].videoses.map(v => (
-                                            <Video key={v.id} talk={v} />
-                                        ))}
-                                </Row>
-                            </Section>
-                        )
-                    }}
-                </Query>
-            </Col>
-        </Row>
+        <div role="banner">
+            <Nav />
+        </div>
+        <main>
+            <Row>
+                <Col xs={12}>
+                    <Query
+                        query={SPEAKER_VIDEOS}
+                        variables={{ name: humanize(speaker) }}
+                    >
+                        {({ data: { allSpeakerses } }) => {
+                            return (
+                                <Section>
+                                    <SpeakerInfo {...allSpeakerses[0]} />
+                                    <Row>
+                                        <Header title="Talks" noSearch />
+                                    </Row>
+                                    <Row>
+                                        {allSpeakerses.length &&
+                                            allSpeakerses[0].videoses.length &&
+                                            allSpeakerses[0].videoses.map(v => (
+                                                <Video key={v.id} talk={v} />
+                                            ))}
+                                    </Row>
+                                </Section>
+                            )
+                        }}
+                    </Query>
+                </Col>
+            </Row>
+        </main>
     </Grid>
 )

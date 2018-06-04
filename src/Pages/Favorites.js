@@ -13,25 +13,27 @@ export default () => (
             <Nav />
             <Header title="Favorites" noSearch />
         </div>
-        <Row>
-            <Col xs={12}>
-                <Query query={GET_FAVORITES}>
-                    {({ data: { favorites } }) => (
-                        <Query
-                            query={GET_VIDEOS}
-                            variables={{ ids: favorites }}
-                        >
-                            {({ data: { allVideoses } }) => (
-                                <Row>
-                                    {allVideoses.map(v => (
-                                        <Video key={v.id} talk={v} />
-                                    ))}
-                                </Row>
-                            )}
-                        </Query>
-                    )}
-                </Query>
-            </Col>
-        </Row>
+        <main>
+            <Row>
+                <Col xs={12}>
+                    <Query query={GET_FAVORITES}>
+                        {({ data: { favorites } }) => (
+                            <Query
+                                query={GET_VIDEOS}
+                                variables={{ ids: favorites }}
+                            >
+                                {({ data: { allVideoses } }) => (
+                                    <Row>
+                                        {allVideoses.map(v => (
+                                            <Video key={v.id} talk={v} />
+                                        ))}
+                                    </Row>
+                                )}
+                            </Query>
+                        )}
+                    </Query>
+                </Col>
+            </Row>
+        </main>
     </Grid>
 )

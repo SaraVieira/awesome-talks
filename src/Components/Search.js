@@ -139,6 +139,7 @@ class Search extends Component {
                                 <SlashIcon aria-hidden="true">/</SlashIcon>
                             )}
                         <Input
+                            aria-label="Search"
                             innerRef={node => (this.input = node)}
                             onBlur={this.onBlur}
                             onChange={this.onChange}

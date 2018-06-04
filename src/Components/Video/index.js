@@ -20,7 +20,7 @@ const Speaker = styled.p`
         border: 0;
         margin-top: ${remcalc(10)};
         font-size: ${remcalc(12)};
-        color: #333333;
+        color: ${props => props.theme.darkGrey};
         padding-left: 0;
         transition: color 200ms ease;
     }
