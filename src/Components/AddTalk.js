@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled, { injectGlobal } from 'styled-components'
 import { withFormik } from 'formik'
 import { Mutation } from 'react-apollo'
@@ -54,122 +54,138 @@ const Wrapper = styled.div`
     margin-bottom: ${remcalc(20)};
 `
 
-const AddTalk = ({
-    values,
-    handleChange,
-    handleBlur,
-    setSubmitting,
-    handleReset,
-    modalIsOpen,
-    close,
-    submit,
-    submitted,
-    submitError
-}) => (
-    <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={close}
-        ariaHideApp={true}
-        contentLabel="Add a Talk"
-        role="dialog"
-        aria={{
-            labelledby: 'heading'
-        }}
-        style={{
-            overlay: {
-                backgroundColor: 'rgba(0,0,0,0.3)'
-            },
-            content: {
-                color: '#666',
-                border: 'none',
-                borderRadius: 0,
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)'
-            }
-        }}
-    >
-        <Name id="heading"> Add a Talk </Name>
-        <Mutation mutation={CREATE_VIDEO}>
-            {(createVideos, { data, loading }) => (
-                <form
-                    onSubmit={e =>
-                        submit(
-                            e,
-                            createVideos,
-                            values,
-                            setSubmitting,
-                            handleReset
-                        )
-                    }
-                >
-                    {submitted ? (
-                        <Name>
-                            You are the Best{' '}
-                            <span role="img" aria-label="party">
-                                🎉
-                            </span>
-                        </Name>
-                    ) : null}
+class AddTalk extends Component {
+    componentDidMount() {
+        Modal.setAppElement('#root')
+    }
 
-                    {submitError ? <ErrorEl>{submitError}</ErrorEl> : null}
-                    <Wrapper>
-                        <Input
-                            aria-label="Enter the title of the talk"
-                            id="name"
-                            placeholder="Enter the title of the talk"
-                            type="text"
-                            value={values.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            required
-                        />
-                        <span />
-                    </Wrapper>
-                    <Wrapper>
-                        <Input
-                            aria-label="Enter the Youtube Link"
-                            id="link"
-                            placeholder="Enter the Youtube Link"
-                            type="text"
-                            value={values.link}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            required
-                        />
-                        <span />
-                    </Wrapper>
-                    <Wrapper>
-                        <TextArea
-                            aria-label="Why do you love this talk ?"
-                            id="moderatorNotes"
-                            placeholder="Why do you love this talk ?"
-                            type="text"
-                            value={values.moderatorNotes}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
-                        <span />
-                    </Wrapper>
-                    <Button
-                        name="Add a Talks"
-                        type="submit"
-                        submitted={submitted}
-                    >
-                        {loading ? <img src={Loading} alt="Loading" /> : null}
-                        {!loading && !submitted ? 'Submit' : null}
-                        {submitted ? (
-                            <svg className="checkmark" viewBox="0 0 70 70">
-                                <path d="m31.5,46.5l15.3,-23.2" />
-                                <path d="m31.5,46.5l-8.5,-7.1" />
-                            </svg>
-                        ) : null}
-                    </Button>
-                </form>
-            )}
-        </Mutation>
-    </Modal>
-)
+    render() {
+        const {
+            values,
+            handleChange,
+            handleBlur,
+            setSubmitting,
+            handleReset,
+            modalIsOpen,
+            close,
+            submit,
+            submitted,
+            submitError
+        } = this.props
+        return (
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={close}
+                ariaHideApp={true}
+                contentLabel="Add a Talk"
+                role="dialog"
+                aria={{
+                    labelledby: 'heading'
+                }}
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0,0,0,0.3)'
+                    },
+                    content: {
+                        color: '#666',
+                        border: 'none',
+                        borderRadius: 0,
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }
+                }}
+            >
+                <Name id="heading"> Add a Talk </Name>
+                <Mutation mutation={CREATE_VIDEO}>
+                    {(createVideos, { data, loading }) => (
+                        <form
+                            onSubmit={e =>
+                                submit(
+                                    e,
+                                    createVideos,
+                                    values,
+                                    setSubmitting,
+                                    handleReset
+                                )
+                            }
+                        >
+                            {submitted ? (
+                                <Name>
+                                    You are the Best{' '}
+                                    <span role="img" aria-label="party">
+                                        🎉
+                                    </span>
+                                </Name>
+                            ) : null}
+
+                            {submitError ? (
+                                <ErrorEl>{submitError}</ErrorEl>
+                            ) : null}
+                            <Wrapper>
+                                <Input
+                                    aria-label="Enter the title of the talk"
+                                    id="name"
+                                    placeholder="Enter the title of the talk"
+                                    type="text"
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    required
+                                />
+                                <span />
+                            </Wrapper>
+                            <Wrapper>
+                                <Input
+                                    aria-label="Enter the Youtube Link"
+                                    id="link"
+                                    placeholder="Enter the Youtube Link"
+                                    type="text"
+                                    value={values.link}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    required
+                                />
+                                <span />
+                            </Wrapper>
+                            <Wrapper>
+                                <TextArea
+                                    aria-label="Why do you love this talk ?"
+                                    id="moderatorNotes"
+                                    placeholder="Why do you love this talk ?"
+                                    type="text"
+                                    value={values.moderatorNotes}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <span />
+                            </Wrapper>
+                            <Button
+                                name="Add a Talks"
+                                type="submit"
+                                submitted={submitted}
+                            >
+                                {loading ? (
+                                    <img src={Loading} alt="Loading" />
+                                ) : null}
+                                {!loading && !submitted ? 'Submit' : null}
+                                {submitted ? (
+                                    <svg
+                                        className="checkmark"
+                                        viewBox="0 0 70 70"
+                                    >
+                                        <path d="m31.5,46.5l15.3,-23.2" />
+                                        <path d="m31.5,46.5l-8.5,-7.1" />
+                                    </svg>
+                                ) : null}
+                            </Button>
+                        </form>
+                    )}
+                </Mutation>
+            </Modal>
+        )
+    }
+}
 
 export default withFormik({
     mapPropsToValues: () => ({ name: '', link: '', moderatorNotes: '' }),
