@@ -112,6 +112,7 @@ class Search extends Component {
             <Query query={query}>
                 {({ data, client }) => (
                     <Wrapper
+                        role="search"
                         className={`${
                             this.state.focused ||
                             (data[keyName] && data[keyName].length)
@@ -135,7 +136,7 @@ class Search extends Component {
                             )}
                         {!data[keyName] &&
                             this.state.focused === false && (
-                                <SlashIcon>/</SlashIcon>
+                                <SlashIcon aria-hidden="true">/</SlashIcon>
                             )}
                         <Input
                             innerRef={node => (this.input = node)}

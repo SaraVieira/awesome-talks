@@ -24,7 +24,6 @@ const Wrapper = styled(Flex)`
 
 const Speakers = ({ data: { searchSpeakers } }) => (
     <Grid>
-        <Nav />
         <Helmet>
             <title>Awesome Talks - Speakers</title>
             <meta
@@ -42,11 +41,14 @@ const Speakers = ({ data: { searchSpeakers } }) => (
             />
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>{' '}
-        <Header
-            title="Speakers"
-            query={GET__SPEAKERS_SEARCH}
-            keyName="searchSpeakers"
-        />
+        <div role="banner">
+            <Nav />
+            <Header
+                title="Speakers"
+                query={GET__SPEAKERS_SEARCH}
+                keyName="searchSpeakers"
+            />
+        </div>
         <Row>
             <Col xs={12}>
                 <Query query={SPEAKERS}>

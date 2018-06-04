@@ -9,8 +9,10 @@ import Nav from './../Components/Nav'
 
 export default () => (
     <Grid>
-        <Nav />
-        <Header title="Favorites" noSearch />
+        <div role="banner">
+            <Nav />
+            <Header title="Favorites" noSearch />
+        </div>
         <Row>
             <Col xs={12}>
                 <Query query={GET_FAVORITES}>

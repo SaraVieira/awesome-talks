@@ -191,7 +191,7 @@ class Navigation extends Component {
                     <Col xs={12}>
                         <Nav>
                             <LogoWrapper to="/">
-                                <img src={Logo} width="70" alt="Logo" />
+                                <img src={Logo} width="70" alt="Home" />
                             </LogoWrapper>
                             <List>
                                 <Item>
@@ -226,6 +226,8 @@ class Navigation extends Component {
                                 </Item>
                                 <Item>
                                     <a
+                                        tabIndex="0"
+                                        role="button"
                                         className="active_nav"
                                         onClick={this.openModal}
                                     >

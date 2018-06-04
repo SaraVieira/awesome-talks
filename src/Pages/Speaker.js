@@ -67,7 +67,6 @@ const Section = styled.div`
 
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
     <Wrapper>
-        <Nav />
         <Helmet>
             <title>Awesome Talks - {name}</title>
             <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
@@ -82,6 +81,9 @@ const SpeakerInfo = ({ photo, name, bio, twitter }) => (
                 content={`Amazing Tech Talks by ${name}`}
             />
         </Helmet>
+        <div role="banner">
+            <Nav />
+        </div>
         <Desc>
             {photo ? (
                 <Img src={photo.url} alt={name} height="200" width="200" />

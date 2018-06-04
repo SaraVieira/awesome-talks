@@ -14,7 +14,6 @@ export default ({
     }
 }) => (
     <Grid>
-        <Nav />
         <Helmet>
             <title>Awesome Talks - {category}</title>
             <meta
@@ -35,7 +34,10 @@ export default ({
             />
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
-        <Header title={`#${humanize(category)}`} noSearch code />
+        <div role="banner">
+            <Nav />
+            <Header title={`#${humanize(category)}`} noSearch code />
+        </div>
         <Row>
             <Col xs={12}>
                 <Query
