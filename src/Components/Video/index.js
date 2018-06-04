@@ -19,7 +19,7 @@ const Speaker = styled.p`
         margin-top: ${remcalc(10)};
         padding-left: 0;
         transition: color 200ms ease;
-        color: #168fd0;
+        color: ${props => props.theme.lightBlue};
     }
 `
 
@@ -66,7 +66,7 @@ export class SimpleVideo extends Component {
     showVideo = () => this.setState(({ showVideo }) => ({ showVideo: true }))
 
     endVideo = id => {
-        this.props.addWatched(id)
+        if (id) this.props.addWatched(id)
         this.setState(({ showVideo }) => ({ showVideo: false }))
     }
 
