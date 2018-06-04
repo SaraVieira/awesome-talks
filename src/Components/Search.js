@@ -36,13 +36,12 @@ const CloseIcon = Icon.extend`
 
 const SlashIcon = styled.span`
     position: absolute;
-    top: 58%;
+    top: 50%;
     transform: translateY(-50%);
-    background: #666;
     right: 0;
     padding: 10px 10px;
-    font-size: 20px;
-    color: #fff;
+    font-size: ${remcalc(34)};
+    color: #666;
 `
 
 const Input = styled.input`
