@@ -17,7 +17,6 @@ export default styled.button`
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0.25rem;
-    outline: 0;
     transition: background-color 150ms, border-color 150ms, color 75ms ease-out;
     padding-top: 0.8125rem;
     padding-bottom: 0.6875rem;

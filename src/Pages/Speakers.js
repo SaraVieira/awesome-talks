@@ -51,50 +51,62 @@ const Speakers = ({ data: { searchSpeakers } }) => (
         </div>
         <Row>
             <Col xs={12}>
-                <Query query={SPEAKERS}>
-                    {({ data: { allSpeakerses }, client }) => {
-                        return (
-                            <Row>
-                                <Wrapper wrap="true" justifyStart full>
-                                    {Filter(searchSpeakers, allSpeakerses).map(
-                                        s =>
-                                            s._videosesMeta.count > 0 ? (
-                                                <Figure key={s.id}>
-                                                    <Img
-                                                        src={
-                                                            (s.photo || {}).url
-                                                        }
-                                                        alt={s.name}
-                                                    />
-                                                    <Caption>
-                                                        <Name>
-                                                            {
-                                                                makeName(
-                                                                    s.name
-                                                                )[0]
-                                                            }{' '}
-                                                            <span>
-                                                                {makeName(
-                                                                    s.name
-                                                                )
-                                                                    .slice(-1)
-                                                                    .join(' ')}
-                                                            </span>
-                                                        </Name>
-                                                    </Caption>
-                                                    <a
-                                                        aria-label="go to spaker"
-                                                        className="no-hover"
-                                                        href={makeLink(s.name)}
-                                                    />
-                                                </Figure>
-                                            ) : null
-                                    )}
-                                </Wrapper>
-                            </Row>
-                        )
-                    }}
-                </Query>
+                <main>
+                    <Query query={SPEAKERS}>
+                        {({ data: { allSpeakerses }, client }) => {
+                            return (
+                                <Row>
+                                    <Wrapper wrap="true" justifyStart full>
+                                        {Filter(
+                                            searchSpeakers,
+                                            allSpeakerses
+                                        ).map(
+                                            s =>
+                                                s._videosesMeta.count > 0 ? (
+                                                    <Figure key={s.id}>
+                                                        <Img
+                                                            src={
+                                                                (s.photo || {})
+                                                                    .url
+                                                            }
+                                                            alt={s.name}
+                                                        />
+                                                        <Caption>
+                                                            <Name>
+                                                                {
+                                                                    makeName(
+                                                                        s.name
+                                                                    )[0]
+                                                                }{' '}
+                                                                <span>
+                                                                    {makeName(
+                                                                        s.name
+                                                                    )
+                                                                        .slice(
+                                                                            -1
+                                                                        )
+                                                                        .join(
+                                                                            ' '
+                                                                        )}
+                                                                </span>
+                                                            </Name>
+                                                        </Caption>
+                                                        <a
+                                                            aria-label="go to spaker"
+                                                            className="no-hover"
+                                                            href={makeLink(
+                                                                s.name
+                                                            )}
+                                                        />
+                                                    </Figure>
+                                                ) : null
+                                        )}
+                                    </Wrapper>
+                                </Row>
+                            )
+                        }}
+                    </Query>
+                </main>
             </Col>
         </Row>
     </Grid>

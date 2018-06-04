@@ -43,8 +43,6 @@ const Button = styled.button`
     cursor: pointer;
     text-transform: uppercase;
     transition: background 200ms ease;
-    outline: none;
-    user-select: none;
 `
 
 const Overlay = styled.div`

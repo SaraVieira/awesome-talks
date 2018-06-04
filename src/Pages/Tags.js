@@ -34,19 +34,21 @@ export default () => (
         </div>
         <Row>
             <Col xs={12}>
-                <Query query={TAGS}>
-                    {({ data: { allTagses } }) => {
-                        return (
-                            <Row>
-                                {allTagses.map(s => (
-                                    <Item key={s.id} to={makeLink(s.name)}>
-                                        {s.name}
-                                    </Item>
-                                ))}
-                            </Row>
-                        )
-                    }}
-                </Query>
+                <main>
+                    <Query query={TAGS}>
+                        {({ data: { allTagses } }) => {
+                            return (
+                                <Row>
+                                    {allTagses.map(s => (
+                                        <Item key={s.id} to={makeLink(s.name)}>
+                                            {s.name}
+                                        </Item>
+                                    ))}
+                                </Row>
+                            )
+                        }}
+                    </Query>
+                </main>
             </Col>
         </Row>
     </Grid>

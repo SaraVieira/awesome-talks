@@ -30,8 +30,10 @@ export default () => (
             <Nav />
             <Header query={GET_SEARCH} keyName="search" />
         </div>
-        <Query query={GET_SEARCH}>
-            {({ data: { search }, client }) => <Talks search={search} />}
-        </Query>
+        <main>
+            <Query query={GET_SEARCH}>
+                {({ data: { search }, client }) => <Talks search={search} />}
+            </Query>
+        </main>
     </Grid>
 )
