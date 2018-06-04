@@ -11,7 +11,6 @@ const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export default () => (
     <Grid>
-        <Nav />
         <Helmet>
             <title>Awesome Talks - Categories</title>
             <meta
@@ -29,7 +28,10 @@ export default () => (
             />
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
-        <Header title="Categories" noSearch />
+        <div role="banner">
+            <Nav />
+            <Header title="Categories" noSearch />
+        </div>
         <Row>
             <Col xs={12}>
                 <Query query={TAGS}>
