@@ -35,7 +35,7 @@ export default ({
             />
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
-        <Header title={`#${humanize(category)}`} noSearch />
+        <Header title={`#${humanize(category)}`} noSearch code />
         <Row>
             <Col xs={12}>
                 <Query

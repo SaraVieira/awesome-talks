@@ -17,6 +17,12 @@ import GET_FAVORITES from '../Queries/GET_FAVORITES'
 
 import linkParser from '../Utils/link-parser'
 
+const TextArea = Input.extend`
+    ~ span {
+        bottom: ${remcalc(4)};
+    }
+`.withComponent('textarea')
+
 const Nav = styled.nav`
     display: flex;
     align-items: center;
@@ -70,16 +76,25 @@ injectGlobal`
     @media (max-width: ${remcalc(768)}) {
         .ReactModal__Content.ReactModal__Content--after-open {
             width: 80%;
-            height: ${remcalc(300)};
+            height: ${remcalc(500)};
             z-index: 999;
         }
     }
 `
 
 const Name = styled.h2`
-    font-size: 400;
-    font-size: ${remcalc(22)};
+    font-weight: 400;
+    font-size: ${remcalc(18)};
     color: ${props => props.theme.black};
+    letter-spacing: ${remcalc(-0.63)};
+`
+
+const ErrorEl = styled.strong`
+    font-weight: 400;
+    display: block;
+    margin-bottom: ${remcalc(15)};
+    font-size: ${remcalc(18)};
+    color: ${props => props.theme.red};
     letter-spacing: ${remcalc(-0.63)};
 `
 
@@ -91,7 +106,8 @@ const Wrapper = styled.div`
 class Navigation extends Component {
     state = {
         modalIsOpen: false,
-        submitted: false
+        submitted: false,
+        submitError: false
     }
 
     openModal = () => {
@@ -102,13 +118,54 @@ class Navigation extends Component {
         this.setState({ modalIsOpen: false })
     }
 
+    handleError = errorMsg => {
+        this.setState({
+            submitError: errorMsg
+        })
+        this.props.handleReset()
+        setTimeout(() => {
+            this.setState({
+                submitError: false
+            })
+        }, 3000)
+    }
+
     submit = async (e, createVideos, values, setSubmitting, handleReset) => {
         e.preventDefault()
+
+        if (values.name.trim() === '' || values.link.trim() === '') {
+            this.handleError('You must fill in all of the fields')
+            return false
+        }
+
+        const link = linkParser(values.link)
+
+        if (!link) {
+            this.handleError('Oops! invalid Link')
+            return false
+        }
+
+        // remove multiple spaces from name
+        values.name = String(values.name)
+            .replace(/\s{2,}/gu, ' ')
+            .trim()
+
         const valuesToBeSaved = {
             ...values,
-            link: linkParser(values.link)
+            link
         }
-        await createVideos({ variables: { ...valuesToBeSaved } })
+
+        try {
+            await createVideos({ variables: { ...valuesToBeSaved } })
+        } catch (err) {
+            const msg = err.message.includes('A unique constraint')
+                ? 'Awesome! We already have this. Thanks anyway.'
+                : err.message
+
+            this.handleError(msg)
+            return false
+        }
+
         setSubmitting(false)
         handleReset()
         this.setState({ submitted: true }, () => {
@@ -168,7 +225,10 @@ class Navigation extends Component {
                                     </a>
                                 </Item>
                                 <Item>
-                                    <a onClick={this.openModal}>
+                                    <a
+                                        className="active_nav"
+                                        onClick={this.openModal}
+                                    >
                                         <span>Add a Talk</span>
                                     </a>
                                     <Modal
@@ -219,6 +279,15 @@ class Navigation extends Component {
                                                             </span>
                                                         </Name>
                                                     ) : null}
+
+                                                    {this.state.submitError ? (
+                                                        <ErrorEl>
+                                                            {
+                                                                this.state
+                                                                    .submitError
+                                                            }
+                                                        </ErrorEl>
+                                                    ) : null}
                                                     <Wrapper>
                                                         <Input
                                                             id="name"
@@ -236,7 +305,7 @@ class Navigation extends Component {
                                                     <Wrapper>
                                                         <Input
                                                             id="link"
-                                                            placeholder="Enter the Youtube Video ID"
+                                                            placeholder="Enter the Youtube Link"
                                                             type="text"
                                                             value={values.link}
                                                             onChange={
@@ -244,6 +313,21 @@ class Navigation extends Component {
                                                             }
                                                             onBlur={handleBlur}
                                                             required
+                                                        />
+                                                        <span />
+                                                    </Wrapper>
+                                                    <Wrapper>
+                                                        <TextArea
+                                                            id="moderatorNotes"
+                                                            placeholder="Why do you love this talk ?"
+                                                            type="text"
+                                                            value={
+                                                                values.moderatorNotes
+                                                            }
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            onBlur={handleBlur}
                                                         />
                                                         <span />
                                                     </Wrapper>
@@ -290,6 +374,6 @@ class Navigation extends Component {
     }
 }
 export default withFormik({
-    mapPropsToValues: () => ({ name: '', link: '' }),
+    mapPropsToValues: () => ({ name: '', link: '', moderatorNotes: '' }),
     displayName: 'AddTalk'
 })(Navigation)

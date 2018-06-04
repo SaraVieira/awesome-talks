@@ -3,10 +3,11 @@ import remcalc from 'remcalc'
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+  @import url('https://fonts.googleapis.com/css?family=Space+Mono');
   body {
     margin: 0;
     padding: 0;
-    font-family: Montserrat, Arial, sans-serif;
+    font-family: Avenir, Montserrat, Arial, sans-serif;
     font-size: ${remcalc(14)};
     color: #666;
     letter-spacing: ${remcalc(0.11)};
@@ -18,13 +19,17 @@ injectGlobal`
     display: none;
   }
 
+  code {
+    font-family: 'Space Mono', monospace;
+  }
+
   a {
     color: #337294;
     text-decoration: none;
     padding-bottom: ${remcalc(2)};
     border-bottom: ${remcalc(2)} solid #337294;
     position: relative;
-    padding: ${remcalc(5)};
+    padding: 7px 14px;
     opacity: 0.8;
     font-wheight: 300;
     letter-spacing: ${remcalc(0.09)};
@@ -48,8 +53,15 @@ injectGlobal`
       z-index: 10;
     }
 
+    &.active_nav{
+
+        &:hover{
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,.12), 0 2px 4px 0 rgba(0,0,0,.08);
+        }
+    }
+
     @media (pointer: fine) {
-      &:after {
+     &:after {
         transition: height 200ms ease;
         content: '';
         width: 100%;
@@ -61,7 +73,7 @@ injectGlobal`
         z-index: 0;
       }
 
-      &:hover {
+      &.active_nav, &:hover {
         color: white;
 
         &:after {

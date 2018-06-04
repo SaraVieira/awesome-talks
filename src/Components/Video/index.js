@@ -10,25 +10,30 @@ import CinemaMode from '../CinemaMode'
 import { getDuration } from './../../Utils/youtube'
 
 const Speaker = styled.p`
-    padding-left: ${remcalc(20)};
+    margin-bottom: 0;
+    margin-top: ${remcalc(5)};
     a {
-        min-width: ${remcalc(50)};
         display: block;
-        padding: ${remcalc(5)};
-        text-align: center;
-
-        &:after {
-            left: 0;
-        }
+        text-align: left;
+        padding-bottom: ${remcalc(4)};
+        line-height: 1;
+        border: 0;
+        margin-top: ${remcalc(10)};
+        font-size: ${remcalc(12)};
+        color: #333333;
+        padding-left: 0;
+        transition: color 200ms ease;
     }
 `
 
 const Name = styled.h2`
-    font-size: 300;
-    font-size: ${remcalc(20)};
+    font-weight: 700;
+    font-size: ${remcalc(24)};
     color: ${props => props.theme.black};
-    line-height: ${remcalc(25)};
-    letter-spacing: ${remcalc(-0.01)};
+    line-height: ${remcalc(30)};
+    margin-bottom: ${remcalc(10)};
+    margin-top: 0;
+    display: block;
 `
 
 const Description = styled.p`
@@ -45,7 +50,10 @@ const Duration = styled.span`
     display: block;
     margin-top: ${remcalc(-5)};
     opacity: 0.8;
-    font-weight: 500;
+    font-weight: 400;
+    position: relative
+    right: ${remcalc(10)};
+    top: ${remcalc(15)};
     color: ${props => props.theme.darkGrey};
 `
 
@@ -58,7 +66,7 @@ export class SimpleVideo extends Component {
     showVideo = () => this.setState(({ showVideo }) => ({ showVideo: true }))
 
     endVideo = id => {
-        this.props.addWatched(id)
+        if (id) this.props.addWatched(id)
         this.setState(({ showVideo }) => ({ showVideo: false }))
     }
 
@@ -69,7 +77,7 @@ export class SimpleVideo extends Component {
     }
 
     videoTitle = name =>
-        name.length > 40 ? `${name.substring(0, 40)}...` : name
+        name.length > 60 ? `${name.substring(0, 60)}...` : name
 
     render = () => {
         const {
@@ -81,10 +89,12 @@ export class SimpleVideo extends Component {
             id,
             cinemaMode,
             showCinemaVideo,
-            Player
+            Player,
+            toggleCinemaMode
         } = this.props
 
         const { showVideo } = this.state
+
         return (
             <Fragment>
                 <Player
@@ -94,18 +104,27 @@ export class SimpleVideo extends Component {
                     onClick={this.showVideo}
                     link={link}
                     name={name}
+                    toggleCinemaMode={toggleCinemaMode}
                     onEnd={() => this.endVideo(id)}
                 />
+
                 <Flex justifyBetween alignCenter>
-                    <Name title={name}>{this.videoTitle(name)}</Name>
                     <Speaker>
                         {speaker.map(s => (
-                            <Link key={s.id} to={makeLink('speaker', s.name)}>
-                                <span>{s.name}</span>
+                            <Link
+                                key={`${s.id}_${id}`}
+                                to={makeLink('speaker', s.name)}
+                                className="no-hover"
+                            >
+                                {s.name}
                             </Link>
                         ))}
                     </Speaker>
+                    {this.state.duration ? (
+                        <Duration>{this.state.duration}</Duration>
+                    ) : null}
                 </Flex>
+                <Name title={name}>{this.videoTitle(name)}</Name>
                 <Flex>
                     {tags.map(s => (
                         <Tag key={s.id} to={makeLink('category', s.name)}>
@@ -113,9 +132,7 @@ export class SimpleVideo extends Component {
                         </Tag>
                     ))}
                 </Flex>
-                {this.state.duration ? (
-                    <Duration>{this.state.duration}</Duration>
-                ) : null}
+
                 {cinemaMode && description ? (
                     <Description>{description}</Description>
                 ) : null}
@@ -126,17 +143,18 @@ export class SimpleVideo extends Component {
 
 const VideoWrapper = props => (
     <CinemaMode
-        render={(cinemaMode, showCinemaVideo) => (
+        render={(cinemaMode, showCinemaVideo, toggleCinemaMode) => (
             <SimpleVideo
                 {...props}
                 cinemaMode={cinemaMode}
                 showCinemaVideo={showCinemaVideo}
                 Player={Player}
+                toggleCinemaMode={toggleCinemaMode}
             />
         )}
     />
 )
 
-export default ({ noLazy = false, talk }) => (
-    <VideoWrapper key={talk.id} {...talk} />
+export default ({ noLazy = false, talk, addWatched }) => (
+    <VideoWrapper key={talk.id} {...talk} addWatched={addWatched} />
 )
