@@ -112,7 +112,7 @@ export class SimpleVideo extends Component {
                     <Speaker>
                         {speaker.map(s => (
                             <Link
-                                key={s.id}
+                                key={`${s.id}_${id}`}
                                 to={makeLink('speaker', s.name)}
                                 className="no-hover"
                             >
