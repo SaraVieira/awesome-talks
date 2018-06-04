@@ -2,11 +2,7 @@ import App from './App'
 import React from 'react'
 import express from 'express'
 import { renderToString } from 'react-dom/server'
-import {
-    ServerStyleSheet,
-    ThemeProvider,
-    StyleSheetManager
-} from 'styled-components'
+import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { getDataFromTree, ApolloProvider } from 'react-apollo'
 import { Helmet } from 'react-helmet'
 import { StaticRouter } from 'react-router'
@@ -34,34 +30,32 @@ server
             console.log(e)
         }
     })
-    .get('/*', (req, res) => {
+    .get('/*', async (req, res) => {
         const sheet = new ServerStyleSheet()
         const Root = () => (
             <ApolloProvider client={client}>
-                <StyleSheetManager sheet={sheet.instance}>
-                    <ThemeProvider theme={theme}>
-                        <StaticRouter location={req.url} context={context}>
-                            <App />
-                        </StaticRouter>
-                    </ThemeProvider>
-                </StyleSheetManager>
+                <ThemeProvider theme={theme}>
+                    <StaticRouter location={req.url} context={context}>
+                        <App />
+                    </StaticRouter>
+                </ThemeProvider>
             </ApolloProvider>
         )
 
-        getDataFromTree(Root()).then(() => {
-            const initialApolloState = client.extract()
+        await getDataFromTree(<Root />)
+        const initialApolloState = client.extract()
 
-            // When the app is rendered collect the styles that are used inside it
-            const markup = renderToString(sheet.collectStyles(<Root />))
+        // When the app is rendered collect the styles that are used inside it
+        const markup = renderToString(sheet.collectStyles(<Root />))
 
-            // Generate all the style tags so they can be rendered into the page
-            const styleTags = sheet.getStyleTags()
-            const helmet = Helmet.renderStatic()
+        // Generate all the style tags so they can be rendered into the page
+        const styleTags = sheet.getStyleTags()
+        const helmet = Helmet.renderStatic()
 
-            res.send(
-                // prettier-ignore
-                `<!doctype html>
-    <html lang="" ${helmet.htmlAttributes.toString()}>
+        res.send(
+            // prettier-ignore
+            `<!doctype html>
+    <html lang="en" ${helmet.htmlAttributes.toString()}>
     <head>
         ${helmet.title.toString()}
         ${helmet.meta.toString()}
@@ -98,7 +92,7 @@ server
         ${fontawesome.dom.css()}
         </style>
     </head>
-    <body>
+    <body ${helmet.bodyAttributes.toString()}>
         <div id="root">${markup}</div>
            <script>
           window.__APOLLO_STATE__ = ${JSON.stringify(
@@ -107,8 +101,7 @@ server
         </script>
     </body>
 </html>`
-            )
-        })
+        )
     })
 
 export default server
