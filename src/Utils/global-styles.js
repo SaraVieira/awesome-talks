@@ -3,10 +3,11 @@ import remcalc from 'remcalc'
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+  @import url('https://fonts.googleapis.com/css?family=Space+Mono');
   body {
     margin: 0;
     padding: 0;
-    font-family: Montserrat, Arial, sans-serif;
+    font-family: Avenir, Montserrat, Arial, sans-serif;
     font-size: ${remcalc(14)};
     color: #666;
     letter-spacing: ${remcalc(0.11)};
@@ -16,6 +17,10 @@ injectGlobal`
 
   div[id*='do-not-delete-this-hack'] {
     display: none;
+  }
+
+  code {
+    font-family: 'Space Mono', monospace;
   }
 
   a {

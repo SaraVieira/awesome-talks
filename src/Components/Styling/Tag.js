@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
 
 export default styled(Link)`
-    opacity: 1;
+    font-family: 'Space Mono', monospace;
     border: none;
-    opacity: 0.8;
-    font-weight: 500;
-    color: ${props => props.theme.darkGrey};
+    color: ${props => props.theme.black};
     margin-top: ${remcalc(-10)};
     padding: 0;
     margin-bottom: ${remcalc(10)};

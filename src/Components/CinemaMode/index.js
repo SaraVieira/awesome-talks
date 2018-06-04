@@ -36,13 +36,11 @@ const Button = styled.button`
     background: transparent;
     display: block;
     border: none;
-    color: ${props => props.theme.white};
-    font-weight: 400;
+    color: ${props => props.theme.red};
+    font-weight: 600;
     text-align: right;
-    background: ${props => props.theme.darkGrey};
-    padding: 6px 10px;
+    padding: 6px 0px;
     cursor: pointer;
-    box-shadow: ${props => props.theme.bottomShadow};
     text-transform: uppercase;
     transition: background 200ms ease;
     outline: none;

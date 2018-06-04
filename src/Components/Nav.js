@@ -17,6 +17,12 @@ import GET_FAVORITES from '../Queries/GET_FAVORITES'
 
 import linkParser from '../Utils/link-parser'
 
+const TextArea = Input.extend`
+    ~ span {
+        bottom: ${remcalc(4)};
+    }
+`.withComponent('textarea')
+
 const Nav = styled.nav`
     display: flex;
     align-items: center;
@@ -70,7 +76,7 @@ injectGlobal`
     @media (max-width: ${remcalc(768)}) {
         .ReactModal__Content.ReactModal__Content--after-open {
             width: 80%;
-            height: ${remcalc(300)};
+            height: ${remcalc(500)};
             z-index: 999;
         }
     }
@@ -135,7 +141,7 @@ class Navigation extends Component {
         const link = linkParser(values.link)
 
         if (!link) {
-            this.handleError('Oops! invalid video ID')
+            this.handleError('Oops! invalid Link')
             return false
         }
 
@@ -153,7 +159,7 @@ class Navigation extends Component {
             await createVideos({ variables: { ...valuesToBeSaved } })
         } catch (err) {
             const msg = err.message.includes('A unique constraint')
-                ? 'Awesome! we already have this. thanks anyway.'
+                ? 'Awesome! We already have this. Thanks anyway.'
                 : err.message
 
             this.handleError(msg)
@@ -299,9 +305,25 @@ class Navigation extends Component {
                                                     <Wrapper>
                                                         <Input
                                                             id="link"
-                                                            placeholder="Enter the Youtube Video ID"
+                                                            placeholder="Enter the Youtube Link"
                                                             type="text"
                                                             value={values.link}
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            onBlur={handleBlur}
+                                                            required
+                                                        />
+                                                        <span />
+                                                    </Wrapper>
+                                                    <Wrapper>
+                                                        <TextArea
+                                                            id="moderatorNotes"
+                                                            placeholder="Why do you love this talk ?"
+                                                            type="text"
+                                                            value={
+                                                                values.moderatorNotes
+                                                            }
                                                             onChange={
                                                                 handleChange
                                                             }
@@ -353,6 +375,6 @@ class Navigation extends Component {
     }
 }
 export default withFormik({
-    mapPropsToValues: () => ({ name: '', link: '' }),
+    mapPropsToValues: () => ({ name: '', link: '', moderatorNotes: '' }),
     displayName: 'AddTalk'
 })(Navigation)

@@ -15,25 +15,25 @@ const Speaker = styled.p`
     a {
         display: block;
         text-align: left;
+        padding-bottom: ${remcalc(4)};
+        line-height: 1;
         border: 0;
         margin-top: ${remcalc(10)};
+        font-size: ${remcalc(12)};
+        color: #333333;
         padding-left: 0;
         transition: color 200ms ease;
-        color: ${props => props.theme.lightBlue};
     }
 `
 
 const Name = styled.h2`
     font-weight: 700;
-    font-size: ${remcalc(17)};
+    font-size: ${remcalc(24)};
     color: ${props => props.theme.black};
-    line-height: ${remcalc(25)};
-    letter-spacing: ${remcalc(-0.01)};
+    line-height: ${remcalc(30)};
+    margin-bottom: ${remcalc(10)};
     margin-top: 0;
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 `
 
 const Description = styled.p`
@@ -77,7 +77,7 @@ export class SimpleVideo extends Component {
     }
 
     videoTitle = name =>
-        name.length > 40 ? `${name.substring(0, 40)}...` : name
+        name.length > 60 ? `${name.substring(0, 60)}...` : name
 
     render = () => {
         const {
