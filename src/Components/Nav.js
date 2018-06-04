@@ -328,7 +328,6 @@ class Navigation extends Component {
                                                                 handleChange
                                                             }
                                                             onBlur={handleBlur}
-                                                            required
                                                         />
                                                         <span />
                                                     </Wrapper>
