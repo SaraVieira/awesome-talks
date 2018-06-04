@@ -45,9 +45,6 @@ const Button = styled.button`
     transition: background 200ms ease;
     outline: none;
     user-select: none;
-    &:hover {
-        background: ${props => props.theme.midGrey};
-    }
 `
 
 const Overlay = styled.div`
