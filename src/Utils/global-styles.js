@@ -23,7 +23,13 @@ injectGlobal`
     font-family: 'Space Mono', monospace;
   }
 
-  a {
+  button {
+    font-family: Avenir, Montserrat, Arial, sans-serif;
+  }
+
+  a,
+  .link {
+    border: none;
     color: #337294;
     text-decoration: none;
     padding-bottom: ${remcalc(2)};
@@ -34,7 +40,8 @@ injectGlobal`
     font-wheight: 300;
     letter-spacing: ${remcalc(0.09)};
     text-align: left;
-    line-height: ${remcalc(21)};;
+    line-height: ${remcalc(21)};
+    font-size: ${remcalc(14)};
     cursor: pointer;
     transition: color 200ms ease;
 
@@ -54,7 +61,13 @@ injectGlobal`
     }
 
     &.active_nav{
-
+        color: #fff;
+        height: ${remcalc(35)};
+        top: ${remcalc(-6)};
+        &:after {
+            left: 0;
+            z-index: -1;
+        }
         &:hover{
             box-shadow: 0 4px 8px 0 rgba(0,0,0,.12), 0 2px 4px 0 rgba(0,0,0,.08);
         }

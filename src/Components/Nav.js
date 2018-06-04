@@ -172,14 +172,12 @@ export default class Navigation extends Component {
                                     </a>
                                 </Item>
                                 <Item>
-                                    <a
-                                        tabIndex="0"
-                                        role="button"
-                                        className="active_nav"
+                                    <button
+                                        className="active_nav link"
                                         onClick={this.openModal}
                                     >
-                                        <span>Add a Talk</span>
-                                    </a>
+                                        Add a Talk
+                                    </button>
 
                                     <AddTalk
                                         modalIsOpen={this.state.modalIsOpen}
