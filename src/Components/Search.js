@@ -109,7 +109,6 @@ class Search extends Component {
 
     render() {
         const { keyName, query } = this.props
-
         return (
             <Query query={query}>
                 {({ data, client }) => (

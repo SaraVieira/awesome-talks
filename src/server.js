@@ -11,6 +11,7 @@ import 'isomorphic-fetch'
 import client from './Utils/stateLink'
 import theme from './Utils/theme'
 import feed from './Utils/rss'
+import Global from './Utils/global-styles'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
@@ -34,10 +35,13 @@ server
         const sheet = new ServerStyleSheet()
         const Root = () => (
             <ApolloProvider client={client}>
-                <ThemeProvider theme={theme}>
-                    <StaticRouter location={req.url} context={context}>
-                        <App />
-                    </StaticRouter>
+                <ThemeProvider theme={theme['LIGHT']}>
+                    <Global>
+                        Global>
+                        <StaticRouter location={req.url} context={context}>
+                            <App />
+                        </StaticRouter>
+                    </Global>
                 </ThemeProvider>
             </ApolloProvider>
         )
