@@ -87,6 +87,9 @@ export default class Navigation extends Component {
     submit = async (e, createVideos, values, setSubmitting, handleReset) => {
         e.preventDefault()
 
+        // attach it
+        this.handleReset = handleReset
+
         if (values.name.trim() === '' || values.link.trim() === '') {
             this.handleError('You must fill in all of the fields')
             return false
