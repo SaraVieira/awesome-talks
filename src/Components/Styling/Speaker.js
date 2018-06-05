@@ -10,7 +10,6 @@ export const Figure = styled.figure`
     max-height: 220px;
     min-height: 220px;
     width: 100%;
-    background: ${props => props.theme.black};
     color: ${props => props.theme.white};
     text-align: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
