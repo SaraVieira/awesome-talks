@@ -81,11 +81,13 @@ class Search extends Component {
 
     handleKeyDown = event => {
         if (
-            event.keyCode === 191 &&
-            this.state.focused === false &&
-            document.body.classList.contains('cinema-mode') === false &&
-            document.body.classList.contains('ReactModal__Body--open') === false
+            document.body.classList.contains('cinema-mode') ||
+            document.body.classList.contains('ReactModal__Body--open')
         ) {
+            return false
+        }
+
+        if (event.keyCode === 191 && this.state.focused === false) {
             setTimeout(() => {
                 this.input.focus()
                 this.input.value = ''
