@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './../Components/Header'
-import { Col, Row, Grid } from 'react-styled-flexboxgrid'
-import Flex from 'styled-flex-component'
-import styled from 'styled-components'
-import remcalc from 'remcalc'
 import { Helmet } from 'react-helmet'
+import { Col, Row, Grid } from 'react-styled-flexboxgrid'
+import remcalc from 'remcalc'
+import styled from 'styled-components'
+import Flex from 'styled-flex-component'
 
+import Header from './../Components/Header'
 import Query from './../Components/Query'
 import Video from './../Components/Video'
 import SPEAKER_VIDEOS from '../Queries/SPEAKER_VIDEOS'
@@ -68,7 +68,7 @@ const Section = styled.div`
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
     <Wrapper>
         <Helmet>
-            <title>Awesome Talks - {name}</title>
+            <title>{name}</title>
             <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
             <meta name="twitter:image" content={photo.url} />
             <meta name="twitter:image:alt" content={name} />

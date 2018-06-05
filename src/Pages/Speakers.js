@@ -25,21 +25,8 @@ const Wrapper = styled(Flex)`
 const Speakers = ({ data: { searchSpeakers } }) => (
     <Grid>
         <Helmet>
-            <title>Awesome Talks - Speakers</title>
-            <meta
-                name="description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
+            <title>Speakers</title>
             <meta name="twitter:title" content="Awesome Talks - Speakers" />
-            <meta
-                name="twitter:description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
-            <meta
-                name="twitter:image"
-                content="https://file-iloqdynwox.now.sh/"
-            />
-            <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>{' '}
         <div role="banner">
             <Nav />

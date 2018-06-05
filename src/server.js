@@ -76,16 +76,11 @@ server
 
         gtag('config', 'UA-37411302-9');
         </script>
-        ${
-    assets.client.css
-        ? `<link rel="stylesheet" href="${assets.client.css}">`
-        : ''
+        ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''
 }
-        ${
-    process.env.NODE_ENV === 'production'
+        ${process.env.NODE_ENV === 'production'
         ? `<script src="${assets.client.js}" defer></script>`
-        : `<script src="${assets.client.js}" defer crossorigin></script>`
-}
+        : `<script src="${assets.client.js}" defer crossorigin></script>`}
         <!-- Render the style tags gathered from the components into the DOM -->
         ${styleTags}
         <style>

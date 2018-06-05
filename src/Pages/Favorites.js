@@ -1,6 +1,8 @@
 import React from 'react'
-import Header from './../Components/Header'
+import { Helmet } from 'react-helmet'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
+
+import Header from './../Components/Header'
 import Query from './../Components/Query'
 import Video from './../Components/Video'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
@@ -9,6 +11,9 @@ import Nav from './../Components/Nav'
 
 export default () => (
     <Grid>
+        <Helmet>
+            <title>Favorites</title>
+        </Helmet>
         <div role="banner">
             <Nav />
             <Header title="Favorites" noSearch />
