@@ -12,7 +12,8 @@ const defaultState = {
     watched: getStorage(WATCHED_KEY),
     hideViewed: false,
     search: '',
-    searchSpeakers: ''
+    searchSpeakers: '',
+    searchTags: ''
 }
 
 const cache = new InMemoryCache()
