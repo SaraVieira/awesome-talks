@@ -15,7 +15,7 @@ export const Title = styled.h1`
     font-weight: 600;
     font-size: ${remcalc(90)};
     line-height: 1.2;
-    color: ${props => props.theme.black};
+    color: ${props => props.theme.main};
     letter-spacing: ${remcalc(-0.25)};
     margin-top: 0;
     margin-bottom: 0;

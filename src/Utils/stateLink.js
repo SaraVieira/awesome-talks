@@ -5,11 +5,12 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 
-import { WATCHED_KEY, FAV_KEY, getStorage, setStorage } from './state'
+import { WATCHED_KEY, FAV_KEY, MODE_KEY, getStorage, setStorage } from './state'
 
 const defaultState = {
-    favorites: getStorage(FAV_KEY),
-    watched: getStorage(WATCHED_KEY),
+    mode: getStorage(MODE_KEY, 'LIGHT'),
+    favorites: getStorage(FAV_KEY, []),
+    watched: getStorage(WATCHED_KEY, []),
     hideViewed: false,
     search: '',
     searchSpeakers: '',
@@ -23,6 +24,19 @@ const stateLink = withClientState({
     cache,
     resolvers: {
         Mutation: {
+            switchMode: (_, { id }, { cache }) => {
+                const query = gql`
+                    query GetMode {
+                        mode @client
+                    }
+                `
+                const previous = cache.readQuery({ query })
+                const data = {
+                    mode: previous.mode === 'LIGHT' ? 'DARK' : 'LIGHT'
+                }
+                setStorage(MODE_KEY, data.mode)
+                cache.writeQuery({ query, data })
+            },
             addFavorite: (_, { id }, { cache }) => {
                 const query = gql`
                     query GetFavorites {
