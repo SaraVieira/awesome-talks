@@ -83,6 +83,7 @@
         "lint": "eslint . --cache --fix",
         "test": "run-s lint jest",
         "precommit": "lint-staged",
+        "jest": "jest",
         "contributors:add": "all-contributors add",
         "contributors:generate": "all-contributors generate",
         "storybook": "start-storybook -p 6006",
