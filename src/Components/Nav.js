@@ -4,7 +4,7 @@ import is from 'styled-is'
 import { Link } from 'react-router-dom'
 import { Grid, Row, Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 
 import Logo from '../assets/logo.svg'
 import AddTalk from './AddTalk'

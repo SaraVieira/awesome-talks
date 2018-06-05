@@ -37,7 +37,6 @@ server
             <ApolloProvider client={client}>
                 <ThemeProvider theme={theme['LIGHT']}>
                     <Global>
-                        Global>
                         <StaticRouter location={req.url} context={context}>
                             <App />
                         </StaticRouter>
