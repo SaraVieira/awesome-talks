@@ -87,6 +87,9 @@ export default class Navigation extends Component {
     submit = async (e, createVideos, values, setSubmitting, handleReset) => {
         e.preventDefault()
 
+        // attach it
+        this.handleReset = handleReset
+
         if (values.name.trim() === '' || values.link.trim() === '') {
             this.handleError('You must fill in all of the fields')
             return false
@@ -94,8 +97,8 @@ export default class Navigation extends Component {
 
         const link = linkParser(values.link)
 
-        if (!link) {
-            this.handleError('Oops! invalid Link')
+        if (link.length !== 11) {
+            this.handleError(link)
             return false
         }
 

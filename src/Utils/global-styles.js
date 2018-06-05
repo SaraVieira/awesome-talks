@@ -73,7 +73,17 @@ injectGlobal`
         }
     }
 
+    @media (pointer: coarse) {
+
+        &.active_nav{
+            top: ${remcalc(1)};;
+            background: #fff;
+            color: #337294;
+        }
+    }
+
     @media (pointer: fine) {
+
      &:after {
         transition: height 200ms ease;
         content: '';
