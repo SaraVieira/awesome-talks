@@ -34,6 +34,7 @@ const Name = styled.h2`
     margin-bottom: ${remcalc(10)};
     margin-top: 0;
     display: block;
+    word-break: break-all;
 `
 
 const Description = styled.p`
