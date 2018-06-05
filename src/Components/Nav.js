@@ -94,8 +94,8 @@ export default class Navigation extends Component {
 
         const link = linkParser(values.link)
 
-        if (!link) {
-            this.handleError('Oops! invalid Link')
+        if (link.length !== 11) {
+            this.handleError(link)
             return false
         }
 
