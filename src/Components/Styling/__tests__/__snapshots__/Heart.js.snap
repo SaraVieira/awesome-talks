@@ -63,10 +63,6 @@ exports[`Renders Heart 1`] = `
   transform: scale(1.3);
 }
 
-.c0 input[type='checkbox']:checked + label svg g {
-  fill: #51b257;
-}
-
 .c0 input[type='checkbox']:checked + label:after {
   -webkit-animation: like-a 0.3s 0.2s both;
   animation: like-a 0.3s 0.2s both;

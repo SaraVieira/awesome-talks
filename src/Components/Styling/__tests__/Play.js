@@ -6,7 +6,6 @@ test('Renders Play', () => {
     const Wrapper = Shallow(<Play />)
 
     expect(Wrapper).toHaveStyleRule('background', '#282828')
-    expect(Wrapper).toHaveStyleRule('color', '#fff')
     expect(Wrapper).toHaveStyleRule('height', '3em')
     expect(Wrapper).toMatchSnapshot()
 })

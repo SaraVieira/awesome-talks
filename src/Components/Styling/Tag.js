@@ -5,7 +5,7 @@ import remcalc from 'remcalc'
 export default styled(Link)`
     font-family: 'Space Mono', monospace;
     border: none;
-    color: ${props => props.theme.secondary};
+    color: ${props => props.theme.black};
     margin-top: ${remcalc(-10)};
     padding: 0;
     margin-bottom: ${remcalc(10)};
@@ -14,6 +14,7 @@ export default styled(Link)`
     &:hover {
         opacity: 1;
         color: ${props => props.theme.main};
+        backgground: transparent;
     }
     &:after {
         display: none;

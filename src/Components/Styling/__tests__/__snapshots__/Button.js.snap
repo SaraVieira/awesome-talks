@@ -33,7 +33,6 @@ exports[`Renders Button 1`] = `
   padding-right: 1.25rem;
   padding-left: 1.25rem;
   font-size: 0.75rem;
-  color: #fff;
   background-color: #60b7e6;
   border-color: transparent;
   min-width: 7.8125rem;
@@ -56,7 +55,6 @@ exports[`Renders Button 1`] = `
 
 .c0 img path,
 .c0 svg path {
-  stroke: #fff;
   stroke-width: 5;
 }
 

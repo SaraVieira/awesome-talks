@@ -11,10 +11,8 @@ exports[`Renders Figure 1`] = `
   max-height: 220px;
   min-height: 220px;
   width: 100%;
-  color: #fff;
   text-align: center;
   box-shadow: 0 0 5px rgba(0,0,0,0.15);
-  background: #337294;
 }
 
 .c0:hover img {
@@ -42,7 +40,6 @@ exports[`Renders Figure 1`] = `
   top: 0;
   left: 0;
   content: '';
-  background: #fff;
   position: absolute;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -79,7 +76,6 @@ exports[`Renders Name 1`] = `
   left: 20px;
   right: 20px;
   display: inline-block;
-  background: #000;
   -webkit-transform: skew(-10deg) rotate(-10deg) translate(0,-50%);
   -ms-transform: skew(-10deg) rotate(-10deg) translate(0,-50%);
   transform: skew(-10deg) rotate(-10deg) translate(0,-50%);

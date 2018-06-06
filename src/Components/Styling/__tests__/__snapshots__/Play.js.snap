@@ -4,7 +4,6 @@ exports[`Renders Play 1`] = `
 .c0 {
   background: #282828;
   border-radius: 50% / 10%;
-  color: #fff;
   font-size: 1em;
   height: 3em;
   padding: 0;
@@ -22,7 +21,6 @@ exports[`Renders Play 1`] = `
   border: none;
   opacity: 0.8;
   cursor: pointer;
-  z-index: 9;
 }
 
 .c0:hover {

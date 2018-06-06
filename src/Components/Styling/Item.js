@@ -6,7 +6,7 @@ export default styled(Link)`
     background-color: ${props => props.theme.primary};
     border: ${remcalc(1)} solid ${props => props.theme.blue};
     padding: ${remcalc(6)} ${remcalc(15)};
-    color: ${props => props.theme.blue};
+    color: ${props => props.theme.main};
     border-radius: ${remcalc(5)};
     font-family: 'Space Mono', monospace;
     font-size: ${remcalc(36)};
@@ -27,8 +27,6 @@ export default styled(Link)`
     }
 
     &:hover {
-        border: ${remcalc(1)} solid ${props => props.theme.primary};
         color: ${props => props.theme.primary};
-        background: ${props => props.theme.blue};
     }
 `

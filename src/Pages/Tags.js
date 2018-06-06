@@ -46,7 +46,11 @@ const Tags = ({ data: { searchTags } }) => (
                         {({ data: { allTagses: allTags } }) => (
                             <Row style={{ justifyContent: 'space-around' }}>
                                 {Filter(searchTags, allTags).map(t => (
-                                    <Tag key={t.id} {...t} />
+                                    <Tag
+                                        className="no-hover"
+                                        key={t.id}
+                                        {...t}
+                                    />
                                 ))}
                             </Row>
                         )}
