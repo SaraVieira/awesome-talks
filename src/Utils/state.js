@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 export const WATCHED_KEY = 'watched__awesome-talks'
 export const FAV_KEY = 'favorites__awesome-talks'
 export const MODE_KEY = 'mode__awesome-talks'
+export const BANNER_KEY = 'banner__awesome-talks'
 
 export const getStorage = (key, defaultValue) => {
     if (typeof window !== 'undefined') {
