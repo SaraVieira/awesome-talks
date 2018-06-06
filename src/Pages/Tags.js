@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet'
 import Filter from '../Utils/search'
 import GET__TAGS_SEARCH from '../Queries/GET__TAGS_SEARCH'
 import Tag from '../Components/Tag'
+import CookieBanner from './../Components/CookieBanner'
 
 const Tags = ({ data: { searchTags } }) => (
     <Grid>
@@ -58,6 +59,7 @@ const Tags = ({ data: { searchTags } }) => (
                 </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )
 

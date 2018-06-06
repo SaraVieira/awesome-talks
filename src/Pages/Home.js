@@ -5,6 +5,7 @@ import GET_SEARCH from '../Queries/GET_SEARCH'
 import Header from './../Components/Header'
 import Talks from './../Components/Talks'
 import Nav from './../Components/Nav'
+import CookieBanner from './../Components/CookieBanner'
 import { Helmet } from 'react-helmet'
 
 export default () => (
@@ -35,5 +36,6 @@ export default () => (
                 {({ data: { search }, client }) => <Talks search={search} />}
             </Query>
         </main>
+        <CookieBanner />
     </Grid>
 )
