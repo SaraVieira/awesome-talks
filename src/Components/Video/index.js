@@ -29,7 +29,7 @@ const Speaker = styled.p`
 const Name = styled.h2`
     font-weight: 700;
     font-size: ${remcalc(24)};
-    color: ${props => props.theme.black};
+    color: ${props => props.theme.main};
     line-height: ${remcalc(30)};
     margin-bottom: ${remcalc(10)};
     margin-top: 0;
@@ -41,7 +41,7 @@ const Description = styled.p`
     opacity: 0.8;
     font-family: Montserrat-Light;
     font-size: ${remcalc(14)};
-    color: ${props => props.theme.black};
+    color: ${props => props.theme.main};
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
 `
@@ -55,7 +55,7 @@ const Duration = styled.span`
     position: relative
     right: ${remcalc(10)};
     top: ${remcalc(15)};
-    color: ${props => props.theme.darkGrey};
+    color: ${props => props.theme.tertiary};
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>

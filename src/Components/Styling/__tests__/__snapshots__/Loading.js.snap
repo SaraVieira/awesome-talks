@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders Loading 1`] = `
+.c0 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%) rotate(45deg);
+  -ms-transform: translateY(-50%) translateX(-50%) rotate(45deg);
+  transform: translateY(-50%) translateX(-50%) rotate(45deg);
+  width: 4rem;
+  height: 4rem;
+  -webkit-transform-origin: 2rem 2rem;
+  -ms-transform-origin: 2rem 2rem;
+  transform-origin: 2rem 2rem;
+}
+
+.c0 div {
+  top: 1.4375rem;
+  left: 1.1875rem;
+  position: absolute;
+  width: 1.625rem;
+  height: 1.625rem;
+  background: #ff0000;
+  -webkit-animation: gtTijR 1s infinite cubic-bezier(0.215,0.61,0.355,1);
+  animation: gtTijR 1s infinite cubic-bezier(0.215,0.61,0.355,1);
+}
+
+.c0 div:after,
+.c0 div:before {
+  content: ' ';
+  position: absolute;
+  display: block;
+  width: 1.625rem;
+  height: 1.625rem;
+  background: #ff0000;
+}
+
+.c0 div:before {
+  left: -1.0625rem;
+  border-radius: 50% 0 0 50%;
+}
+
+.c0 div:after {
+  top: -1.0625rem;
+  border-radius: 50% 50% 0 0;
+}
+
+<div
+  className="c0"
+/>
+`;

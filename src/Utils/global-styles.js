@@ -1,7 +1,11 @@
-import { injectGlobal } from 'styled-components'
-import remcalc from 'remcalc'
+// https://github.com/styled-components/styled-components/issues/793#issuecomment-356559057
 
-injectGlobal`
+import remcalc from 'remcalc'
+import { Children } from 'react'
+import { withTheme, injectGlobal } from 'styled-components'
+
+const Global = ({ theme, children }) => {
+    injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
   @import url('https://fonts.googleapis.com/css?family=Space+Mono');
   body {
@@ -13,11 +17,12 @@ injectGlobal`
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
     padding-bottom: ${remcalc(40)};
+    background-color: ${theme.primary};
   }
 
-  div[id*='do-not-delete-this-hack'] {
-    display: none;
-  }
+        div[id*='do-not-delete-this-hack'] {
+          display: none;
+        }
 
   code {
     font-family: 'Space Mono', monospace;
@@ -30,10 +35,10 @@ injectGlobal`
   a,
   .link {
     border: none;
-    color: #337294;
+    color: ${theme.blue};
     text-decoration: none;
     padding-bottom: ${remcalc(2)};
-    border-bottom: ${remcalc(2)} solid #337294;
+    border-bottom: ${remcalc(2)} solid ${theme.blue};
     position: relative;
     padding: 7px 14px;
     opacity: 0.8;
@@ -45,20 +50,20 @@ injectGlobal`
     cursor: pointer;
     transition: color 200ms ease;
 
-    &.no-hover {
-        line-height: 1.8;
-        &:hover {
-            color: #255a77;
-        }
-        &:after {
-            display: none;
-        }
-    }
+          &.no-hover {
+              line-height: 1.8;
+              &:hover {
+                  color: ${theme.blue};
+              }
+              &:after {
+                  display: none;
+              }
+          }
 
-    span {
-      position: relative;
-      z-index: 10;
-    }
+          span {
+            position: relative;
+            z-index: 10;
+          }
 
     &.active_nav{
         color: #fff;
@@ -89,26 +94,34 @@ injectGlobal`
         content: '';
         width: 100%;
         height: 0;
-        background: #337294;
+        background: ${theme.blue};
         display: block;
         position: absolute;
         bottom: 0;
         z-index: 0;
       }
 
-      &.active_nav, &:hover {
-        color: white;
+      &.active_nav, &:hover  {
+        color: ${theme.primary};
 
-        &:after {
-          height: 100%;
+              &:after {
+                height: 100%;
+              }
+            }
+          }
         }
-      }
-    }
-  }
 
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-`
+        ul {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+        }
+        /* HACK! I'm using the table tag so this does not affect any styles. This should work till https://github.com/styled-components/styled-components/pull/1493 gets merged*/
+        table {
+          border-image-width: ${Math.random()};
+        }
+      `
+    return Children.only(children)
+}
+
+export default withTheme(Global)
