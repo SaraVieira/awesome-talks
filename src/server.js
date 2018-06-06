@@ -37,7 +37,7 @@ server
     .get('/*', async (req, res) => {
         const themeMode =
             'mode__awesome-talks' in req.cookies
-                ? req.cookies['mode__awesome-talks'].replace(/"/g, '')
+                ? JSON.parse(req.cookies['mode__awesome-talks'])
                 : 'LIGHT'
 
         const sheet = new ServerStyleSheet()
@@ -58,6 +58,11 @@ server
 
         // chaning intial state as per requirement
         initialApolloState.ROOT_QUERY.mode = themeMode
+
+        initialApolloState.ROOT_QUERY.favorites.json =
+            'favorites__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['favorites__awesome-talks'])
+                : []
 
         // When the app is rendered collect the styles that are used inside it
         const markup = renderToString(sheet.collectStyles(<Root />))

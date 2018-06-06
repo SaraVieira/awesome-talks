@@ -7,7 +7,7 @@ export const MODE_KEY = 'mode__awesome-talks'
 
 export const getStorage = (key, defaultValue) => {
     if (typeof window !== 'undefined') {
-        return Cookies.get(key) ? Cookies.get(key) : defaultValue
+        return Cookies.get(key) ? JSON.parse(Cookies.get(key)) : defaultValue
     }
 
     return defaultValue
@@ -16,7 +16,7 @@ export const getStorage = (key, defaultValue) => {
 export const setStorage = (key, data) => {
     if (typeof window !== 'undefined') {
         // right now expire is set to 365 days
-        return Cookies.set(key, data, { expires: 365 })
+        return Cookies.set(key, JSON.stringify(data), { expires: 365 })
     }
 
     return null
