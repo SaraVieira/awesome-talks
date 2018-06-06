@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders Heart 1`] = `
+.c0 {
+  position: absolute;
+  z-index: 10;
+  right: 0.625rem;
+  top: 0.625rem;
+}
+
+.c0 input[type='checkbox'] {
+  clear: both;
+  display: none;
+}
+
+.c0 input[type='checkbox'] {
+  display: none;
+}
+
+.c0 input[type='checkbox'] + label {
+  z-index: 100;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+}
+
+.c0 input[type='checkbox'] + label:before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  background: rgb(214,214,214);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+
+.c0 input[type='checkbox'] + label:after {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  background: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+
+.c0 input[type='checkbox']:checked + label svg {
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+  fill: #ff0000;
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+}
+
+.c0 input[type='checkbox']:checked + label svg g {
+  fill: #51b257;
+}
+
+.c0 input[type='checkbox']:checked + label:after {
+  -webkit-animation: like-a 0.3s 0.2s both;
+  animation: like-a 0.3s 0.2s both;
+}
+
+.c0 input[type='checkbox']:checked + label:before {
+  -webkit-animation: like-a 0.5s 0s both;
+  animation: like-a 0.5s 0s both;
+}
+
+.c0 label svg,
+.c0 label g {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: middle;
+  width: 2.1875rem;
+  fill: rgb(214,214,214);
+}
+
+<div
+  className="c0"
+/>
+`;
