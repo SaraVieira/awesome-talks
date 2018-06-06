@@ -64,6 +64,11 @@ server
                 ? JSON.parse(req.cookies['favorites__awesome-talks'])
                 : []
 
+        initialApolloState.ROOT_QUERY.watched.json =
+            'watched__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['watched__awesome-talks'])
+                : []
+
         // When the app is rendered collect the styles that are used inside it
         const markup = renderToString(sheet.collectStyles(<Root />))
 
