@@ -22,6 +22,7 @@
         "graphql-tag": "2.9.2",
         "history": "4.7.2",
         "isomorphic-fetch": "2.2.1",
+        "js-cookie": "^2.2.0",
         "lodash.debounce": "4.0.8",
         "random-id": "0.0.2",
         "razzle": "2.0.0-alpha.12",
@@ -90,11 +91,22 @@
         "build-storybook": "build-storybook"
     },
     "jest": {
-        "snapshotSerializers": ["enzyme-to-json/serializer"],
-        "setupFiles": ["./src/Tests/setup.js"]
+        "snapshotSerializers": [
+            "enzyme-to-json/serializer"
+        ],
+        "setupFiles": [
+            "./src/Tests/setup.js"
+        ]
     },
     "lint-staged": {
-        "*.{js,css,md}": ["prettier --write", "git add"],
-        "*.js": ["eslint --fix", "git add", "jest --findRelatedTests"]
+        "*.{js,css,md}": [
+            "prettier --write",
+            "git add"
+        ],
+        "*.js": [
+            "eslint --fix",
+            "git add",
+            "jest --findRelatedTests"
+        ]
     }
 }
