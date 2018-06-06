@@ -53,7 +53,9 @@ class CookieBanner extends Component {
     }
 
     render() {
-        return getStorage(BANNER_KEY) || this.state.shown === true ? (
+        return getStorage(BANNER_KEY) ||
+            this.state.shown === true ||
+            typeof window === 'undefined' ? (
             ''
         ) : (
             <Banner className="cookies">
