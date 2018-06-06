@@ -95,7 +95,7 @@ const Player = ({
                     <Thumbnail
                         onClick={toggleCinemaMode}
                         cinemaMode={cinemaMode}
-                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${link}/hqdefault.jpg`}
                         alt={name}
                     />
                 </Image>
