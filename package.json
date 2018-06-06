@@ -81,7 +81,7 @@
         "build": "razzle build",
         "format": "prettier --write '**/*.{js,css,md}'",
         "lint": "eslint . --cache --fix",
-        "test": "run-s lint jest",
+        "test": "run-s lint",
         "precommit": "lint-staged",
         "jest": "jest",
         "contributors:add": "all-contributors add",
@@ -90,22 +90,11 @@
         "build-storybook": "build-storybook"
     },
     "jest": {
-        "snapshotSerializers": [
-            "enzyme-to-json/serializer"
-        ],
-        "setupFiles": [
-            "./src/Tests/setup.js"
-        ]
+        "snapshotSerializers": ["enzyme-to-json/serializer"],
+        "setupFiles": ["./src/Tests/setup.js"]
     },
     "lint-staged": {
-        "*.{js,css,md}": [
-            "prettier --write",
-            "git add"
-        ],
-        "*.js": [
-            "eslint --fix",
-            "git add",
-            "jest --findRelatedTests"
-        ]
+        "*.{js,css,md}": ["prettier --write", "git add"],
+        "*.js": ["eslint --fix", "git add", "jest --findRelatedTests"]
     }
 }
