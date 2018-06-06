@@ -1,6 +1,16 @@
 export default link => {
     let match = false
 
+    // allow only youtube related domains
+    if (
+        /https?:\/\/(?:www\.)?(?:youtube(?:-nocookie)?\.com|youtu\.be)/.test(
+            link
+        ) === false
+    ) {
+        return 'Only youtube links are allowed currently'
+    }
+
+    // multiple checks with fallbacks
     if (link.includes('v=') !== false) {
         return link.substr(link.indexOf('v=') + 2, 11)
     } else if (link.includes('embed/') !== false) {
@@ -12,5 +22,5 @@ export default link => {
     ) {
         return match[1]
     }
-    return false
+    return 'Oops! invalid Link'
 }
