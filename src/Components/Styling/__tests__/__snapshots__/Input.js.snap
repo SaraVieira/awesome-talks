@@ -3,6 +3,7 @@
 exports[`Renders Input 1`] = `
 .c0 {
   font-size: 0.9375rem;
+  color: #666;
   width: 100%;
   box-sizing: border-box;
   -webkit-letter-spacing: 0.0625rem;

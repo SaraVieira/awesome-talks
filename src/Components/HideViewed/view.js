@@ -1,8 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import remcalc from 'remcalc'
 
 const Section = styled.div`
     display: flex;
+
+    @media (max-width: ${remcalc(768)}) {
+        top: ${remcalc(-55)};
+        position: relative;
+        margin: auto;
+        justify-content: center;
+    }
 `
 
 const Text = styled.div`

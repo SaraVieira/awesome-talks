@@ -55,26 +55,20 @@ const Duration = styled.span`
     position: relative
     right: ${remcalc(10)};
     top: ${remcalc(15)};
-    color: ${props => props.theme.tertiary};
+    color: ${props => props.theme.main};
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
     `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export class SimpleVideo extends Component {
-    state = { showVideo: false, duration: null }
+    state = { showVideo: false }
 
     showVideo = () => this.setState(({ showVideo }) => ({ showVideo: true }))
 
     endVideo = id => {
         if (id) this.props.addWatched(id)
         this.setState(({ showVideo }) => ({ showVideo: false }))
-    }
-
-    componentDidMount = async () => {
-        const duration = await getDuration(this.props.link)
-
-        this.setState({ duration })
     }
 
     videoTitle = name =>
@@ -86,6 +80,7 @@ export class SimpleVideo extends Component {
             description,
             link,
             name,
+            duration,
             tags,
             id,
             cinemaMode,
@@ -121,8 +116,8 @@ export class SimpleVideo extends Component {
                             </Link>
                         ))}
                     </Speaker>
-                    {this.state.duration ? (
-                        <Duration>{this.state.duration}</Duration>
+                    {duration ? (
+                        <Duration>{getDuration(duration)}</Duration>
                     ) : null}
                 </Flex>
                 <Name title={name}>{this.videoTitle(name)}</Name>

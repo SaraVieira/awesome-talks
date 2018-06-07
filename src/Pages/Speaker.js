@@ -12,6 +12,7 @@ import SPEAKER_VIDEOS from '../Queries/SPEAKER_VIDEOS'
 import TwitterIcon from '../assets/twitter.svg'
 import humanize, { urlify } from '../Utils/strings'
 import Nav from './../Components/Nav'
+import CookieBanner from './../Components/CookieBanner'
 
 const Wrapper = styled(Row)`
     margin-bottom: ${remcalc(30)};
@@ -150,5 +151,6 @@ export default ({
                 </Col>
             </Row>
         </main>
+        <CookieBanner />
     </Grid>
 )

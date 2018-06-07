@@ -7,6 +7,7 @@ import TAG_VIDEOS from '../Queries/TAG_VIDEOS'
 import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
 import { Helmet } from 'react-helmet'
+import CookieBanner from './../Components/CookieBanner'
 
 export default ({
     match: {
@@ -56,5 +57,6 @@ export default ({
                 </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )
