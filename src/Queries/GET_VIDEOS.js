@@ -10,6 +10,7 @@ export default gql`
             description
             link
             name
+            duration
             tags {
                 name
                 id
