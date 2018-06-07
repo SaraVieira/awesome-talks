@@ -6,6 +6,7 @@ import Speaker from './Pages/Speaker'
 import Tags from './Pages/Tags'
 import Tag from './Pages/Tag'
 import Favorites from './Pages/Favorites'
+import Video from './Pages/Video'
 
 import './Utils/global-styles'
 import './Utils/icons'
@@ -18,5 +19,6 @@ export default () => (
         <Route exact path="/category/:category" component={Tag} />
         <Route exact path="/speakers" component={Speakers} />
         <Route exact path="/speaker/:speaker" component={Speaker} />
+        <Route exact path="/video/:video" component={Video} />
     </Switch>
 )
