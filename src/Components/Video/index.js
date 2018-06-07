@@ -6,7 +6,6 @@ import remcalc from 'remcalc'
 
 import Tag from '../Styling/Tag'
 import Player from '../Player'
-// import CinemaMode from '../CinemaMode'
 import { getDuration } from './../../Utils/youtube'
 import { Col } from 'react-styled-flexboxgrid'
 
@@ -45,15 +44,6 @@ const Column = styled(Col)`
     margin-bottom: ${remcalc(40)};
 `
 
-// const Description = styled.p`
-//     opacity: 0.8;
-//     font-family: Montserrat-Light;
-//     font-size: ${remcalc(14)};
-//     color: ${props => props.theme.main};
-//     letter-spacing: ${remcalc(0.11)};
-//     line-height: ${remcalc(21)};
-// `
-
 const Duration = styled.span`
     margin-bottom: ${remcalc(10)};
     display: block;
@@ -89,7 +79,6 @@ export class SimpleVideo extends Component {
     render = () => {
         const {
             speaker,
-            // description,
             link,
             name,
             duration,
@@ -147,10 +136,6 @@ export class SimpleVideo extends Component {
                             </Tag>
                         ))}
                     </Flex>
-
-                    {/* {cinemaMode && description ? (
-                    <Description>{description}</Description>
-                ) : null} */}
                 </Column>
             </Fragment>
         )
