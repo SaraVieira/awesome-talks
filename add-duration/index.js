@@ -1,6 +1,7 @@
 const { json } = require('micro')
 const { request } = require('graphql-request')
 const getDuration = require('./youtube')
+require('dotenv').config()
 
 const endpoint = 'https://api.graphcms.com/simple/v1/awesometalks'
 
