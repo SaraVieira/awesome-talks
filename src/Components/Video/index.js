@@ -6,7 +6,6 @@ import remcalc from 'remcalc'
 
 import Tag from '../Styling/Tag'
 import Player from '../Player'
-// import CinemaMode from '../CinemaMode'
 import { getDuration } from './../../Utils/youtube'
 import { Col } from 'react-styled-flexboxgrid'
 
