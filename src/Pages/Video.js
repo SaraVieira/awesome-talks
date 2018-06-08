@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import Header from './../Components/Header'
-import { Col, Row, Grid } from 'react-styled-flexboxgrid'
+import { Row, Grid, Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
 import { Helmet } from 'react-helmet'
 
@@ -17,35 +17,9 @@ import { getDuration } from '../Utils/youtube'
 import Flex from 'styled-flex-component'
 import Error404 from './../Components/Errors/Error404'
 
-const Section = styled.div`
-    width: 100%;
-
-    p {
-        word-break: break-word;
-    }
-
-    @media (max-width: ${remcalc(768)}) {
-        max-width: 80%;
-        margin: auto;
-
-        p {
-            word-break: break-word;
-            text-align: center;
-        }
-    }
-`
-
-const Column = styled(Col)`
-    transition: all 200ms ease;
-    justify-content: center;
-    margin: 0 auto;
-    margin-bottom: ${remcalc(40)};
-`
-
 const Description = styled.p`
-    opacity: 0.8;
-    font-family: Montserrat-Light;
-    font-size: ${remcalc(14)};
+    font-weight: 400;
+    font-size: ${remcalc(16)};
     color: ${props => props.theme.main};
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
@@ -63,22 +37,25 @@ const Img = styled.img`
 `
 
 const Duration = styled.span`
-    margin-bottom: ${remcalc(10)};
-    display: block;
-    margin-top: ${remcalc(-5)};
-    opacity: 0.8;
     font-weight: 400;
-    position: relative
-    right: ${remcalc(10)};
-    top: ${remcalc(15)};
     color: ${props => props.theme.main};
+`
+
+const HeaderStyled = styled(Header)`
+    margin-bottom: ${remcalc(20)};
+`
+
+const PlayerStyled = styled.main`
+    max-width: ${remcalc(1216)};
+    margin: auto;
+    margin-bottom: ${remcalc(20)};
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
     `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 const VideoInfo = ({ name, description, speaker, id, tags, duration }) => (
-    <div>
+    <Fragment>
         <Helmet>
             <title>Awesome Talks - {name}</title>
             <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
@@ -89,39 +66,42 @@ const VideoInfo = ({ name, description, speaker, id, tags, duration }) => (
                 content={`Amazing Tech Talk - ${name}`}
             />
         </Helmet>
-        <Flex justifyBetween>
-            <Header title={name} noSearch small />
+        <HeaderStyled medium title={name} noSearch noMargin />
+        <Flex column style={{ marginBottom: remcalc(40) }}>
             {duration ? <Duration>{getDuration(duration)}</Duration> : null}
+            <div>
+                {tags.map(s => (
+                    <Tag key={s.id} to={makeLink('category', s.name)}>
+                        #{s.name.toLowerCase()}
+                    </Tag>
+                ))}
+            </div>
+            <Description>{description}</Description>
         </Flex>
         <Row>
-            {tags.map(s => (
-                <Tag key={s.id} to={makeLink('category', s.name)}>
-                    #{s.name.toLowerCase()}
-                </Tag>
-            ))}
+            <Col xs={12}>
+                {speaker.map(s => (
+                    <Fragment key={`${s.id}_${id}`}>
+                        {s.photo ? (
+                            <Img
+                                src={s.photo.url}
+                                alt={name}
+                                height="100"
+                                width="100"
+                            />
+                        ) : null}
+                        <Link
+                            to={makeLink('speaker', s.name)}
+                            className="no-hover"
+                        >
+                            {s.name}
+                        </Link>
+                        {s.bio ? <Description>{s.bio}</Description> : null}
+                    </Fragment>
+                ))}
+            </Col>
         </Row>
-        <Row>
-            <Description>{description}</Description>
-        </Row>
-        <Row>
-            {speaker.map(s => (
-                <div key={`${s.id}_${id}`}>
-                    {s.photo ? (
-                        <Img
-                            src={s.photo.url}
-                            alt={name}
-                            height="100"
-                            width="100"
-                        />
-                    ) : null}
-                    <Link to={makeLink('speaker', s.name)} className="no-hover">
-                        {s.name}
-                    </Link>
-                    {s.bio ? <Description>{s.bio}</Description> : null}
-                </div>
-            ))}
-        </Row>
-    </div>
+    </Fragment>
 )
 
 class VideoComponent extends Component {
@@ -137,56 +117,48 @@ class VideoComponent extends Component {
     render() {
         const id = this.props.match.params.id
         return (
-            <Grid>
-                <div role="banner">
-                    <Nav />
-                </div>
-                <main>
-                    <Row>
-                        <Col xs={12}>
-                            <Query query={VIDEO_DATA} variables={{ id }}>
-                                {({ data: { allVideoses } }) => {
-                                    const { showVideo } = this.state
+            <Fragment>
+                <Grid>
+                    <div role="banner">
+                        <Nav />
+                    </div>
+                </Grid>
+                <Query query={VIDEO_DATA} variables={{ id }}>
+                    {({ data: { allVideoses } }) => {
+                        const { showVideo } = this.state
 
-                                    if (!allVideoses.length) {
-                                        return <Error404 />
-                                    }
+                        if (!allVideoses.length) {
+                            return <Error404 />
+                        }
 
-                                    return (
-                                        <Section>
-                                            <div>
-                                                <Column md={8} sm={8} xs={9}>
-                                                    <Player
-                                                        showVideo={showVideo}
-                                                        videoMode
-                                                        id={allVideoses[0].id}
-                                                        link={
-                                                            allVideoses[0].link
-                                                        }
-                                                        name={
-                                                            allVideoses[0].name
-                                                        }
-                                                        onClick={this.showVideo}
-                                                        onEnd={() =>
-                                                            this.endVideo(
-                                                                allVideoses[0]
-                                                                    .id
-                                                            )
-                                                        }
-                                                    />
-                                                </Column>
-                                                <VideoInfo
-                                                    {...allVideoses[0]}
-                                                />
-                                            </div>
-                                        </Section>
-                                    )
-                                }}
-                            </Query>
-                        </Col>
-                    </Row>
-                </main>
-            </Grid>
+                        return (
+                            <Fragment>
+                                <PlayerStyled>
+                                    <Player
+                                        showVideo={showVideo}
+                                        videoMode
+                                        hq
+                                        id={allVideoses[0].id}
+                                        link={allVideoses[0].link}
+                                        name={allVideoses[0].name}
+                                        onClick={this.showVideo}
+                                        onEnd={() =>
+                                            this.endVideo(allVideoses[0].id)
+                                        }
+                                    />
+                                </PlayerStyled>
+                                <Grid>
+                                    <Row>
+                                        <Col xs={12}>
+                                            <VideoInfo {...allVideoses[0]} />
+                                        </Col>
+                                    </Row>
+                                </Grid>
+                            </Fragment>
+                        )
+                    }}
+                </Query>
+            </Fragment>
         )
     }
 }

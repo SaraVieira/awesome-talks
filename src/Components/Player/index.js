@@ -73,7 +73,8 @@ const Player = ({
     name,
     onClick,
     onEnd,
-    toggleCinemaMode
+    toggleCinemaMode,
+    hq
 }) => (
     <VideoWrapper key={id} cinemaMode={cinemaMode}>
         <Video cinemaMode={cinemaMode}>
@@ -96,7 +97,9 @@ const Player = ({
                     <Thumbnail
                         onClick={toggleCinemaMode}
                         cinemaMode={cinemaMode}
-                        src={`https://img.youtube.com/vi/${link}/hqdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${link}/${
+                            hq ? 'maxresdefault' : 'hqdefault'
+                        }.jpg`}
                         alt={name}
                     />
                 </Image>
