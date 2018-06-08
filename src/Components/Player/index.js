@@ -96,7 +96,7 @@ const Player = ({
                 <Image cinemaMode={cinemaMode}>
                     <Play onClick={onClick} aria-label="Play Video" />
                     <Thumbnail
-                        onClick={toggleCinemaMode}
+                        onClick={hq ? onClick : toggleCinemaMode}
                         cinemaMode={cinemaMode}
                         src={`https://img.youtube.com/vi/${link}/${
                             hq ? 'maxresdefault' : 'hqdefault'
