@@ -1,18 +1,26 @@
-import URL from 'url-parse'
-
 export default link => {
-    const url = new URL(link, true)
-    if (url.host) {
-        // normal url
-        if (/youtube/.test(url.host)) {
-            return url.query.v
-        } else if (/youtu.be/.test(url.host) > -1) {
-            return url.pathname.substr(1)
-        } else {
-            return null
-        }
-    } else {
-        const splitId = link.split('=')
-        return splitId.length === 2 ? splitId[1] : splitId[0]
+    let match = false
+
+    // allow only youtube related domains
+    if (
+        /https?:\/\/(?:www\.)?(?:youtube(?:-nocookie)?\.com|youtu\.be)/.test(
+            link
+        ) === false
+    ) {
+        return 'Only youtube links are allowed currently'
     }
+
+    // multiple checks with fallbacks
+    if (link.includes('v=') !== false) {
+        return link.substr(link.indexOf('v=') + 2, 11)
+    } else if (link.includes('embed/') !== false) {
+        return link.substr(link.indexOf('embed/') + 6, 11)
+    } else if ((match = link.match(/youtu\.be\/(.{11})(?:$|\?)/))) {
+        return match[1]
+    } else if (
+        (match = link.match(/(?:\/(?:v|e)\/|video_id=)(.{11})(?:$|&|\?)/))
+    ) {
+        return match[1]
+    }
+    return 'Oops! invalid Link'
 }

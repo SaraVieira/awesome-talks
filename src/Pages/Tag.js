@@ -1,12 +1,14 @@
 import React from 'react'
-import Header from './../Components/Header'
+import { Helmet } from 'react-helmet'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
+
+import Header from './../Components/Header'
 import Query from './../Components/Query'
 import Video from './../Components/Video'
 import TAG_VIDEOS from '../Queries/TAG_VIDEOS'
 import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
-import { Helmet } from 'react-helmet'
+import CookieBanner from './../Components/CookieBanner'
 
 export default ({
     match: {
@@ -14,43 +16,35 @@ export default ({
     }
 }) => (
     <Grid>
-        <Nav />
         <Helmet>
-            <title>Awesome Talks - {category}</title>
-            <meta
-                name="description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
+            <title>{category}</title>
             <meta
                 name="twitter:title"
                 content={`Awesome Talks - ${humanize(category)}`}
             />
-            <meta
-                name="twitter:description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
-            <meta
-                name="twitter:image"
-                content="https://file-iloqdynwox.now.sh/"
-            />
-            <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
-        <Header title={`#${humanize(category)}`} noSearch />
+        <div role="banner">
+            <Nav />
+            <Header title={`#${humanize(category)}`} noSearch code />
+        </div>
         <Row>
             <Col xs={12}>
-                <Query
-                    query={TAG_VIDEOS}
-                    variables={{ name: humanize(category) }}
-                >
-                    {({ data: { allTagses } }) => (
-                        <Row>
-                            {allTagses[0].videos.map(v => (
-                                <Video key={v.id} talk={v} />
-                            ))}
-                        </Row>
-                    )}
-                </Query>
+                <main>
+                    <Query
+                        query={TAG_VIDEOS}
+                        variables={{ name: humanize(category) }}
+                    >
+                        {({ data: { allTagses } }) => (
+                            <Row>
+                                {allTagses[0].videos.map(v => (
+                                    <Video key={v.id} talk={v} />
+                                ))}
+                            </Row>
+                        )}
+                    </Query>
+                </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )

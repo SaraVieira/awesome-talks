@@ -105,6 +105,26 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sudovijay",
+      "name": "Vijay Singh",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4334983?v=4",
+      "profile": "http://sudovijay.com",
+      "contributions": [
+        "question",
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "scottaohara",
+      "name": "Scott O'Hara",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4152514?v=4",
+      "profile": "https://scottohara.me",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }

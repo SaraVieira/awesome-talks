@@ -17,7 +17,6 @@ export default styled.button`
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0.25rem;
-    outline: 0;
     transition: background-color 150ms, border-color 150ms, color 75ms ease-out;
     padding-top: 0.8125rem;
     padding-bottom: 0.6875rem;
@@ -27,7 +26,7 @@ export default styled.button`
     padding-right: 1.25rem;
     padding-left: 1.25rem;
     font-size: 0.75rem;
-    color: ${props => props.theme.white};
+    color: ${props => props.theme.primary};
     background-color: #60b7e6;
     border-color: transparent;
     min-width: ${remcalc(125)};
@@ -47,7 +46,7 @@ export default styled.button`
         height: 2em;
 
         path {
-            stroke: ${props => props.theme.white};
+            stroke: ${props => props.theme.primary};
             stroke-width: 5;
         }
     }

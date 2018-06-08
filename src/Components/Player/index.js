@@ -64,8 +64,16 @@ const Image = styled.div`
     height: auto;
   `};
 `
-
-const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
+const Player = ({
+    cinemaMode,
+    id,
+    link,
+    showVideo,
+    name,
+    onClick,
+    onEnd,
+    toggleCinemaMode
+}) => (
     <VideoWrapper key={id} cinemaMode={cinemaMode}>
         <Video cinemaMode={cinemaMode}>
             {showVideo || cinemaMode ? (
@@ -76,15 +84,18 @@ const Player = ({ cinemaMode, id, link, showVideo, name, onClick, onEnd }) => (
                     onEnd={onEnd}
                     cinemaMode={cinemaMode}
                     opts={{
-                        width: '100%'
+                        width: '100%',
+                        host: 'https://www.youtube-nocookie.com',
+                        playerVars: { rel: 0, showinfo: 0 }
                     }}
                 />
             ) : (
                 <Image cinemaMode={cinemaMode}>
                     <Play onClick={onClick} aria-label="Play Video" />
                     <Thumbnail
+                        onClick={toggleCinemaMode}
                         cinemaMode={cinemaMode}
-                        src={`https://img.youtube.com/vi/${link}/mqdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${link}/hqdefault.jpg`}
                         alt={name}
                     />
                 </Image>

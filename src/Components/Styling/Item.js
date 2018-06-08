@@ -3,22 +3,30 @@ import styled from 'styled-components'
 import remcalc from 'remcalc'
 
 export default styled(Link)`
-    background-color: #fbfbfb;
-    border: ${remcalc(1)} solid #2e3d46;
+    background-color: ${props => props.theme.primary};
+    border: ${remcalc(1)} solid ${props => props.theme.blue};
     padding: ${remcalc(6)} ${remcalc(15)};
-    color: #2e3d46;
+    color: ${props => props.theme.main};
     border-radius: ${remcalc(5)};
+    font-family: 'Space Mono', monospace;
+    font-size: ${remcalc(36)};
+    line-height: 1.2;
     transition: all 300ms ease-in-out;
-    margin: ${remcalc(5)};
     text-decoration: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    &:after {
-        width: 0;
-        height: 0;
+    .count {
+        font-family: Avenir, Montserrat, Arial, sans-serif;
+        font-size: 14px;
+        color: ${props => props.theme.darkGrey};
+        opacity: 0.7;
+        margin-top: ${remcalc(-15)};
     }
 
     &:hover {
-        border: ${remcalc(1)} solid #337294;
-        color: #337294;
+        color: ${props => props.theme.primary};
     }
 `

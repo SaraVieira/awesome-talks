@@ -18,7 +18,7 @@ const Column = styled(Col)`
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
-  background: ${props => props.theme.white};
+  background: ${props => props.theme.primary};
   padding: ${remcalc(20)};
   max-height: 90%;
   overflow: scroll;
@@ -36,10 +36,13 @@ const Button = styled.button`
     background: transparent;
     display: block;
     border: none;
-    color: #d62d22;
-    font-weight: bold;
+    color: ${props => props.theme.cinema};
+    font-weight: 600;
     text-align: right;
-    padding: 0;
+    padding: 6px 0px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 200ms ease;
 `
 
 const Overlay = styled.div`
@@ -57,6 +60,16 @@ export default class CinemaMode extends Component {
         cinemaMode: false,
         showVideo: false
     }
+
+    handleKeyDown = event => {
+        if (
+            event.keyCode === 27 &&
+            document.body.classList.contains('cinema-mode')
+        ) {
+            this.toggleCinemaMode()
+        }
+    }
+
     toggleCinemaMode = () => {
         this.setState(
             ({ cinemaMode }) => ({
@@ -68,6 +81,12 @@ export default class CinemaMode extends Component {
                     'cinema-mode',
                     this.state.cinemaMode
                 )
+
+                if (this.state.cinemaMode === false) {
+                    document.removeEventListener('keydown', this.handleKeyDown)
+                } else {
+                    document.addEventListener('keydown', this.handleKeyDown)
+                }
             }
         )
     }
@@ -82,7 +101,7 @@ export default class CinemaMode extends Component {
                 xs={9}
             >
                 <div>
-                    {render(cinemaMode, showVideo)}
+                    {render(cinemaMode, showVideo, this.toggleCinemaMode)}
                     <Button
                         name="Toggle Cinema Mode"
                         onClick={this.toggleCinemaMode}

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders Input 1`] = `
+.c0 {
+  font-size: 0.9375rem;
+  color: #666;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-letter-spacing: 0.0625rem;
+  -moz-letter-spacing: 0.0625rem;
+  -ms-letter-spacing: 0.0625rem;
+  letter-spacing: 0.0625rem;
+  border: 0;
+  padding: 0.4375rem 0;
+  border-bottom: 0.0625rem solid #ccc;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0 ~ span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.125rem;
+  background-color: #337294;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.c0:focus ~ span {
+  width: 100%;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+<input
+  className="c0"
+/>
+`;

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export default styled.button`
     background: #282828;
     border-radius: 50% / 10%;
-    color: ${props => props.theme.white};
+    color: ${props => props.theme.primary};
     font-size: 1em;
     height: 3em;
     padding: 0;
@@ -18,7 +18,6 @@ export default styled.button`
     border: none;
     opacity: 0.8;
     cursor: pointer;
-    z-index: 9;
 
     &:hover {
         background: #ff0000;

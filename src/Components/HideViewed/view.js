@@ -1,91 +1,136 @@
 import React from 'react'
 import styled from 'styled-components'
 import remcalc from 'remcalc'
-import { Section } from '../Styling/Section'
 
-const Input = styled.input`
-    display: none;
+const Section = styled.div`
+    display: flex;
 
-    &:checked + label {
-        background-color: ${props => props.theme.green};
-    }
-
-    &:checked + label > i {
-        margin-left: ${remcalc(24)};
-    }
-
-    &:checked + label:active > i {
-        margin-left: ${remcalc(18)};
+    @media (max-width: ${remcalc(768)}) {
+        top: ${remcalc(-55)};
+        position: relative;
+        margin: auto;
+        justify-content: center;
     }
 `
 
-const Label = styled.label`
-    display: block;
-    width: ${remcalc(54)};
-    height: ${remcalc(32)};
-    margin: 0 auto;
-    border-radius: ${remcalc(100)};
-    transition: all 0.2s ease-in-out;
-    background-color: ${props => props.theme.lightGrey};
+const Text = styled.div`
+    font-size: 19px;
+    padding: 3px;
+    padding-left: 5px;
+    font-weight: 400;
+    color: ${props => props.theme.main};
+`
 
-    &:after {
-        display: inline-block;
-        content: 'Hide Watched Talks';
-        position: relative;
-        width: ${remcalc(150)};
-        left: ${remcalc(60)};
-        top: ${remcalc(-30)};
-    }
+const Hide = styled.div`
+    .tgl {
+        display: none;
 
-    & i {
-        height: ${remcalc(28)};
-        width: ${remcalc(28)};
-        background: ${props => props.theme.white};
-        display: inline-block;
-        border-radius: ${remcalc(100)};
-        margin-top: ${remcalc(2)};
-        margin-left: ${remcalc(2)};
-        transition: all 0.2s ease-in-out;
-        pointer-events: none;
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    }
+        // add default box-sizing for this scope
+        &,
+        &:after,
+        &:before,
+        & *,
+        & *:after,
+        & *:before,
+        & + .tgl-btn {
+            box-sizing: border-box;
+            &::selection {
+                background: none;
+            }
+        }
 
-    &:active {
-        background-color: #a6b9cb;
+        + .tgl-btn {
+            outline: 0;
+            display: block;
+            width: 4em;
+            height: 2em;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            &:after,
+            &:before {
+                position: relative;
+                display: block;
+                content: '';
+                width: 50%;
+                height: 100%;
+            }
 
-        & > i {
-            width: ${remcalc(34)};
-            box-shadow: 0 ${remcalc(2)} ${remcalc(4)} 0 rgba(0, 0, 0, 0.2);
+            &:after {
+                left: 0;
+            }
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &:checked + .tgl-btn:after {
+            left: 50%;
         }
     }
 
-    &:active &:hover > i {
-        box-shadow: 0 ${remcalc(1)} ${remcalc(2)} 0 rgba(0, 0, 0, 0.2);
-        transform: scale(1.01);
-    }
+    // themes
 
-    @media (min-width: ${remcalc(768)}) {
-        margin-left: 0;
+    .tgl-ios {
+        + .tgl-btn {
+            background: ${props => props.theme.tertiary};
+            border-radius: 2em;
+            padding: 2px;
+            transition: all 0.4s ease;
+            border: 1px solid #e8eae9;
+            &:after {
+                border-radius: 2em;
+                background: ${props => props.theme.midGrey};
+                transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                    padding 0.3s ease, margin 0.3s ease;
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+                    0 4px 0 rgba(0, 0, 0, 0.08);
+            }
+
+            &:hover:after {
+                will-change: padding;
+            }
+
+            &:active {
+                box-shadow: inset 0 0 0 2em #e8eae9;
+                &:after {
+                    padding-right: 0.8em;
+                }
+            }
+        }
+
+        &:checked + .tgl-btn {
+            background: #86d993;
+            &:active {
+                box-shadow: none;
+                &:after {
+                    margin-left: -0.8em;
+                }
+            }
+        }
     }
 `
 
 export default ({ hideViewed, client }) => {
     return (
         <Section>
-            <Input
-                type="checkbox"
-                id="show-viewed"
-                ariaLabel="Hide Watched Talks"
-                onClick={() =>
-                    client.writeData({
-                        data: { hideViewed: !hideViewed }
-                    })
-                }
-                checked={hideViewed}
-            />
-            <Label htmlFor="show-viewed">
-                <i />
-            </Label>
+            <Hide>
+                <input
+                    className="tgl tgl-ios"
+                    id="cb2"
+                    type="checkbox"
+                    aria-label="Hide Watched Talks"
+                    onClick={() =>
+                        client.writeData({
+                            data: { hideViewed: !hideViewed }
+                        })
+                    }
+                    checked={hideViewed}
+                />
+                <label className="tgl-btn" htmlFor="cb2" />
+            </Hide>
+            <Text>Hide Watched Talks</Text>
         </Section>
     )
 }

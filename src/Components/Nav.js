@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
-import styled, { injectGlobal } from 'styled-components'
+import styled from 'styled-components'
 import is from 'styled-is'
 import { Link } from 'react-router-dom'
 import { Grid, Row, Col } from 'react-styled-flexboxgrid'
-import Modal from 'react-modal'
 import remcalc from 'remcalc'
-import { withFormik } from 'formik'
-import { Mutation, Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 
 import Logo from '../assets/logo.svg'
-import Loading from '../assets/loading.svg'
-import Button from './Styling/Button'
-import Input from './Styling/Input'
-import CREATE_VIDEO from '../Queries/ADD_VIDEO'
+import AddTalk from './AddTalk'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
+import SWITCH_MODE, { GET_MODE } from '../Queries/SWITCH_MODE'
 
 import linkParser from '../Utils/link-parser'
 
@@ -62,36 +58,11 @@ const Item = styled.li`
     }
 `
 
-injectGlobal`
-    .ReactModalPortal {
-        z-index: 10;
-        position: relative;
-    }
-    @media (max-width: ${remcalc(768)}) {
-        .ReactModal__Content.ReactModal__Content--after-open {
-            width: 80%;
-            height: ${remcalc(300)};
-            z-index: 999;
-        }
-    }
-`
-
-const Name = styled.h2`
-    font-size: 400;
-    font-size: ${remcalc(22)};
-    color: ${props => props.theme.black};
-    letter-spacing: ${remcalc(-0.63)};
-`
-
-const Wrapper = styled.div`
-    position: relative;
-    margin-bottom: ${remcalc(20)};
-`
-
-class Navigation extends Component {
+export default class Navigation extends Component {
     state = {
         modalIsOpen: false,
-        submitted: false
+        submitted: false,
+        submitError: false
     }
 
     openModal = () => {
@@ -102,13 +73,57 @@ class Navigation extends Component {
         this.setState({ modalIsOpen: false })
     }
 
+    handleError = errorMsg => {
+        this.setState({
+            submitError: errorMsg
+        })
+        this.props.handleReset()
+        setTimeout(() => {
+            this.setState({
+                submitError: false
+            })
+        }, 3000)
+    }
+
     submit = async (e, createVideos, values, setSubmitting, handleReset) => {
         e.preventDefault()
+
+        // attach it
+        this.handleReset = handleReset
+
+        if (values.name.trim() === '' || values.link.trim() === '') {
+            this.handleError('You must fill in all of the fields')
+            return false
+        }
+
+        const link = linkParser(values.link)
+
+        if (link.length !== 11) {
+            this.handleError(link)
+            return false
+        }
+
+        // remove multiple spaces from name
+        values.name = String(values.name)
+            .replace(/\s{2,}/gu, ' ')
+            .trim()
+
         const valuesToBeSaved = {
             ...values,
-            link: linkParser(values.link)
+            link
         }
-        await createVideos({ variables: { ...valuesToBeSaved } })
+
+        try {
+            await createVideos({ variables: { ...valuesToBeSaved } })
+        } catch (err) {
+            const msg = err.message.includes('A unique constraint')
+                ? 'Awesome! We already have this. Thanks anyway.'
+                : err.message
+
+            this.handleError(msg)
+            return false
+        }
+
         setSubmitting(false)
         handleReset()
         this.setState({ submitted: true }, () => {
@@ -121,20 +136,13 @@ class Navigation extends Component {
     }
 
     render = () => {
-        const {
-            values,
-            handleChange,
-            handleBlur,
-            setSubmitting,
-            handleReset
-        } = this.props
         return (
             <Grid>
                 <Row>
                     <Col xs={12}>
                         <Nav>
                             <LogoWrapper to="/">
-                                <img src={Logo} width="70" alt="Logo" />
+                                <img src={Logo} width="70" alt="Home" />
                             </LogoWrapper>
                             <List>
                                 <Item>
@@ -168,118 +176,33 @@ class Navigation extends Component {
                                     </a>
                                 </Item>
                                 <Item>
-                                    <a onClick={this.openModal}>
-                                        <span>Add a Talk</span>
-                                    </a>
-                                    <Modal
-                                        isOpen={this.state.modalIsOpen}
-                                        onRequestClose={this.closeModal}
-                                        contentLabel="Add a Talk"
-                                        style={{
-                                            overlay: {
-                                                backgroundColor:
-                                                    'rgba(0,0,0,0.3)'
-                                            },
-                                            content: {
-                                                color: '#666',
-                                                border: 'none',
-                                                borderRadius: 0,
-                                                top: '50%',
-                                                left: '50%',
-                                                transform:
-                                                    'translate(-50%, -50%)'
-                                            }
-                                        }}
+                                    <button
+                                        className="active_nav link"
+                                        onClick={this.openModal}
                                     >
-                                        <Name> Add a Talk </Name>
-                                        <Mutation mutation={CREATE_VIDEO}>
-                                            {(
-                                                createVideos,
-                                                { data, loading }
-                                            ) => (
-                                                <form
-                                                    onSubmit={e =>
-                                                        this.submit(
-                                                            e,
-                                                            createVideos,
-                                                            values,
-                                                            setSubmitting,
-                                                            handleReset
-                                                        )
-                                                    }
-                                                >
-                                                    {this.state.submitted ? (
-                                                        <Name>
-                                                            You are the Best{' '}
-                                                            <span
-                                                                role="img"
-                                                                aria-label="party"
-                                                            >
-                                                                🎉
-                                                            </span>
-                                                        </Name>
-                                                    ) : null}
-                                                    <Wrapper>
-                                                        <Input
-                                                            id="name"
-                                                            placeholder="Enter the title of the talk"
-                                                            type="text"
-                                                            value={values.name}
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            onBlur={handleBlur}
-                                                            required
-                                                        />
-                                                        <span />
-                                                    </Wrapper>
-                                                    <Wrapper>
-                                                        <Input
-                                                            id="link"
-                                                            placeholder="Enter the Youtube Video ID"
-                                                            type="text"
-                                                            value={values.link}
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                            onBlur={handleBlur}
-                                                            required
-                                                        />
-                                                        <span />
-                                                    </Wrapper>
-                                                    <Button
-                                                        name="Add a Talks"
-                                                        type="submit"
-                                                        submitted={
-                                                            this.state.submitted
-                                                        }
-                                                        disabled={false}
-                                                    >
-                                                        {loading ? (
-                                                            <img
-                                                                src={Loading}
-                                                                alt="Loading"
-                                                            />
-                                                        ) : null}
-                                                        {!loading &&
-                                                        !this.state.submitted
-                                                            ? 'Submit'
-                                                            : null}
-                                                        {this.state
-                                                            .submitted ? (
-                                                            <svg
-                                                                className="checkmark"
-                                                                viewBox="0 0 70 70"
-                                                            >
-                                                                <path d="m31.5,46.5l15.3,-23.2" />
-                                                                <path d="m31.5,46.5l-8.5,-7.1" />
-                                                            </svg>
-                                                        ) : null}
-                                                    </Button>
-                                                </form>
-                                            )}
-                                        </Mutation>
-                                    </Modal>
+                                        Add a Talk
+                                    </button>
+
+                                    <AddTalk
+                                        modalIsOpen={this.state.modalIsOpen}
+                                        close={this.closeModal}
+                                        submit={this.submit}
+                                        submitted={this.state.submitted}
+                                        submitError={this.state.submitError}
+                                    />
+                                </Item>
+                                <Item>
+                                    <Mutation mutation={SWITCH_MODE}>
+                                        {(switchMode, { data, loading }) => (
+                                            <Query query={GET_MODE}>
+                                                {({ data: { mode } }) => (
+                                                    <a onClick={switchMode}>
+                                                        <span>{mode}</span>
+                                                    </a>
+                                                )}
+                                            </Query>
+                                        )}
+                                    </Mutation>
                                 </Item>
                             </List>
                         </Nav>
@@ -289,7 +212,3 @@ class Navigation extends Component {
         )
     }
 }
-export default withFormik({
-    mapPropsToValues: () => ({ name: '', link: '' }),
-    displayName: 'AddTalk'
-})(Navigation)

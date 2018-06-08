@@ -11,7 +11,7 @@ export default ({ favorites, removeFavorite, addFavorite, id }) => {
                 checked={favorites.includes(id)}
                 type="checkbox"
                 id={inputId}
-                onClick={() =>
+                onChange={() =>
                     favorites.includes(id)
                         ? removeFavorite(id)
                         : addFavorite(id)

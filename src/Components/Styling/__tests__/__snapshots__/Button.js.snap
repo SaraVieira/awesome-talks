@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders Button 1`] = `
+.c0 {
+  font-weight: 600;
+  -webkit-letter-spacing: 0.1em;
+  -moz-letter-spacing: 0.1em;
+  -ms-letter-spacing: 0.1em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  margin-right: 0;
+  margin-left: 0;
+  line-height: 1;
+  -webkit-letter-spacing: 0.1em;
+  -moz-letter-spacing: 0.1em;
+  -ms-letter-spacing: 0.1em;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-shadow: none;
+  vertical-align: middle;
+  border-width: 0.125rem;
+  border-style: solid;
+  border-radius: 0.25rem;
+  -webkit-transition: background-color 150ms,border-color 150ms,color 75ms ease-out;
+  transition: background-color 150ms,border-color 150ms,color 75ms ease-out;
+  padding-top: 0.8125rem;
+  padding-bottom: 0.6875rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  min-width: 7.5rem;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+  font-size: 0.75rem;
+  background-color: #60b7e6;
+  border-color: transparent;
+  min-width: 7.8125rem;
+}
+
+.c0 img,
+.c0 svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 2.5em;
+  height: 2.5em;
+  margin: auto !important;
+  pointer-events: none;
+  width: 2em;
+  height: 2em;
+}
+
+.c0 img path,
+.c0 svg path {
+  stroke-width: 5;
+}
+
+<button
+  className="c0"
+/>
+`;

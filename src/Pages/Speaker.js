@@ -1,17 +1,18 @@
 import React from 'react'
-import Header from './../Components/Header'
-import { Col, Row, Grid } from 'react-styled-flexboxgrid'
-import Flex from 'styled-flex-component'
-import styled from 'styled-components'
-import remcalc from 'remcalc'
 import { Helmet } from 'react-helmet'
+import { Col, Row, Grid } from 'react-styled-flexboxgrid'
+import remcalc from 'remcalc'
+import styled from 'styled-components'
+import Flex from 'styled-flex-component'
 
+import Header from './../Components/Header'
 import Query from './../Components/Query'
 import Video from './../Components/Video'
 import SPEAKER_VIDEOS from '../Queries/SPEAKER_VIDEOS'
 import TwitterIcon from '../assets/twitter.svg'
 import humanize, { urlify } from '../Utils/strings'
 import Nav from './../Components/Nav'
+import CookieBanner from './../Components/CookieBanner'
 
 const Wrapper = styled(Row)`
     margin-bottom: ${remcalc(30)};
@@ -67,9 +68,8 @@ const Section = styled.div`
 
 const SpeakerInfo = ({ photo, name, bio, twitter }) => (
     <Wrapper>
-        <Nav />
         <Helmet>
-            <title>Awesome Talks - {name}</title>
+            <title>{name}</title>
             <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
             <meta name="twitter:image" content={photo.url} />
             <meta name="twitter:image:alt" content={name} />
@@ -120,31 +120,37 @@ export default ({
     }
 }) => (
     <Grid>
-        <Row>
-            <Col xs={12}>
-                <Query
-                    query={SPEAKER_VIDEOS}
-                    variables={{ name: humanize(speaker) }}
-                >
-                    {({ data: { allSpeakerses } }) => {
-                        return (
-                            <Section>
-                                <SpeakerInfo {...allSpeakerses[0]} />
-                                <Row>
-                                    <Header title="Talks" noSearch />
-                                </Row>
-                                <Row>
-                                    {allSpeakerses.length &&
-                                        allSpeakerses[0].videoses.length &&
-                                        allSpeakerses[0].videoses.map(v => (
-                                            <Video key={v.id} talk={v} />
-                                        ))}
-                                </Row>
-                            </Section>
-                        )
-                    }}
-                </Query>
-            </Col>
-        </Row>
+        <div role="banner">
+            <Nav />
+        </div>
+        <main>
+            <Row>
+                <Col xs={12}>
+                    <Query
+                        query={SPEAKER_VIDEOS}
+                        variables={{ name: humanize(speaker) }}
+                    >
+                        {({ data: { allSpeakerses } }) => {
+                            return (
+                                <Section>
+                                    <SpeakerInfo {...allSpeakerses[0]} />
+                                    <Row>
+                                        <Header title="Talks" noSearch />
+                                    </Row>
+                                    <Row>
+                                        {allSpeakerses.length &&
+                                            allSpeakerses[0].videoses.length &&
+                                            allSpeakerses[0].videoses.map(v => (
+                                                <Video key={v.id} talk={v} />
+                                            ))}
+                                    </Row>
+                                </Section>
+                            )
+                        }}
+                    </Query>
+                </Col>
+            </Row>
+        </main>
+        <CookieBanner />
     </Grid>
 )
