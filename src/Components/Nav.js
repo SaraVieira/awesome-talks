@@ -10,8 +10,23 @@ import Logo from '../assets/logo.svg'
 import AddTalk from './AddTalk'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
 import SWITCH_MODE, { GET_MODE } from '../Queries/SWITCH_MODE'
+import DARK_MOON from '../assets/dark_moon.svg'
+import LIGHT_MOON from '../assets/light_moon.svg'
 
 import linkParser from '../Utils/link-parser'
+
+const modeObject = {
+    DARK: {
+        src: LIGHT_MOON,
+        alt: 'enable light mode',
+        pressed: 'false'
+    },
+    LIGHT: {
+        src: DARK_MOON,
+        alt: 'enable dark mode',
+        pressed: 'true'
+    }
+}
 
 const Nav = styled.nav`
     display: flex;
@@ -56,6 +71,11 @@ const Item = styled.li`
     &:not(:last-child) {
         margin-right: ${remcalc(10)};
     }
+`
+
+const Img = styled.img`
+    height: ${remcalc(30)};
+    cursor: pointer;
 `
 
 export default class Navigation extends Component {
@@ -195,11 +215,25 @@ export default class Navigation extends Component {
                                     <Mutation mutation={SWITCH_MODE}>
                                         {(switchMode, { data, loading }) => (
                                             <Query query={GET_MODE}>
-                                                {({ data: { mode } }) => (
-                                                    <a onClick={switchMode}>
-                                                        <span>{mode}</span>
-                                                    </a>
-                                                )}
+                                                {({ data: { mode } }) => {
+                                                    const {
+                                                        src,
+                                                        alt,
+                                                        pressed
+                                                    } = modeObject[mode]
+                                                    return (
+                                                        <Img
+                                                            role="button"
+                                                            aria-pressed={
+                                                                pressed
+                                                            }
+                                                            title={alt}
+                                                            onClick={switchMode}
+                                                            src={src}
+                                                            alt={alt}
+                                                        />
+                                                    )
+                                                }}
                                             </Query>
                                         )}
                                     </Mutation>
