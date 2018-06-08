@@ -82,8 +82,8 @@ const Global = ({ theme, children }) => {
 
         &.active_nav{
             top: ${remcalc(1)};;
-            background: #fff;
-            color: #337294;
+            background: none;
+            color: ${theme.blue};
         }
     }
 
