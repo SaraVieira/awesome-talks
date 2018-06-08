@@ -11,7 +11,7 @@ import HideViewed from '../HideViewed'
 
 export const Title = styled.h1`
     opacity: 0.8;
-    font-family: Montserrat;
+    font-family: Avenir, Montserrat;
     font-weight: 600;
     font-size: ${remcalc(90)};
     line-height: 1.2;
@@ -19,7 +19,7 @@ export const Title = styled.h1`
     letter-spacing: ${remcalc(-0.25)};
     margin-top: 0;
     margin-bottom: 0;
-
+    text-transform: capitalize;
     ${is('code')`
     font-family: 'Space Mono', monospace;
   `};
