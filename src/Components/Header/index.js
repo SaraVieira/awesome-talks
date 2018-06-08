@@ -15,10 +15,14 @@ export const Title = styled.h1`
     font-weight: 600;
     font-size: ${remcalc(90)};
     line-height: 1.2;
-    color: ${props => props.theme.black};
+    color: ${props => props.theme.main};
     letter-spacing: ${remcalc(-0.25)};
     margin-top: 0;
     margin-bottom: 0;
+
+    ${is('code')`
+    font-family: 'Space Mono', monospace;
+  `};
 
     ${is('small')`
     font-size: ${remcalc(24)};
@@ -69,12 +73,15 @@ const Header = ({
     match,
     keyName,
     query,
-    HideViewed
+    HideViewed,
+    code
 }) => (
     <Wrapper small={small}>
         <Col xs={12}>
             <SearchWrapper full alignCenter justifyBetween>
-                <Title small={small}>{title}</Title>
+                <Title code={code} small={small}>
+                    {title}
+                </Title>
                 {noSearch ? null : <Search keyName={keyName} query={query} />}
             </SearchWrapper>
             {match.path === '/' ? <HideViewed /> : null}

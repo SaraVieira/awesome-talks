@@ -2,16 +2,18 @@ import React from 'react'
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
-import Item from './../Components/Styling/Item'
+import { graphql } from 'react-apollo'
+
 import TAGS from '../Queries/TAGS'
 import Nav from './../Components/Nav'
 import { Helmet } from 'react-helmet'
+import Filter from '../Utils/search'
+import GET__TAGS_SEARCH from '../Queries/GET__TAGS_SEARCH'
+import Tag from '../Components/Tag'
+import CookieBanner from './../Components/CookieBanner'
 
-const makeLink = name => `/category/${name.replace(/\s+/g, '-').toLowerCase()}`
-
-export default () => (
+const Tags = ({ data: { searchTags } }) => (
     <Grid>
-        <Nav />
         <Helmet>
             <title>Awesome Talks - Categories</title>
             <meta
@@ -29,23 +31,36 @@ export default () => (
             />
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
-        <Header title="Categories" noSearch />
+        <div role="banner">
+            <Nav />
+            <Header
+                title="Categories"
+                code
+                query={GET__TAGS_SEARCH}
+                keyName="searchTags"
+            />
+        </div>
         <Row>
             <Col xs={12}>
-                <Query query={TAGS}>
-                    {({ data: { allTagses } }) => {
-                        return (
-                            <Row>
-                                {allTagses.map(s => (
-                                    <Item key={s.id} to={makeLink(s.name)}>
-                                        {s.name}
-                                    </Item>
+                <main>
+                    <Query query={TAGS}>
+                        {({ data: { allTagses: allTags } }) => (
+                            <Row style={{ justifyContent: 'space-around' }}>
+                                {Filter(searchTags, allTags).map(t => (
+                                    <Tag
+                                        className="no-hover"
+                                        key={t.id}
+                                        {...t}
+                                    />
                                 ))}
                             </Row>
-                        )
-                    }}
-                </Query>
+                        )}
+                    </Query>
+                </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )
+
+export default graphql(GET__TAGS_SEARCH)(Tags)

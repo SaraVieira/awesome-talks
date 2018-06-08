@@ -16,6 +16,7 @@ export default gql`
                 speaker {
                     name
                 }
+                duration
                 link
                 name
                 tags {

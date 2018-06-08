@@ -10,6 +10,8 @@
     },
     "globals": {
         "localStorage": true,
-        "fetch": true
+        "fetch": true,
+        "test": true,
+        "expect": true
     }
 }

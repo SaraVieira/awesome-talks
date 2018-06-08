@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders Figure 1`] = `
+.c0 {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 1%;
+  min-width: 220px;
+  max-width: 220px;
+  max-height: 220px;
+  min-height: 220px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 5px rgba(0,0,0,0.15);
+}
+
+.c0:hover img {
+  opacity: 1;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c0:hover h2 {
+  -webkit-transform: skew(-10deg) rotate(-10deg) translate(-150%,-50%);
+  -ms-transform: skew(-10deg) rotate(-10deg) translate(-150%,-50%);
+  transform: skew(-10deg) rotate(-10deg) translate(-150%,-50%);
+}
+
+.c0:hover:before {
+  -webkit-transform: rotate(110deg) translateY(-150%);
+  -ms-transform: rotate(110deg) translateY(-150%);
+  transform: rotate(110deg) translateY(-150%);
+}
+
+.c0::before {
+  height: 120%;
+  width: 130%;
+  top: 0;
+  left: 0;
+  content: '';
+  position: absolute;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transform: rotate(110deg) translateY(-33%) translateX(-7px);
+  -ms-transform: rotate(110deg) translateY(-33%) translateX(-7px);
+  transform: rotate(110deg) translateY(-33%) translateX(-7px);
+}
+
+.c0 * {
+  box-sizing: border-box;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.c0 a {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 1;
+  padding: 0;
+  border: none;
+}
+
+<figure
+  className="c0"
+/>
+`;
+
+exports[`Renders Name 1`] = `
+.c0 {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  display: inline-block;
+  -webkit-transform: skew(-10deg) rotate(-10deg) translate(0,-50%);
+  -ms-transform: skew(-10deg) rotate(-10deg) translate(0,-50%);
+  transform: skew(-10deg) rotate(-10deg) translate(0,-50%);
+  padding: 12px 5px;
+  margin: 0;
+  bottom: 0;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.c0 span {
+  font-weight: 800;
+  display: block;
+}
+
+<h2
+  className="c0"
+/>
+`;

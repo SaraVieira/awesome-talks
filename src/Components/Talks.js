@@ -9,6 +9,7 @@ import Query from './Query'
 import Scroll from './Scroll'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
 import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
+import ADD_WATCHED from '../Queries/ADD_WATCHED'
 import GET_WATCHED from '../Queries/GET_WATCHED'
 import COUNT from '../Queries/COUNT'
 
@@ -58,7 +59,12 @@ class TalksComponent extends Component {
                         </Flex>
                     ) : null}
                     {this.state.videos.map(v => (
-                        <Video noLazy={this.state.noLazy} key={v.id} talk={v} />
+                        <Video
+                            noLazy={this.state.noLazy}
+                            key={v.id}
+                            talk={v}
+                            addWatched={this.props.addWatched}
+                        />
                     ))}
                 </Row>
             </Col>
@@ -74,6 +80,11 @@ const Talks = compose(
     graphql(GET_WATCHED, {
         ssr: false,
         props: ({ data }) => ({ watched: data.watched })
+    }),
+    graphql(ADD_WATCHED, {
+        props: ({ mutate }) => ({
+            addWatched: id => mutate({ variables: { id } })
+        })
     })
 )(TalksComponent)
 

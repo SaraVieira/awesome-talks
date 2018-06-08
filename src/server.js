@@ -1,12 +1,9 @@
 import App from './App'
 import React from 'react'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import { renderToString } from 'react-dom/server'
-import {
-    ServerStyleSheet,
-    ThemeProvider,
-    StyleSheetManager
-} from 'styled-components'
+import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { getDataFromTree, ApolloProvider } from 'react-apollo'
 import { Helmet } from 'react-helmet'
 import { StaticRouter } from 'react-router'
@@ -14,43 +11,75 @@ import fontawesome from '@fortawesome/fontawesome'
 import 'isomorphic-fetch'
 import client from './Utils/stateLink'
 import theme from './Utils/theme'
+import feed from './Utils/rss'
+import Global from './Utils/global-styles'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const server = express()
 const context = {}
 
+server.use(cookieParser())
+
 server
     .disable('x-powered-by')
     .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-    .get('/*', (req, res) => {
+    .get('/feed', async (req, res) => {
+        try {
+            const rss = await feed
+            res.type('application/xml')
+
+            res.send(rss)
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    .get('/*', async (req, res) => {
+        const themeMode =
+            'mode__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['mode__awesome-talks'])
+                : 'LIGHT'
+
         const sheet = new ServerStyleSheet()
         const Root = () => (
             <ApolloProvider client={client}>
-                <StyleSheetManager sheet={sheet.instance}>
-                    <ThemeProvider theme={theme}>
+                <ThemeProvider theme={theme[themeMode]}>
+                    <Global>
                         <StaticRouter location={req.url} context={context}>
                             <App />
                         </StaticRouter>
-                    </ThemeProvider>
-                </StyleSheetManager>
+                    </Global>
+                </ThemeProvider>
             </ApolloProvider>
         )
 
-        getDataFromTree(Root()).then(() => {
-            const initialApolloState = client.extract()
+        await getDataFromTree(<Root />)
+        let initialApolloState = client.extract()
 
-            // When the app is rendered collect the styles that are used inside it
-            const markup = renderToString(sheet.collectStyles(<Root />))
+        // chaning intial state as per requirement
+        initialApolloState.ROOT_QUERY.mode = themeMode
 
-            // Generate all the style tags so they can be rendered into the page
-            const styleTags = sheet.getStyleTags()
-            const helmet = Helmet.renderStatic()
+        initialApolloState.ROOT_QUERY.favorites.json =
+            'favorites__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['favorites__awesome-talks'])
+                : []
 
-            res.send(
-                // prettier-ignore
-                `<!doctype html>
-    <html lang="" ${helmet.htmlAttributes.toString()}>
+        initialApolloState.ROOT_QUERY.watched.json =
+            'watched__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['watched__awesome-talks'])
+                : []
+
+        // When the app is rendered collect the styles that are used inside it
+        const markup = renderToString(sheet.collectStyles(<Root />))
+
+        // Generate all the style tags so they can be rendered into the page
+        const styleTags = sheet.getStyleTags()
+        const helmet = Helmet.renderStatic()
+
+        res.send(
+            // prettier-ignore
+            `<!doctype html>
+    <html lang="en" ${helmet.htmlAttributes.toString()}>
     <head>
         ${helmet.title.toString()}
         ${helmet.meta.toString()}
@@ -87,7 +116,7 @@ server
         ${fontawesome.dom.css()}
         </style>
     </head>
-    <body>
+    <body ${helmet.bodyAttributes.toString()}>
         <div id="root">${markup}</div>
            <script>
           window.__APOLLO_STATE__ = ${JSON.stringify(
@@ -96,8 +125,7 @@ server
         </script>
     </body>
 </html>`
-            )
-        })
+        )
     })
 
 export default server

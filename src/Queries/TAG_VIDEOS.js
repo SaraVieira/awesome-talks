@@ -9,6 +9,7 @@ export default gql`
                 id
                 description
                 link
+                duration
                 name
                 speaker {
                     name

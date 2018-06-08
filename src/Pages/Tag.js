@@ -7,6 +7,7 @@ import TAG_VIDEOS from '../Queries/TAG_VIDEOS'
 import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
 import { Helmet } from 'react-helmet'
+import CookieBanner from './../Components/CookieBanner'
 
 export default ({
     match: {
@@ -14,7 +15,6 @@ export default ({
     }
 }) => (
     <Grid>
-        <Nav />
         <Helmet>
             <title>Awesome Talks - {category}</title>
             <meta
@@ -35,22 +35,28 @@ export default ({
             />
             <meta name="twitter:image:alt" content="awesome talks" />
         </Helmet>
-        <Header title={`#${humanize(category)}`} noSearch />
+        <div role="banner">
+            <Nav />
+            <Header title={`#${humanize(category)}`} noSearch code />
+        </div>
         <Row>
             <Col xs={12}>
-                <Query
-                    query={TAG_VIDEOS}
-                    variables={{ name: humanize(category) }}
-                >
-                    {({ data: { allTagses } }) => (
-                        <Row>
-                            {allTagses[0].videos.map(v => (
-                                <Video key={v.id} talk={v} />
-                            ))}
-                        </Row>
-                    )}
-                </Query>
+                <main>
+                    <Query
+                        query={TAG_VIDEOS}
+                        variables={{ name: humanize(category) }}
+                    >
+                        {({ data: { allTagses } }) => (
+                            <Row>
+                                {allTagses[0].videos.map(v => (
+                                    <Video key={v.id} talk={v} />
+                                ))}
+                            </Row>
+                        )}
+                    </Query>
+                </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )
