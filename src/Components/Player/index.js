@@ -53,6 +53,7 @@ const Thumbnail = styled.img`
     max-width: 100%;
     // this hides the black bar on the thumbnail
     margin-top: -37px;
+    cursor: pointer;
 `
 
 const Image = styled.div`

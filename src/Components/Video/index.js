@@ -4,10 +4,10 @@ import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
 
+import CinemaMode from '../CinemaMode'
 import Tag from '../Styling/Tag'
 import Player from '../Player'
 import { getDuration } from './../../Utils/youtube'
-import { Col } from 'react-styled-flexboxgrid'
 
 const Speaker = styled.p`
     margin-bottom: 0;
@@ -37,21 +37,6 @@ const Name = styled(Link)`
     word-break: break-all;
     border: 0;
     display: block;
-`
-const Column = styled(Col)`
-    transition: all 200ms ease;
-    justify-content: center;
-    margin: 0 auto;
-    margin-bottom: ${remcalc(40)};
-`
-
-const Description = styled.p`
-    opacity: 0.8;
-    font-family: Montserrat-Light;
-    font-size: ${remcalc(14)};
-    color: ${props => props.theme.main};
-    letter-spacing: ${remcalc(0.11)};
-    line-height: ${remcalc(21)};
 `
 
 const Duration = styled.span`
@@ -85,7 +70,6 @@ export class SimpleVideo extends Component {
     render = () => {
         const {
             speaker,
-            description,
             link,
             name,
             duration,
@@ -101,59 +85,65 @@ export class SimpleVideo extends Component {
 
         return (
             <Fragment>
-                <Column md={4} sm={6} xs={9}>
-                    <Player
-                        cinemaMode={cinemaMode}
-                        showVideo={showVideo || showCinemaVideo}
-                        id={id}
-                        onClick={this.showVideo}
-                        link={link}
-                        name={name}
-                        toggleCinemaMode={toggleCinemaMode}
-                        onEnd={() => this.endVideo(id)}
-                    />
+                <Player
+                    cinemaMode={cinemaMode}
+                    showVideo={showVideo || showCinemaVideo}
+                    id={id}
+                    onClick={this.showVideo}
+                    link={link}
+                    name={name}
+                    toggleCinemaMode={toggleCinemaMode}
+                    onEnd={() => this.endVideo(id)}
+                />
 
-                    <Flex justifyBetween alignCenter>
-                        <Speaker>
-                            {speaker.map(s => (
-                                <Link
-                                    key={`${s.id}_${id}`}
-                                    to={makeLink('speaker', s.name)}
-                                    className="no-hover"
-                                >
-                                    {s.name}
-                                </Link>
-                            ))}
-                        </Speaker>
-                        {duration ? (
-                            <Duration>{getDuration(duration)}</Duration>
-                        ) : null}
-                    </Flex>
-                    <Name
-                        className="no-hover"
-                        to={makeLink('video', id)}
-                        title={name}
-                    >
-                        {this.videoTitle(name)}
-                    </Name>
-                    <Flex>
-                        {tags.map(s => (
-                            <Tag key={s.id} to={makeLink('category', s.name)}>
-                                #{s.name.toLowerCase()}
-                            </Tag>
+                <Flex justifyBetween alignCenter>
+                    <Speaker>
+                        {speaker.map(s => (
+                            <Link
+                                key={`${s.id}_${id}`}
+                                to={makeLink('speaker', s.name)}
+                                className="no-hover"
+                            >
+                                {s.name}
+                            </Link>
                         ))}
-                    </Flex>
-
-                    {cinemaMode && description ? (
-                        <Description>{description}</Description>
+                    </Speaker>
+                    {duration ? (
+                        <Duration>{getDuration(duration)}</Duration>
                     ) : null}
-                </Column>
+                </Flex>
+                <Name
+                    className="no-hover"
+                    to={makeLink('video', id)}
+                    title={name}
+                >
+                    {this.videoTitle(name)}
+                </Name>
+                <Flex>
+                    {tags.map(s => (
+                        <Tag key={s.id} to={makeLink('category', s.name)}>
+                            #{s.name.toLowerCase()}
+                        </Tag>
+                    ))}
+                </Flex>
             </Fragment>
         )
     }
 }
 
-const VideoWrapper = props => <SimpleVideo {...props} Player={Player} />
+const VideoWrapper = props => (
+    <CinemaMode
+        render={(cinemaMode, showCinemaVideo, toggleCinemaMode) => (
+            <SimpleVideo
+                {...props}
+                cinemaMode={cinemaMode}
+                showCinemaVideo={showCinemaVideo}
+                Player={Player}
+                toggleCinemaMode={toggleCinemaMode}
+            />
+        )}
+    />
+)
 
 export default ({ noLazy = false, talk, addWatched }) => (
     <VideoWrapper key={talk.id} {...talk} addWatched={addWatched} />
