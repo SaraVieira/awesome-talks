@@ -8,6 +8,7 @@ import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
 import { Helmet } from 'react-helmet'
 import CookieBanner from './../Components/CookieBanner'
+import Error404 from './../Components/Errors/Error404'
 
 export default ({
     match: {
@@ -46,13 +47,22 @@ export default ({
                         query={TAG_VIDEOS}
                         variables={{ name: humanize(category) }}
                     >
-                        {({ data: { allTagses } }) => (
-                            <Row>
-                                {allTagses[0].videos.map(v => (
-                                    <Video key={v.id} talk={v} />
-                                ))}
-                            </Row>
-                        )}
+                        {({ data: { allTagses } }) => {
+                            if (
+                                !allTagses.length ||
+                                !allTagses[0].videos.length
+                            ) {
+                                return <Error404 />
+                            }
+
+                            return (
+                                <Row>
+                                    {allTagses[0].videos.map(v => (
+                                        <Video key={v.id} talk={v} />
+                                    ))}
+                                </Row>
+                            )
+                        }}
                     </Query>
                 </main>
             </Col>
