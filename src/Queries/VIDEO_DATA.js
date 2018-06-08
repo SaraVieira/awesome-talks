@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-    query Video($name: String) {
-        allVideoses(filter: { name_contains: $name }) {
+    query Video($id: ID!) {
+        allVideoses(filter: { id: $id }) {
             id
             name
             speaker {

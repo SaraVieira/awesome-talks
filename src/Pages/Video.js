@@ -6,7 +6,6 @@ import remcalc from 'remcalc'
 import { Helmet } from 'react-helmet'
 
 import Query from './../Components/Query'
-import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
 import styled from 'styled-components'
 import Tag from '../Components/Styling/Tag'
@@ -136,7 +135,7 @@ class VideoComponent extends Component {
     showVideo = () => this.setState(({ showVideo }) => ({ showVideo: true }))
 
     render() {
-        const videoName = this.props.match.params.video
+        const id = this.props.match.params.id
         return (
             <Grid>
                 <div role="banner">
@@ -145,10 +144,7 @@ class VideoComponent extends Component {
                 <main>
                     <Row>
                         <Col xs={12}>
-                            <Query
-                                query={VIDEO_DATA}
-                                variables={{ name: humanize(videoName) }}
-                            >
+                            <Query query={VIDEO_DATA} variables={{ id }}>
                                 {({ data: { allVideoses } }) => {
                                     const { showVideo } = this.state
 

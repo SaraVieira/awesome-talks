@@ -21,6 +21,6 @@ export default () => (
         <Route exact path="/speakers" component={Speakers} />
         <Route exact path="/speaker/:speaker" component={Speaker} />
         <Route component={FourOFour} />
-        <Route exact path="/video/:video" component={Video} />
+        <Route exact path="/video/:id" component={Video} />
     </Switch>
 )
