@@ -46,13 +46,14 @@ const SlashIcon = styled.span`
 
 const Input = styled.input`
     border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid ${props => props.theme.main};
     padding: ${remcalc(30)} ${remcalc(30)} ${remcalc(30)} ${remcalc(58)};
     width: 100%;
     font-size: ${remcalc(34)};
     font-weight: 300;
     outline: none;
-
+    background: ${props => props.theme.primary};
+    color: ${props => props.theme.main};
     @media (max-width: ${remcalc(768)}) {
         font-size: ${remcalc(20)};
     }
@@ -81,11 +82,13 @@ class Search extends Component {
 
     handleKeyDown = event => {
         if (
-            event.keyCode === 191 &&
-            this.state.focused === false &&
-            document.body.classList.contains('cinema-mode') === false &&
-            document.body.classList.contains('ReactModal__Body--open') === false
+            document.body.classList.contains('cinema-mode') ||
+            document.body.classList.contains('ReactModal__Body--open')
         ) {
+            return false
+        }
+
+        if (event.keyCode === 191 && this.state.focused === false) {
             setTimeout(() => {
                 this.input.focus()
                 this.input.value = ''
@@ -107,7 +110,6 @@ class Search extends Component {
 
     render() {
         const { keyName, query } = this.props
-
         return (
             <Query query={query}>
                 {({ data, client }) => (

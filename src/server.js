@@ -1,6 +1,7 @@
 import App from './App'
 import React from 'react'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { getDataFromTree, ApolloProvider } from 'react-apollo'
@@ -11,11 +12,14 @@ import 'isomorphic-fetch'
 import client from './Utils/stateLink'
 import theme from './Utils/theme'
 import feed from './Utils/rss'
+import Global from './Utils/global-styles'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const server = express()
 const context = {}
+
+server.use(cookieParser())
 
 server
     .disable('x-powered-by')
@@ -31,19 +35,39 @@ server
         }
     })
     .get('/*', async (req, res) => {
+        const themeMode =
+            'mode__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['mode__awesome-talks'])
+                : 'LIGHT'
+
         const sheet = new ServerStyleSheet()
         const Root = () => (
             <ApolloProvider client={client}>
-                <ThemeProvider theme={theme}>
-                    <StaticRouter location={req.url} context={context}>
-                        <App />
-                    </StaticRouter>
+                <ThemeProvider theme={theme[themeMode]}>
+                    <Global>
+                        <StaticRouter location={req.url} context={context}>
+                            <App />
+                        </StaticRouter>
+                    </Global>
                 </ThemeProvider>
             </ApolloProvider>
         )
 
         await getDataFromTree(<Root />)
-        const initialApolloState = client.extract()
+        let initialApolloState = client.extract()
+
+        // chaning intial state as per requirement
+        initialApolloState.ROOT_QUERY.mode = themeMode
+
+        initialApolloState.ROOT_QUERY.favorites.json =
+            'favorites__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['favorites__awesome-talks'])
+                : []
+
+        initialApolloState.ROOT_QUERY.watched.json =
+            'watched__awesome-talks' in req.cookies
+                ? JSON.parse(req.cookies['watched__awesome-talks'])
+                : []
 
         // When the app is rendered collect the styles that are used inside it
         const markup = renderToString(sheet.collectStyles(<Root />))

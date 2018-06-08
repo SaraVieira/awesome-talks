@@ -1,0 +1,17 @@
+{
+    "name": "awesome-talks-duration-bot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "micro"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^6.0.0",
+        "graphql-request": "^1.6.0",
+        "micro": "^9.3.2"
+    }
+}

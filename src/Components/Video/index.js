@@ -29,18 +29,19 @@ const Speaker = styled.p`
 const Name = styled.h2`
     font-weight: 700;
     font-size: ${remcalc(24)};
-    color: ${props => props.theme.black};
+    color: ${props => props.theme.main};
     line-height: ${remcalc(30)};
     margin-bottom: ${remcalc(10)};
     margin-top: 0;
     display: block;
+    word-break: break-all;
 `
 
 const Description = styled.p`
     opacity: 0.8;
     font-family: Montserrat-Light;
     font-size: ${remcalc(14)};
-    color: ${props => props.theme.black};
+    color: ${props => props.theme.main};
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
 `
@@ -54,26 +55,20 @@ const Duration = styled.span`
     position: relative
     right: ${remcalc(10)};
     top: ${remcalc(15)};
-    color: ${props => props.theme.darkGrey};
+    color: ${props => props.theme.main};
 `
 
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
     `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
 export class SimpleVideo extends Component {
-    state = { showVideo: false, duration: null }
+    state = { showVideo: false }
 
     showVideo = () => this.setState(({ showVideo }) => ({ showVideo: true }))
 
     endVideo = id => {
         if (id) this.props.addWatched(id)
         this.setState(({ showVideo }) => ({ showVideo: false }))
-    }
-
-    componentDidMount = async () => {
-        const duration = await getDuration(this.props.link)
-
-        this.setState({ duration })
     }
 
     videoTitle = name =>
@@ -85,6 +80,7 @@ export class SimpleVideo extends Component {
             description,
             link,
             name,
+            duration,
             tags,
             id,
             cinemaMode,
@@ -120,8 +116,8 @@ export class SimpleVideo extends Component {
                             </Link>
                         ))}
                     </Speaker>
-                    {this.state.duration ? (
-                        <Duration>{this.state.duration}</Duration>
+                    {duration ? (
+                        <Duration>{getDuration(duration)}</Duration>
                     ) : null}
                 </Flex>
                 <Name title={name}>{this.videoTitle(name)}</Name>

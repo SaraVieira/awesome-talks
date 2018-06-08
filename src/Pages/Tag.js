@@ -8,6 +8,7 @@ import Video from './../Components/Video'
 import TAG_VIDEOS from '../Queries/TAG_VIDEOS'
 import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
+import CookieBanner from './../Components/CookieBanner'
 
 export default ({
     match: {
@@ -44,5 +45,6 @@ export default ({
                 </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )

@@ -13,7 +13,8 @@ export default styled(Link)`
 
     &:hover {
         opacity: 1;
-        color: ${props => props.theme.darkGrey};
+        color: ${props => props.theme.main};
+        backgground: transparent;
     }
     &:after {
         display: none;

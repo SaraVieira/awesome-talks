@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import remcalc from 'remcalc'
 
+/* not supposed to change on theme change */
 export default styled.input`
     font-size: ${remcalc(15)};
-    color: ${props => props.theme.darkGrey};
+    color: #666;
     width: 100%;
     box-sizing: border-box;
     letter-spacing: ${remcalc(1)};

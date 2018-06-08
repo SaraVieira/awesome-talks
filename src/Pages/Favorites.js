@@ -8,6 +8,7 @@ import Video from './../Components/Video'
 import GET_FAVORITES from '../Queries/GET_FAVORITES'
 import GET_VIDEOS from '../Queries/GET_VIDEOS'
 import Nav from './../Components/Nav'
+import CookieBanner from './../Components/CookieBanner'
 
 export default () => (
     <Grid>
@@ -40,5 +41,6 @@ export default () => (
                 </Col>
             </Row>
         </main>
+        <CookieBanner />
     </Grid>
 )

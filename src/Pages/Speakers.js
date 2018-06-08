@@ -9,8 +9,9 @@ import SPEAKERS from '../Queries/SPEAKERS'
 import GET__SPEAKERS_SEARCH from '../Queries/GET__SPEAKERS_SEARCH'
 import { Figure, Img, Caption, Name } from './../Components/Styling/Speaker'
 import Nav from './../Components/Nav'
-import Filter from '../Utils/search-speakers'
+import Filter from '../Utils/search'
 import { Helmet } from 'react-helmet'
+import CookieBanner from './../Components/CookieBanner'
 
 const makeLink = name => `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
 
@@ -96,6 +97,7 @@ const Speakers = ({ data: { searchSpeakers } }) => (
                 </main>
             </Col>
         </Row>
+        <CookieBanner />
     </Grid>
 )
 

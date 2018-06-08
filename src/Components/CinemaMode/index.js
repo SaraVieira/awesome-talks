@@ -18,7 +18,7 @@ const Column = styled(Col)`
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
-  background: ${props => props.theme.white};
+  background: ${props => props.theme.primary};
   padding: ${remcalc(20)};
   max-height: 90%;
   overflow: scroll;
@@ -36,7 +36,7 @@ const Button = styled.button`
     background: transparent;
     display: block;
     border: none;
-    color: ${props => props.theme.red};
+    color: ${props => props.theme.cinema};
     font-weight: 600;
     text-align: right;
     padding: 6px 0px;
@@ -62,7 +62,10 @@ export default class CinemaMode extends Component {
     }
 
     handleKeyDown = event => {
-        if (event.keyCode === 27) {
+        if (
+            event.keyCode === 27 &&
+            document.body.classList.contains('cinema-mode')
+        ) {
             this.toggleCinemaMode()
         }
     }
@@ -78,6 +81,12 @@ export default class CinemaMode extends Component {
                     'cinema-mode',
                     this.state.cinemaMode
                 )
+
+                if (this.state.cinemaMode === false) {
+                    document.removeEventListener('keydown', this.handleKeyDown)
+                } else {
+                    document.addEventListener('keydown', this.handleKeyDown)
+                }
             }
         )
     }
@@ -90,7 +99,6 @@ export default class CinemaMode extends Component {
                 md={cinemaMode ? 12 : 4}
                 sm={cinemaMode ? 12 : 6}
                 xs={9}
-                onKeyDown={this.handleKeyDown}
             >
                 <div>
                     {render(cinemaMode, showVideo, this.toggleCinemaMode)}

@@ -1,11 +1,16 @@
 import gql from 'graphql-tag'
 
 export default gql`
-    query allVideos($first: Int, $after: String, $search: String) {
+    query allVideos(
+        $first: Int
+        $after: String
+        $search: String
+        $duration: Int
+    ) {
         allVideoses(
             first: $first
             after: $after
-            orderBy: updatedAt_DESC
+            orderBy: createdAt_DESC
             filter: {
                 AND: [
                     {
@@ -16,7 +21,12 @@ export default gql`
                             { speaker_some: { name_contains: $search } }
                         ]
                     }
-                    { AND: [{ isPublished: true }] }
+                    {
+                        AND: [
+                            { isPublished: true }
+                            { duration_lte: $duration }
+                        ]
+                    }
                 ]
             }
         ) {
@@ -28,6 +38,7 @@ export default gql`
             description
             link
             name
+            duration
             tags {
                 name
                 id

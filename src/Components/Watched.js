@@ -19,7 +19,7 @@ const Favorite = ({ id, removeWatched, addWatched }) => (
                         checked={watched.includes(id)}
                         type="checkbox"
                         id={inputId}
-                        onClick={() =>
+                        onChange={() =>
                             watched.includes(id)
                                 ? removeWatched(id)
                                 : addWatched(id)
