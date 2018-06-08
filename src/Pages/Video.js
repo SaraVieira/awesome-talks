@@ -16,6 +16,7 @@ import VIDEO_DATA from '../Queries/VIDEO_DATA'
 import ADD_WATCHED from '../Queries/ADD_WATCHED'
 import { getDuration } from '../Utils/youtube'
 import Flex from 'styled-flex-component'
+import Error404 from './../Components/Errors/Error404'
 
 const Section = styled.div`
     width: 100%;
@@ -150,48 +151,38 @@ class VideoComponent extends Component {
                             >
                                 {({ data: { allVideoses } }) => {
                                     const { showVideo } = this.state
+
+                                    if (!allVideoses.length) {
+                                        return <Error404 />
+                                    }
+
                                     return (
                                         <Section>
-                                            {allVideoses.length ? (
-                                                <div>
-                                                    <Column
-                                                        md={8}
-                                                        sm={8}
-                                                        xs={9}
-                                                    >
-                                                        <Player
-                                                            showVideo={
-                                                                showVideo
-                                                            }
-                                                            videoMode
-                                                            id={
+                                            <div>
+                                                <Column md={8} sm={8} xs={9}>
+                                                    <Player
+                                                        showVideo={showVideo}
+                                                        videoMode
+                                                        id={allVideoses[0].id}
+                                                        link={
+                                                            allVideoses[0].link
+                                                        }
+                                                        name={
+                                                            allVideoses[0].name
+                                                        }
+                                                        onClick={this.showVideo}
+                                                        onEnd={() =>
+                                                            this.endVideo(
                                                                 allVideoses[0]
                                                                     .id
-                                                            }
-                                                            link={
-                                                                allVideoses[0]
-                                                                    .link
-                                                            }
-                                                            name={
-                                                                allVideoses[0]
-                                                                    .name
-                                                            }
-                                                            onClick={
-                                                                this.showVideo
-                                                            }
-                                                            onEnd={() =>
-                                                                this.endVideo(
-                                                                    allVideoses[0]
-                                                                        .id
-                                                                )
-                                                            }
-                                                        />
-                                                    </Column>
-                                                    <VideoInfo
-                                                        {...allVideoses[0]}
+                                                            )
+                                                        }
                                                     />
-                                                </div>
-                                            ) : null}
+                                                </Column>
+                                                <VideoInfo
+                                                    {...allVideoses[0]}
+                                                />
+                                            </div>
                                         </Section>
                                     )
                                 }}
