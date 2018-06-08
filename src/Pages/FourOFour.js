@@ -3,6 +3,7 @@ import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
 import remcalc from 'remcalc'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import Nav from './../Components/Nav'
 
@@ -49,6 +50,9 @@ const Button = styled.div`
 const FourOFour = () => {
     return (
         <Grid>
+            <Helmet>
+                <title>404 Page Not found! - Awesome Talks</title>
+            </Helmet>
             <div role="banner">
                 <Nav />
             </div>
