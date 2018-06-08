@@ -13,6 +13,7 @@ import TwitterIcon from '../assets/twitter.svg'
 import humanize, { urlify } from '../Utils/strings'
 import Nav from './../Components/Nav'
 import CookieBanner from './../Components/CookieBanner'
+import Error404 from './../Components/Errors/Error404'
 
 const Wrapper = styled(Row)`
     margin-bottom: ${remcalc(30)};
@@ -131,6 +132,10 @@ export default ({
                         variables={{ name: humanize(speaker) }}
                     >
                         {({ data: { allSpeakerses } }) => {
+                            if (!allSpeakerses.length) {
+                                return <Error404 />
+                            }
+
                             return (
                                 <Section>
                                     <SpeakerInfo {...allSpeakerses[0]} />
