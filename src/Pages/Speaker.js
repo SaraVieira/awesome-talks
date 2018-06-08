@@ -37,6 +37,13 @@ const Img = styled.img`
     }
 `
 
+const TwitterImg = styled.img`
+    margin-left: ${remcalc(-10)};
+    background: aliceblue;
+    border-radius: 10px;
+    padding: 10px;
+`
+
 const Desc = styled(Flex)`
     @media (max-width: ${remcalc(768)}) {
         flex-direction: column;
@@ -53,6 +60,7 @@ const Section = styled.div`
 
     p {
         word-break: break-word;
+        max-width: 400px;
     }
 
     @media (max-width: ${remcalc(768)}) {
@@ -97,7 +105,11 @@ const SpeakerInfo = ({ photo, name, bio, twitter }) => (
                             rel="noopener noreferrer"
                             href={`https://twitter.com/${twitter}`}
                         >
-                            <img src={TwitterIcon} alt="Twitter" width="24" />
+                            <TwitterImg
+                                src={TwitterIcon}
+                                alt="Twitter"
+                                width="48"
+                            />
                         </a>
                     ) : null}
                     <a

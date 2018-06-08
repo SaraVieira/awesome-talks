@@ -14,10 +14,10 @@ const Section = styled.div`
 `
 
 const Text = styled.div`
-    font-size: 19px;
-    padding: 3px;
-    padding-left: 5px;
-    font-weight: 400;
+    font-size: 22px;
+    padding: 4px;
+    padding-left: 12px;
+    font-weight: 200;
     color: ${props => props.theme.main};
 `
 
@@ -74,14 +74,12 @@ const Hide = styled.div`
 
     .tgl-ios {
         + .tgl-btn {
-            background: ${props => props.theme.tertiary};
+            background: ${props => props.theme.lightGrey};
             border-radius: 2em;
-            padding: 2px;
             transition: all 0.4s ease;
-            border: 1px solid #e8eae9;
             &:after {
                 border-radius: 2em;
-                background: ${props => props.theme.midGrey};
+                background: #fff;
                 transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
                     padding 0.3s ease, margin 0.3s ease;
                 box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
@@ -101,7 +99,7 @@ const Hide = styled.div`
         }
 
         &:checked + .tgl-btn {
-            background: #86d993;
+            background: ${props => props.theme.green};
             &:active {
                 box-shadow: none;
                 &:after {

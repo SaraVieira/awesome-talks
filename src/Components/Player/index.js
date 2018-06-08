@@ -50,8 +50,9 @@ const Iframe = styled(YouTube)`
 
 const Thumbnail = styled.img`
     display: block;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    // this hides the black bar on the thumbnail
+    margin-top: -37px;
 `
 
 const Image = styled.div`
