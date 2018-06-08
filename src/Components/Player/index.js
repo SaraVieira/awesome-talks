@@ -108,7 +108,7 @@ const Player = ({
 )
 
 export default props =>
-    props.cinemaMode ? (
+    props.cinemaMode || props.videoMode ? (
         <Player {...props} />
     ) : (
         <Card style={{ padding: 0 }}>
