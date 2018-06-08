@@ -69,10 +69,6 @@ export class SimpleVideo extends Component {
         this.setState(({ showVideo }) => ({ showVideo: false }))
     }
 
-    navigateToVideoPage = () => {
-        this.props.push('/speakers')
-    }
-
     videoTitle = name =>
         name.length > 60 ? `${name.substring(0, 60)}...` : name
 
