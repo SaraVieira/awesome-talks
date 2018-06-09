@@ -75,22 +75,27 @@ const Section = styled.div`
     }
 `
 
-const SpeakerInfo = ({ photo, name, bio, twitter }) => (
+export const SpeakerInfo = ({ photo, name, bio, twitter, videoPage }) => (
     <Wrapper>
-        <Helmet>
-            <title>Awesome Talks - {name}</title>
-            <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
-            <meta name="twitter:image" content={photo.url} />
-            <meta name="twitter:image:alt" content={name} />
-            <meta
-                name="description"
-                content={`Amazing Tech Talks by ${name}`}
-            />
-            <meta
-                name="twitter:description"
-                content={`Amazing Tech Talks by ${name}`}
-            />
-        </Helmet>
+        {!videoPage ? (
+            <Helmet>
+                <title>Awesome Talks - {name}</title>
+                <meta
+                    name="twitter:title"
+                    content={`Awesome Talks - ${name}`}
+                />
+                <meta name="twitter:image" content={photo.url} />
+                <meta name="twitter:image:alt" content={name} />
+                <meta
+                    name="description"
+                    content={`Amazing Tech Talks by ${name}`}
+                />
+                <meta
+                    name="twitter:description"
+                    content={`Amazing Tech Talks by ${name}`}
+                />
+            </Helmet>
+        ) : null}
         <Desc>
             {photo ? (
                 <Img src={photo.url} alt={name} height="200" width="200" />

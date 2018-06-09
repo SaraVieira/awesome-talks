@@ -51,9 +51,11 @@ const Iframe = styled(YouTube)`
 const Thumbnail = styled.img`
     display: block;
     max-width: 100%;
-    // this hides the black bar on the thumbnail
-    margin-top: -37px;
     cursor: pointer;
+    ${isNot('videoPage')`
+        // this hides the black bar on the thumbnail
+        margin-top: -37px;
+    `};
 `
 
 const Image = styled.div`
@@ -75,7 +77,8 @@ const Player = ({
     onClick,
     onEnd,
     toggleCinemaMode,
-    hq
+    hq,
+    videoPage
 }) => (
     <VideoWrapper key={id} cinemaMode={cinemaMode}>
         <Video cinemaMode={cinemaMode}>
@@ -94,8 +97,13 @@ const Player = ({
                 />
             ) : (
                 <Image cinemaMode={cinemaMode}>
-                    <Play onClick={onClick} aria-label="Play Video" />
+                    <Play
+                        big={videoPage}
+                        onClick={onClick}
+                        aria-label="Play Video"
+                    />
                     <Thumbnail
+                        videoPage={videoPage}
                         onClick={hq ? onClick : toggleCinemaMode}
                         cinemaMode={cinemaMode}
                         src={`https://img.youtube.com/vi/${link}/${
@@ -105,8 +113,8 @@ const Player = ({
                     />
                 </Image>
             )}
-            <Favorite id={id} />
-            <Watched id={id} />
+            <Favorite big={videoPage} id={id} />
+            <Watched big={videoPage} id={id} />
         </Video>
     </VideoWrapper>
 )

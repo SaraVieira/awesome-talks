@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
 import Header from './../Components/Header'
 import { Row, Grid, Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
@@ -16,6 +15,7 @@ import ADD_WATCHED from '../Queries/ADD_WATCHED'
 import { getDuration } from '../Utils/youtube'
 import Flex from 'styled-flex-component'
 import Error404 from './../Components/Errors/Error404'
+import { SpeakerInfo } from './../Pages/Speaker'
 
 const Description = styled.p`
     font-weight: 400;
@@ -23,17 +23,6 @@ const Description = styled.p`
     color: ${props => props.theme.main};
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
-`
-
-const Img = styled.img`
-    margin-right: ${remcalc(20)};
-    box-shadow: ${props => props.theme.shadow};
-    width: ${remcalc(100)};
-    min-width: ${remcalc(100)};
-
-    @media (max-width: ${remcalc(768)}) {
-        margin: auto;
-    }
 `
 
 const Duration = styled.span`
@@ -66,7 +55,6 @@ const VideoInfo = ({ name, description, speaker, id, tags, duration }) => (
                 content={`Amazing Tech Talk - ${name}`}
             />
         </Helmet>
-        <HeaderStyled medium title={name} noSearch noMargin />
         <Flex column style={{ marginBottom: remcalc(40) }}>
             {duration ? <Duration>{getDuration(duration)}</Duration> : null}
             <div>
@@ -82,21 +70,8 @@ const VideoInfo = ({ name, description, speaker, id, tags, duration }) => (
             <Col xs={12}>
                 {speaker.map(s => (
                     <Fragment key={`${s.id}_${id}`}>
-                        {s.photo ? (
-                            <Img
-                                src={s.photo.url}
-                                alt={name}
-                                height="100"
-                                width="100"
-                            />
-                        ) : null}
-                        <Link
-                            to={makeLink('speaker', s.name)}
-                            className="no-hover"
-                        >
-                            {s.name}
-                        </Link>
-                        {s.bio ? <Description>{s.bio}</Description> : null}
+                        <HeaderStyled medium title="Speaker" noSearch />
+                        <SpeakerInfo {...s} videoPage />
                     </Fragment>
                 ))}
             </Col>
@@ -133,8 +108,21 @@ class VideoComponent extends Component {
 
                         return (
                             <Fragment>
+                                <Grid>
+                                    <Row>
+                                        <Col xs={12}>
+                                            <HeaderStyled
+                                                medium
+                                                title={allVideoses[0].name}
+                                                noSearch
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Grid>
+
                                 <PlayerStyled>
                                     <Player
+                                        videoPage
                                         showVideo={showVideo}
                                         videoMode
                                         hq

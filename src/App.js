@@ -20,7 +20,7 @@ export default () => (
         <Route exact path="/category/:category" component={Tag} />
         <Route exact path="/speakers" component={Speakers} />
         <Route exact path="/speaker/:speaker" component={Speaker} />
-        <Route component={FourOFour} />
         <Route exact path="/video/:id" component={Video} />
+        <Route component={FourOFour} />
     </Switch>
 )

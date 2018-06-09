@@ -9,6 +9,7 @@ export default gql`
                 id
                 name
                 bio
+                twitter
                 photo {
                     url
                 }
