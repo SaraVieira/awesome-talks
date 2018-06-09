@@ -43,10 +43,22 @@ const PlayerStyled = styled.main`
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
     `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
-const VideoInfo = ({ name, description, speaker, id, tags, duration }) => (
+const VideoInfo = ({
+    name,
+    description,
+    speaker,
+    id,
+    tags,
+    duration,
+    link
+}) => (
     <Fragment>
         <Helmet>
             <title>Awesome Talks - {name}</title>
+            <meta
+                name="twitter:image"
+                content={`https://img.youtube.com/vi/${link}/hqdefault.jpg`}
+            />
             <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
             <meta name="twitter:image:alt" content={name} />
             <meta name="description" content={description} />
