@@ -112,7 +112,7 @@ export default class CinemaMode extends Component {
                 <div>
                     {render(cinemaMode, showVideo, this.toggleCinemaMode)}
 
-                    {cinemaMode ? this.cinemaButton() : null}
+                    {this.cinemaButton()}
 
                     {cinemaMode
                         ? createPortal(

@@ -26,6 +26,15 @@ const Speaker = styled.p`
     }
 `
 
+const Description = styled.p`
+    opacity: 0.8;
+    font-family: Montserrat-Light;
+    font-size: ${remcalc(14)};
+    color: ${props => props.theme.main};
+    letter-spacing: ${remcalc(0.11)};
+    line-height: ${remcalc(21)};
+`
+
 const Name = styled(Link)`
     font-weight: 700;
     font-size: ${remcalc(24)};
@@ -70,6 +79,7 @@ export class SimpleVideo extends Component {
     render = () => {
         const {
             speaker,
+            description,
             link,
             name,
             duration,
@@ -126,6 +136,9 @@ export class SimpleVideo extends Component {
                         </Tag>
                     ))}
                 </Flex>
+                {cinemaMode && description ? (
+                    <Description>{description}</Description>
+                ) : null}
             </Fragment>
         )
     }
