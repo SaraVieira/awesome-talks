@@ -32,15 +32,17 @@ const Global = ({ theme, children }) => {
     font-family: Avenir, Montserrat, Arial, sans-serif;
   }
 
+  nav a {
+    padding: 7px 14px;
+    border-bottom: ${remcalc(2)} solid ${theme.blue};
+  }
+
   a,
   .link {
     border: none;
     color: ${theme.blue};
     text-decoration: none;
-    padding-bottom: ${remcalc(2)};
-    border-bottom: ${remcalc(2)} solid ${theme.blue};
     position: relative;
-    padding: 7px 14px;
     opacity: 0.8;
     font-wheight: 300;
     letter-spacing: ${remcalc(0.09)};
@@ -99,6 +101,7 @@ const Global = ({ theme, children }) => {
         position: absolute;
         bottom: 0;
         z-index: 0;
+        border-radius: 2px 2px 0 0;
       }
 
       &.active_nav, &:hover  {

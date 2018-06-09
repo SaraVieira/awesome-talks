@@ -56,12 +56,14 @@ export default styled.div`
 
     input[type='checkbox']:checked + label svg {
         transition: all 300ms ease-in-out;
-        fill: #ff0000;
+        fill: ${props => props.theme.red};
         transform: scale(1.3);
+        background: none;
     }
 
     input[type='checkbox']:checked + label svg g {
         fill: ${props => props.theme.green};
+        background: none;
     }
 
     input[type='checkbox']:checked + label:after {
@@ -74,9 +76,14 @@ export default styled.div`
 
     label svg,
     label g {
+        transition: all 300ms ease-in-out;
         display: inline-flex;
         vertical-align: middle;
-        width: ${remcalc(35)};
-        fill: rgb(214, 214, 214);
+        width: ${remcalc(20)};
+        height: ${remcalc(20)};
+        fill: rgba(255, 255, 255, 0.95);
+        border-radius: 50%;
+        background: rgba(39, 39, 39, 0.35);
+        padding: 6px;
     }
 `
