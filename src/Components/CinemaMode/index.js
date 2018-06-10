@@ -4,13 +4,13 @@ import { Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
 import styled, { injectGlobal } from 'styled-components'
 import is from 'styled-is'
+import CinemaToggle from '../../Utils/toggle-button'
 
 const Column = styled(Col)`
     transition: all 200ms ease;
     justify-content: center;
     margin: 0 auto;
     margin-bottom: ${remcalc(40)};
-
     ${is('cinemaMode')`
   position: fixed;
   z-index: 9999;
@@ -32,19 +32,6 @@ injectGlobal`
     }
 `
 
-const Button = styled.button`
-    background: transparent;
-    display: block;
-    border: none;
-    color: ${props => props.theme.cinema};
-    font-weight: 600;
-    text-align: right;
-    padding: 6px 0px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background 200ms ease;
-`
-
 const Overlay = styled.div`
     width: 100%;
     height: 100%;
@@ -53,6 +40,23 @@ const Overlay = styled.div`
     top: 0;
     left: 0;
     z-index: 10;
+`
+const Text = styled.div`
+    font-size: 15px;
+    padding: 4px;
+    padding-left: 5px;
+    font-weight: 200;
+    color: ${props => props.theme.main};
+`
+const Section = styled.div`
+    display: flex;
+
+    @media (max-width: ${remcalc(768)}) {
+        top: ${remcalc(-55)};
+        position: relative;
+        margin: auto;
+        justify-content: center;
+    }
 `
 
 export default class CinemaMode extends Component {
@@ -101,14 +105,28 @@ export default class CinemaMode extends Component {
                 xs={9}
             >
                 <div>
-                    {render(cinemaMode, showVideo, this.toggleCinemaMode)}
-                    <Button
-                        name="Toggle Cinema Mode"
-                        onClick={this.toggleCinemaMode}
-                    >
-                        {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
-                    </Button>
-
+                    <CinemaToggle>
+                        {render(cinemaMode, showVideo, this.toggleCinemaMode)}
+                        <Section>
+                            <input
+                                className="tgl tgl-ios"
+                                id="cinema"
+                                type="checkbox"
+                                aria-label="Toggle Cinema Mode"
+                                name="Toggle Cinema Mode"
+                                checked={cinemaMode}
+                            />
+                            <label
+                                className="tgl-btn"
+                                htmlFor="cinema"
+                                onClick={this.toggleCinemaMode}
+                            />
+                            <Text>
+                                {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema
+                                Mode
+                            </Text>
+                        </Section>
+                    </CinemaToggle>
                     {cinemaMode
                         ? createPortal(
                               <Overlay onClick={this.toggleCinemaMode} />,
