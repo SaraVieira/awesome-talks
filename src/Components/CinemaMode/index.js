@@ -50,13 +50,6 @@ const Text = styled.div`
 `
 const Section = styled.div`
     display: flex;
-
-    @media (max-width: ${remcalc(768)}) {
-        top: ${remcalc(-55)};
-        position: relative;
-        margin: auto;
-        justify-content: center;
-    }
 `
 
 export default class CinemaMode extends Component {
