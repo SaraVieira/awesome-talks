@@ -14,11 +14,13 @@ const Column = styled(Col)`
     ${is('cinemaMode')`
   position: fixed;
   z-index: 9999;
-  top: 10%;
+  top: 5%;
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
   background: ${props => props.theme.primary};
+  border: ${props =>
+      props.theme.primary === '#000' ? '1px solid #fff' : 'none'}
   padding: ${remcalc(20)};
   max-height: 90%;
   overflow: scroll;
