@@ -24,6 +24,14 @@ export const Title = styled.h1`
     font-family: 'Space Mono', monospace;
   `};
 
+    ${is('medium')`
+    font-size: ${remcalc(70)};
+
+    @media (max-width: ${remcalc(768)}) {
+        margin-bottom: ${remcalc(48)};
+    }
+  `};
+
     ${is('small')`
     font-size: ${remcalc(24)};
 
@@ -56,13 +64,17 @@ const SearchWrapper = styled(Flex)`
 const Wrapper = styled(Row)`
     margin-bottom: ${remcalc(60)};
 
+    ${is('noMargin')`
+        margin-bottom: ${remcalc(0)};
+  `};
+
     @media (max-width: ${remcalc(768)}) {
         margin: auto;
         margin-bottom: ${remcalc(20)};
     }
 
     ${is('small')`
-    margin-bottom: ${remcalc(20)};
+        margin-bottom: ${remcalc(20)};
   `};
 `
 
@@ -74,12 +86,14 @@ const Header = ({
     keyName,
     query,
     HideViewed,
-    code
+    code,
+    noMargin,
+    medium
 }) => (
-    <Wrapper small={small}>
+    <Wrapper small={small} medium={medium} noMargin={noMargin}>
         <Col xs={12}>
             <SearchWrapper full alignCenter justifyBetween>
-                <Title code={code} small={small}>
+                <Title code={code} medium={medium} small={small}>
                     {title}
                 </Title>
                 {noSearch ? null : <Search keyName={keyName} query={query} />}

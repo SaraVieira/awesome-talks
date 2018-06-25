@@ -4,9 +4,9 @@ import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
 import remcalc from 'remcalc'
 
+import CinemaMode from '../CinemaMode'
 import Tag from '../Styling/Tag'
 import Player from '../Player'
-import CinemaMode from '../CinemaMode'
 import { getDuration } from './../../Utils/youtube'
 
 const Speaker = styled.p`
@@ -26,16 +26,6 @@ const Speaker = styled.p`
     }
 `
 
-const Name = styled.h2`
-    font-weight: 700;
-    font-size: ${remcalc(24)};
-    color: ${props => props.theme.main};
-    line-height: ${remcalc(30)};
-    margin-bottom: ${remcalc(10)};
-    margin-top: 0;
-    display: block;
-`
-
 const Description = styled.p`
     opacity: 0.8;
     font-family: Montserrat-Light;
@@ -43,6 +33,19 @@ const Description = styled.p`
     color: ${props => props.theme.main};
     letter-spacing: ${remcalc(0.11)};
     line-height: ${remcalc(21)};
+`
+
+const Name = styled(Link)`
+    font-weight: 700;
+    font-size: ${remcalc(24)};
+    color: ${props => props.theme.main};
+    line-height: 1 !important;
+    margin-bottom: ${remcalc(10)};
+    margin-top: 0;
+    padding-left: 0;
+    word-break: break-all;
+    border: 0;
+    display: block;
 `
 
 const Duration = styled.span`
@@ -119,7 +122,13 @@ export class SimpleVideo extends Component {
                         <Duration>{getDuration(duration)}</Duration>
                     ) : null}
                 </Flex>
-                <Name title={name}>{this.videoTitle(name)}</Name>
+                <Name
+                    className="no-hover"
+                    to={makeLink('video', id)}
+                    title={name}
+                >
+                    {this.videoTitle(name)}
+                </Name>
                 <Flex>
                     {tags.map(s => (
                         <Tag key={s.id} to={makeLink('category', s.name)}>
@@ -127,7 +136,6 @@ export class SimpleVideo extends Component {
                         </Tag>
                     ))}
                 </Flex>
-
                 {cinemaMode && description ? (
                     <Description>{description}</Description>
                 ) : null}

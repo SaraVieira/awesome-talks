@@ -3,10 +3,10 @@ import Heart from '../Styling/Heart'
 
 import randomID from 'random-id'
 
-export default ({ favorites, removeFavorite, addFavorite, id }) => {
+export default ({ favorites, removeFavorite, addFavorite, id, big }) => {
     const inputId = randomID()
     return (
-        <Heart>
+        <Heart big={big}>
             <input
                 checked={favorites.includes(id)}
                 type="checkbox"

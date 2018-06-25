@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import is from 'styled-is'
 
 export default styled.button`
     background: #282828;
@@ -18,6 +19,10 @@ export default styled.button`
     border: none;
     opacity: 0.8;
     cursor: pointer;
+
+    ${is('big')`
+        transform: scale(2);
+    `};
 
     &:hover {
         background: #ff0000;

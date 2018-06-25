@@ -8,8 +8,18 @@ export default styled.div`
     right: ${remcalc(10)};
     top: ${remcalc(10)};
 
+    ${is('big')`
+      transform: scale(2);
+      right: ${remcalc(30)};
+      top: ${remcalc(30)};
+    `};
+
     ${is('watched')`
       top: ${remcalc(50)};
+  `};
+
+    ${is('watched', 'big')`
+      top: ${remcalc(100)};
   `};
 
     input[type='checkbox'] {

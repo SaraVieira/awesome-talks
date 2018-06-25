@@ -9,12 +9,12 @@ import GET_WATCHED from '../Queries/GET_WATCHED'
 import Query from './Query'
 import Heart from './Styling/Heart'
 
-const Favorite = ({ id, removeWatched, addWatched }) => (
+const Favorite = ({ id, removeWatched, addWatched, big }) => (
     <Query query={GET_WATCHED}>
         {({ data: { watched } }) => {
             const inputId = randomID()
             return (
-                <Heart watched>
+                <Heart watched big={big}>
                     <input
                         checked={watched.includes(id)}
                         type="checkbox"

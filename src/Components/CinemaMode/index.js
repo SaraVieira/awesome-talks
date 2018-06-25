@@ -90,6 +90,15 @@ export default class CinemaMode extends Component {
             }
         )
     }
+
+    cinemaButton = () => {
+        return (
+            <Button name="Toggle Cinema Mode" onClick={this.toggleCinemaMode}>
+                {this.state.cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
+            </Button>
+        )
+    }
+
     render() {
         const { render } = this.props
         const { cinemaMode, showVideo } = this.state
@@ -102,12 +111,8 @@ export default class CinemaMode extends Component {
             >
                 <div>
                     {render(cinemaMode, showVideo, this.toggleCinemaMode)}
-                    <Button
-                        name="Toggle Cinema Mode"
-                        onClick={this.toggleCinemaMode}
-                    >
-                        {cinemaMode ? 'Turn Off' : 'Turn On'} Cinema Mode
-                    </Button>
+
+                    {this.cinemaButton()}
 
                     {cinemaMode
                         ? createPortal(
