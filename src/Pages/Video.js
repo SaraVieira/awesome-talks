@@ -17,6 +17,8 @@ import Flex from 'styled-flex-component'
 import Error404 from './../Components/Errors/Error404'
 import { SpeakerInfo } from './../Pages/Speaker'
 
+const URLify = string => string.trim().replace(/\s/g, '%20')
+
 const Description = styled.p`
     font-weight: 400;
     font-size: ${remcalc(16)};
@@ -77,6 +79,18 @@ const VideoInfo = ({
                 ))}
             </div>
             <Description>{description}</Description>
+            <a
+                className="no-hover"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://twitter.com/intent/tweet/?text=${URLify(
+                    `Amazing Tech Talk - ${name} by @${
+                        speaker[0].twitter
+                    } via @talksawesome`
+                )}.&amp;url=${URLify(window.location.href)}`}
+            >
+                Share on Twitter
+            </a>
         </Flex>
         <Row>
             <Col xs={12}>
