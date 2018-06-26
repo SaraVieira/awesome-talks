@@ -83,6 +83,7 @@ export class SimpleVideo extends Component {
             link,
             name,
             duration,
+            year,
             tags,
             id,
             cinemaMode,
@@ -121,6 +122,7 @@ export class SimpleVideo extends Component {
                     {duration ? (
                         <Duration>{getDuration(duration)}</Duration>
                     ) : null}
+                    {year ? <Duration>{year}</Duration> : null}
                 </Flex>
                 <Name
                     className="no-hover"

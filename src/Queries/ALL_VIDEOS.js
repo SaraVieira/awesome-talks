@@ -35,6 +35,7 @@ export default gql`
                 id
                 name
             }
+            year
             description
             link
             name
