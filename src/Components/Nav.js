@@ -2,31 +2,16 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import is from 'styled-is'
 import { Link } from 'react-router-dom'
-import { Grid, Row, Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
-import { Query, Mutation } from 'react-apollo'
+import { Query } from 'react-apollo'
 
 import Logo from '../assets/logo.svg'
 import AddTalk from './AddTalk'
-import GET_FAVORITES from '../Queries/GET_FAVORITES'
-import SWITCH_MODE, { GET_MODE } from '../Queries/SWITCH_MODE'
-import DARK_MOON from '../assets/dark_moon.svg'
-import LIGHT_MOON from '../assets/light_moon.svg'
+import Container from './Container'
+import ToggleMode from './ToggleMode'
+import GET_FAVORITES from '../Queries/Local/GET_FAVORITES'
 
 import linkParser from '../Utils/link-parser'
-
-const modeObject = {
-    DARK: {
-        src: LIGHT_MOON,
-        alt: 'enable light mode',
-        pressed: 'false'
-    },
-    LIGHT: {
-        src: DARK_MOON,
-        alt: 'enable dark mode',
-        pressed: 'true'
-    }
-}
 
 const Nav = styled.nav`
     display: flex;
@@ -71,11 +56,6 @@ const Item = styled.li`
     &:not(:last-child) {
         margin-right: ${remcalc(10)};
     }
-`
-
-const Img = styled.img`
-    height: ${remcalc(30)};
-    cursor: pointer;
 `
 
 export default class Navigation extends Component {
@@ -157,92 +137,64 @@ export default class Navigation extends Component {
 
     render = () => {
         return (
-            <Grid>
-                <Row>
-                    <Col xs={12}>
-                        <Nav>
-                            <LogoWrapper to="/">
-                                <img src={Logo} width="70" alt="Home" />
-                            </LogoWrapper>
-                            <List>
-                                <Item>
-                                    <Link to="/speakers">
-                                        <span>Speakers</span>
-                                    </Link>
-                                </Item>
-                                <Item>
-                                    <Link to="/categories">
-                                        <span>Categories</span>
-                                    </Link>
-                                </Item>
-                                <Query query={GET_FAVORITES}>
-                                    {({ data: { favorites } }) =>
-                                        favorites.length ? (
-                                            <Item>
-                                                <Link to="/favorites">
-                                                    <span>Favorites</span>
-                                                </Link>
-                                            </Item>
-                                        ) : null
-                                    }
-                                </Query>
-                                <Item hideOnMobile>
-                                    <a
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        href="https://github.com/SaraVieira/awesome-talks"
-                                    >
-                                        <span>GitHub</span>
-                                    </a>
-                                </Item>
-                                <Item>
-                                    <button
-                                        className="active_nav link"
-                                        onClick={this.openModal}
-                                    >
-                                        Add a Talk
-                                    </button>
+            <Container>
+                <Nav>
+                    <LogoWrapper to="/">
+                        <img src={Logo} width="70" alt="Home" />
+                    </LogoWrapper>
+                    <List>
+                        <Item>
+                            <Link to="/speakers">
+                                <span>Speakers</span>
+                            </Link>
+                        </Item>
+                        <Item>
+                            <Link to="/categories">
+                                <span>Categories</span>
+                            </Link>
+                        </Item>
+                        <Query query={GET_FAVORITES}>
+                            {({ data: { favorites } }) =>
+                                favorites.length ? (
+                                    <Item>
+                                        <Link to="/favorites">
+                                            <span>Favorites</span>
+                                        </Link>
+                                    </Item>
+                                ) : null
+                            }
+                        </Query>
+                        <Item hideOnMobile>
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://github.com/SaraVieira/awesome-talks"
+                            >
+                                <span>GitHub</span>
+                            </a>
+                        </Item>
+                        <Item>
+                            <button
+                                className="active_nav link"
+                                onClick={this.openModal}
+                            >
+                                Add a Talk
+                            </button>
 
-                                    <AddTalk
-                                        modalIsOpen={this.state.modalIsOpen}
-                                        close={this.closeModal}
-                                        submit={this.submit}
-                                        submitted={this.state.submitted}
-                                        submitError={this.state.submitError}
-                                    />
-                                </Item>
-                                <Item>
-                                    <Mutation mutation={SWITCH_MODE}>
-                                        {(switchMode, { data, loading }) => (
-                                            <Query query={GET_MODE}>
-                                                {({ data: { mode } }) => {
-                                                    const {
-                                                        src,
-                                                        alt,
-                                                        pressed
-                                                    } = modeObject[mode]
-                                                    return (
-                                                        <Img
-                                                            role="button"
-                                                            aria-pressed={
-                                                                pressed
-                                                            }
-                                                            title={alt}
-                                                            onClick={switchMode}
-                                                            src={src}
-                                                            alt={alt}
-                                                        />
-                                                    )
-                                                }}
-                                            </Query>
-                                        )}
-                                    </Mutation>
-                                </Item>
-                            </List>
-                        </Nav>
-                    </Col>
-                </Row>
-            </Grid>
+                            <AddTalk
+                                modalIsOpen={this.state.modalIsOpen}
+                                close={this.closeModal}
+                                submit={this.submit}
+                                submitted={this.state.submitted}
+                                submitError={this.state.submitError}
+                            />
+                        </Item>
+                        <Item>
+                            <ToggleMode />
+                        </Item>
+                    </List>
+                </Nav>
+            </Container>
         )
     }
 }

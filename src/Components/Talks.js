@@ -8,9 +8,9 @@ import { Title } from './../Components/Header'
 import Query from './Query'
 import Scroll from './Scroll'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
-import SHOW_VIEWED from '../Queries/SHOW_VIEWED'
-import ADD_WATCHED from '../Queries/ADD_WATCHED'
-import GET_WATCHED from '../Queries/GET_WATCHED'
+import SHOW_VIEWED from '../Queries/Local/SHOW_VIEWED'
+import ADD_WATCHED from '../Queries/Local/ADD_WATCHED'
+import GET_WATCHED from '../Queries/Local/GET_WATCHED'
 import COUNT from '../Queries/COUNT'
 
 const getMore = (fetchMore, allVideoses) =>

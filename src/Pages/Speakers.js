@@ -6,11 +6,11 @@ import styled from 'styled-components'
 import Header from './../Components/Header'
 import Query from './../Components/Query'
 import SPEAKERS from '../Queries/SPEAKERS'
-import GET__SPEAKERS_SEARCH from '../Queries/GET__SPEAKERS_SEARCH'
+import GET__SPEAKERS_SEARCH from '../Queries/Local/GET__SPEAKERS_SEARCH'
 import { Figure, Img, Caption, Name } from './../Components/Styling/Speaker'
 import Nav from './../Components/Nav'
 import Filter from '../Utils/search'
-import { Helmet } from 'react-helmet'
+import SpeakersMeta from '../Components/MetaTags/Speakers'
 import CookieBanner from './../Components/CookieBanner'
 
 const makeLink = name => `/speaker/${name.replace(/\s+/g, '-').toLowerCase()}`
@@ -25,23 +25,7 @@ const Wrapper = styled(Flex)`
 
 const Speakers = ({ data: { searchSpeakers } }) => (
     <Grid>
-        <Helmet>
-            <title>Awesome Talks - Speakers</title>
-            <meta
-                name="description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
-            <meta name="twitter:title" content="Awesome Talks - Speakers" />
-            <meta
-                name="twitter:description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
-            <meta
-                name="twitter:image"
-                content="https://file-iloqdynwox.now.sh/"
-            />
-            <meta name="twitter:image:alt" content="awesome talks" />
-        </Helmet>{' '}
+        <SpeakersMeta />
         <div role="banner">
             <Nav />
             <Header
