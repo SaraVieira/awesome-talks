@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import Header from './../Components/Header'
 import { Row, Grid, Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
-import { Helmet } from 'react-helmet'
 
 import Query from './../Components/Query'
 import Nav from './../Components/Nav'
@@ -11,10 +10,11 @@ import Tag from '../Components/Styling/Tag'
 import Player from '../Components/Player'
 import { graphql, compose } from 'react-apollo'
 import VIDEO_DATA from '../Queries/VIDEO_DATA'
-import ADD_WATCHED from '../Queries/ADD_WATCHED'
+import ADD_WATCHED from '../Queries/Local/ADD_WATCHED'
 import { getDuration } from '../Utils/youtube'
 import Flex from 'styled-flex-component'
 import Error404 from './../Components/Errors/Error404'
+import VideoMeta from '../Components/MetaTags/Video'
 import { SpeakerInfo } from './../Pages/Speaker'
 
 const URLify = string => string.trim().replace(/\s/g, '%20')
@@ -55,20 +55,7 @@ const VideoInfo = ({
     link
 }) => (
     <Fragment>
-        <Helmet>
-            <title>Awesome Talks - {name}</title>
-            <meta
-                name="twitter:image"
-                content={`https://img.youtube.com/vi/${link}/hqdefault.jpg`}
-            />
-            <meta name="twitter:title" content={`Awesome Talks - ${name}`} />
-            <meta name="twitter:image:alt" content={name} />
-            <meta name="description" content={description} />
-            <meta
-                name="twitter:description"
-                content={`Amazing Tech Talk - ${name}`}
-            />
-        </Helmet>
+        <VideoMeta name={name} link={link} description={description} />
         <Flex column style={{ marginBottom: remcalc(40) }}>
             {duration ? <Duration>{getDuration(duration)}</Duration> : null}
             <div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
-import { Helmet } from 'react-helmet'
+import FourOfFourMeta from './../Components/MetaTags/FourOfFour'
 
 import Nav from './../Components/Nav'
 import Error404 from './../Components/Errors/Error404'
@@ -8,9 +8,7 @@ import Error404 from './../Components/Errors/Error404'
 const FourOFour = () => {
     return (
         <Grid>
-            <Helmet>
-                <title>404 Page Not found! - Awesome Talks</title>
-            </Helmet>
+            <FourOfFourMeta />
             <div role="banner">
                 <Nav />
             </div>

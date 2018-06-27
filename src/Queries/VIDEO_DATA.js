@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
+import VideoData from './Fragments/Video'
 
 export default gql`
     query Video($id: ID!) {
         allVideoses(filter: { id: $id }) {
-            id
-            name
+            ...VideoData
             speaker {
                 id
                 name
@@ -14,14 +14,7 @@ export default gql`
                     url
                 }
             }
-            description
-            link
-            name
-            duration
-            tags {
-                name
-                id
-            }
         }
     }
+    ${VideoData}
 `

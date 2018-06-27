@@ -4,7 +4,6 @@ import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
 import styled from 'styled-components'
 import remcalc from 'remcalc'
-import { Helmet } from 'react-helmet'
 
 import Query from './../Components/Query'
 import Video from './../Components/Video'
@@ -14,6 +13,7 @@ import humanize, { urlify } from '../Utils/strings'
 import Nav from './../Components/Nav'
 import CookieBanner from './../Components/CookieBanner'
 import Error404 from './../Components/Errors/Error404'
+import SpeakerMeta from './../Components/MetaTags/Speaker'
 
 const Wrapper = styled(Row)`
     margin-bottom: ${remcalc(30)};
@@ -77,25 +77,7 @@ const Section = styled.div`
 
 export const SpeakerInfo = ({ photo, name, bio, twitter, videoPage }) => (
     <Wrapper>
-        {!videoPage ? (
-            <Helmet>
-                <title>Awesome Talks - {name}</title>
-                <meta
-                    name="twitter:title"
-                    content={`Awesome Talks - ${name}`}
-                />
-                <meta name="twitter:image" content={photo.url} />
-                <meta name="twitter:image:alt" content={name} />
-                <meta
-                    name="description"
-                    content={`Amazing Tech Talks by ${name}`}
-                />
-                <meta
-                    name="twitter:description"
-                    content={`Amazing Tech Talks by ${name}`}
-                />
-            </Helmet>
-        ) : null}
+        {!videoPage ? <SpeakerMeta name={name} photo={photo} /> : null}
         <Desc>
             {photo ? (
                 <Img src={photo.url} alt={name} height="200" width="200" />

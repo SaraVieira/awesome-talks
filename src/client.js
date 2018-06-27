@@ -9,7 +9,7 @@ import App from './App'
 import theme from './Utils/theme'
 import Global from './Utils/global-styles'
 import client from './Utils/stateLink'
-import { GET_MODE } from './Queries/SWITCH_MODE'
+import { GET_MODE } from './Queries/Local/SWITCH_MODE'
 
 hydrate(
     <ApolloProvider client={client}>

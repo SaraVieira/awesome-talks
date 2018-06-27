@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql, compose } from 'react-apollo'
-import GET_FAVORITES from '../../Queries/GET_FAVORITES'
-import ADD_FAVORITE from '../../Queries/ADD_FAVORITE'
-import REMOVE_FAVORITE from '../../Queries/REMOVE_FAVORITE'
+import GET_FAVORITES from '../../Queries/Local/GET_FAVORITES'
+import ADD_FAVORITE from '../../Queries/Local/ADD_FAVORITE'
+import REMOVE_FAVORITE from '../../Queries/Local/REMOVE_FAVORITE'
 import Query from './../Query'
 import View from './view'
 

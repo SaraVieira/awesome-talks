@@ -6,7 +6,7 @@ import Video from './../Components/Video'
 import TAG_VIDEOS from '../Queries/TAG_VIDEOS'
 import humanize from '../Utils/strings'
 import Nav from './../Components/Nav'
-import { Helmet } from 'react-helmet'
+import TagMeta from '../Components/MetaTags/Tag'
 import CookieBanner from './../Components/CookieBanner'
 import Error404 from './../Components/Errors/Error404'
 
@@ -16,26 +16,7 @@ export default ({
     }
 }) => (
     <Grid>
-        <Helmet>
-            <title>Awesome Talks - {category}</title>
-            <meta
-                name="description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
-            <meta
-                name="twitter:title"
-                content={`Awesome Talks - ${humanize(category)}`}
-            />
-            <meta
-                name="twitter:description"
-                content="Amazing Tech Talks curated by the community ❤️"
-            />
-            <meta
-                name="twitter:image"
-                content="https://file-iloqdynwox.now.sh/"
-            />
-            <meta name="twitter:image:alt" content="awesome talks" />
-        </Helmet>
+        <TagMeta category={category} />
         <div role="banner">
             <Nav />
         </div>

@@ -3,9 +3,9 @@ import { graphql, compose } from 'react-apollo'
 import remcalc from 'remcalc'
 import randomID from 'random-id'
 
-import ADD_WATCHED from '../Queries/ADD_WATCHED'
-import REMOVE_WATCHED from '../Queries/REMOVE_WATCHED'
-import GET_WATCHED from '../Queries/GET_WATCHED'
+import ADD_WATCHED from '../Queries/Local/ADD_WATCHED'
+import REMOVE_WATCHED from '../Queries/Local/REMOVE_WATCHED'
+import GET_WATCHED from '../Queries/Local/GET_WATCHED'
 import Query from './Query'
 import Heart from './Styling/Heart'
 

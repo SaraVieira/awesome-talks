@@ -2,7 +2,7 @@ import React from 'react'
 import { Query } from 'react-apollo'
 import Loading from './Styling/Loading'
 
-export default ({ children, ...props }) => {
+const ModifiedQuery = ({ children, ...props }) => {
     return (
         <Query {...props}>
             {({ loading, error, data, fetchMore, client }) => {
@@ -23,3 +23,5 @@ export default ({ children, ...props }) => {
         </Query>
     )
 }
+
+export default ModifiedQuery
