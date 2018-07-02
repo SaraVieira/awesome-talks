@@ -12,16 +12,18 @@ const getDurationInSecond = input => {
         if (matches[3]) seconds = Number(matches[3])
         totalseconds = hours * 3600 + minutes * 60 + seconds
     }
-
     return totalseconds
 }
-
 module.exports = async id => {
     const getVideo = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${
-            process.env.KEY
-        }&part=contentDetails`
+        // `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${
+        //     process.env.KEY
+        // }&part=contentDetails`
+        `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=AIzaSyDh1E-n5StcEPXDQtoTxKPkwJeG0_c38Qw&part=contentDetails,snippet`
     )
     const rsp = await getVideo.json()
-    return getDurationInSecond(rsp.items[0].contentDetails.duration)
+    return {
+        year: new Date(rsp.items[0].snippet.publishedAt).getFullYear(),
+        duration: getDurationInSecond(rsp.items[0].contentDetails.duration)
+    }
 }
