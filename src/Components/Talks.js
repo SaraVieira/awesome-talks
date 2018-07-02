@@ -26,25 +26,34 @@ const getMore = (fetchMore, allVideoses) =>
 
 class VideoComponent extends Component {
     state = {
-        duration: undefined
+        duration: undefined,
+        year: undefined
     }
     setDurationFilter = duration => {
         this.setState({
             duration
         })
     }
+    setPublishYear = year => {
+        this.setState({
+            year
+        })
+    }
     render() {
         const { search } = this.props
-        const { duration } = this.state
+        const { duration, year } = this.state
         return (
             <Fragment>
-                <Filters onClick={this.setDurationFilter} />
+                Filters
+                <DurationFilter onClick={this.setDurationFilter} />
+                <PublishedYearFilter onClick={this.setPublishYear} />
                 <Query
                     query={ALL_VIDEOS}
                     variables={{
                         first: 9,
                         search,
-                        duration
+                        duration,
+                        year
                     }}
                 >
                     {({ data: { allVideoses }, fetchMore }) => {
@@ -89,8 +98,10 @@ class VideoComponent extends Component {
     }
 }
 
-const Filters = ({ onClick }) => (
+const DurationFilter = ({ onClick }) => (
     <div>
+        <span>Duration</span>
+        <br />
         <button
             style={{ marginRight: 10 }}
             className="active_nav link"
@@ -120,4 +131,41 @@ const Filters = ({ onClick }) => (
         </button>
     </div>
 )
+
+const PublishedYearFilter = ({ onClick }) => (
+    <div style={{ padding: 5 }}>
+        <span>Published year</span>
+        <br />
+        <PublishedYearButton
+            value={new Date().getFullYear() - 3}
+            onClick={onClick}
+        />
+        <PublishedYearButton
+            value={new Date().getFullYear() - 2}
+            onClick={onClick}
+        />
+        <PublishedYearButton
+            value={new Date().getFullYear() - 1}
+            onClick={onClick}
+        />
+        <PublishedYearButton
+            value={new Date().getFullYear()}
+            onClick={onClick}
+        />
+        <PublishedYearButton value={undefined} onClick={onClick} />
+    </div>
+)
+
+const PublishedYearButton = ({ value, onClick }) => (
+    <button
+        style={{ marginRight: 10 }}
+        className="active_nav link"
+        onClick={() => {
+            onClick(value)
+        }}
+    >
+        {value || 'All'}
+    </button>
+)
+
 export default VideoComponent

@@ -7,6 +7,7 @@ export default gql`
         $after: String
         $search: String
         $duration: Int
+        $year: Int
     ) {
         allVideoses(
             first: $first
@@ -26,6 +27,7 @@ export default gql`
                         AND: [
                             { isPublished: true }
                             { duration_lte: $duration }
+                            { year: $year }
                         ]
                     }
                 ]
