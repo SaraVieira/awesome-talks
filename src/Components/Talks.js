@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, Component } from 'react'
 import { Col, Row } from 'react-styled-flexboxgrid'
 // import Fuse from 'fuse.js'
 import Query from './Query'
@@ -24,49 +24,100 @@ const getMore = (fetchMore, allVideoses) =>
         }
     })
 
-const VideoComponent = ({ search }) => (
-    <Fragment>
-        Filters
-        <Query
-            query={ALL_VIDEOS}
-            variables={{
-                first: 9,
-                search,
-                duration: undefined
+class VideoComponent extends Component {
+    state = {
+        duration: undefined
+    }
+    setDurationFilter = duration => {
+        this.setState({
+            duration
+        })
+    }
+    render() {
+        const { search } = this.props
+        const { duration } = this.state
+        return (
+            <Fragment>
+                <Filters onClick={this.setDurationFilter} />
+                <Query
+                    query={ALL_VIDEOS}
+                    variables={{
+                        first: 9,
+                        search,
+                        duration
+                    }}
+                >
+                    {({ data: { allVideoses }, fetchMore }) => {
+                        return (
+                            <Row style={{ justifyContent: 'center' }}>
+                                <Col xs={12}>
+                                    <Row>
+                                        <Talks
+                                            search={search}
+                                            talks={allVideoses}
+                                        />
+                                    </Row>
+
+                                    <Query
+                                        query={COUNT}
+                                        variables={{
+                                            search
+                                        }}
+                                    >
+                                        {({ data: { _allVideosesMeta } }) => (
+                                            <Scroll
+                                                show={
+                                                    _allVideosesMeta.count >
+                                                    allVideoses.length
+                                                }
+                                                onBottom={() =>
+                                                    getMore(
+                                                        fetchMore,
+                                                        allVideoses
+                                                    )
+                                                }
+                                            />
+                                        )}
+                                    </Query>
+                                </Col>
+                            </Row>
+                        )
+                    }}
+                </Query>
+            </Fragment>
+        )
+    }
+}
+
+const Filters = ({ onClick }) => (
+    <div>
+        <button
+            style={{ marginRight: 10 }}
+            className="active_nav link"
+            onClick={() => {
+                onClick(1200)
             }}
         >
-            {({ data: { allVideoses }, fetchMore }) => {
-                return (
-                    <Row style={{ justifyContent: 'center' }}>
-                        <Col xs={12}>
-                            <Row>
-                                <Talks search={search} talks={allVideoses} />
-                            </Row>
-
-                            <Query
-                                query={COUNT}
-                                variables={{
-                                    search
-                                }}
-                            >
-                                {({ data: { _allVideosesMeta } }) => (
-                                    <Scroll
-                                        show={
-                                            _allVideosesMeta.count >
-                                            allVideoses.length
-                                        }
-                                        onBottom={() =>
-                                            getMore(fetchMore, allVideoses)
-                                        }
-                                    />
-                                )}
-                            </Query>
-                        </Col>
-                    </Row>
-                )
+            Less that 20 min
+        </button>
+        <button
+            style={{ marginRight: 10 }}
+            className="active_nav link"
+            onClick={() => {
+                onClick(2700)
             }}
-        </Query>
-    </Fragment>
+        >
+            Less that 45 min
+        </button>
+        <button
+            style={{ marginRight: 10 }}
+            className="active_nav link"
+            onClick={() => {
+                onClick(undefined)
+            }}
+        >
+            All
+        </button>
+    </div>
 )
-
 export default VideoComponent
