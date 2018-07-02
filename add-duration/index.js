@@ -3,12 +3,15 @@ const { request } = require('graphql-request')
 const getYoutube = require('./youtube')
 require('dotenv').config()
 const endpoint = 'https://api.graphcms.com/simple/v1/awesometalks'
+
 const updateDuration = `
-    mutation updateVideos($id: ID!, $duration: Int, $year: Int) {
-        updateVideos(id: $id, duration: $duration, year: $year) {
+    mutation updateVideos($id: ID!, $duration: Int, $year: Int, $likes: Int, $views: Int) {
+        updateVideos(id: $id, duration: $duration, year: $year, likes: $likes, views: $views) {
             id,
             duration,
-            year
+            year,
+            views,
+            likes
         }
     }
 `
@@ -28,7 +31,9 @@ module.exports = async req => {
     //         await request(endpoint, updateDuration, {
     //             id: id,
     //             duration: youtube.duration,
-    //             year: youtube.year
+    //             year: youtube.year,
+    //             likes: youtube.likes,
+    //             views: youtube.views
     //         })
     //     } catch (e) {
     //         console.log(e)

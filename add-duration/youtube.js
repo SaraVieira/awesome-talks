@@ -16,14 +16,16 @@ const getDurationInSecond = input => {
 }
 module.exports = async id => {
     const getVideo = await fetch(
-        // `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${
-        //     process.env.KEY
-        // }&part=contentDetails`
-        `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=AIzaSyDh1E-n5StcEPXDQtoTxKPkwJeG0_c38Qw&part=contentDetails,snippet`
+        `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${
+            process.env.KEY
+        }&part=contentDetails,snippet,statistics`
     )
     const rsp = await getVideo.json()
+    const item = rsp.items[0]
     return {
-        year: new Date(rsp.items[0].snippet.publishedAt).getFullYear(),
-        duration: getDurationInSecond(rsp.items[0].contentDetails.duration)
+        year: new Date(item.snippet.publishedAt).getFullYear(),
+        duration: getDurationInSecond(item.contentDetails.duration),
+        views: parseInt(item.statistics.viewCount, 10),
+        likes: parseInt(item.statistics.likeCount, 10)
     }
 }
