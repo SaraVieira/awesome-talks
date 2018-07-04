@@ -8,11 +8,12 @@ export default gql`
         $search: String
         $duration: Int
         $year: Int
+        $order: VideosOrderBy
     ) {
         allVideoses(
             first: $first
             after: $after
-            orderBy: createdAt_DESC
+            orderBy: $order
             filter: {
                 AND: [
                     {
