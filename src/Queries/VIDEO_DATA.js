@@ -13,6 +13,18 @@ export default gql`
                 photo {
                     url
                 }
+                videoses {
+                    id
+                    description
+                    link
+                    name
+                    duration
+                    year
+                    tags {
+                        name
+                        id
+                    }
+                }
             }
         }
     }

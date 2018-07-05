@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { Col, Row } from 'react-styled-flexboxgrid'
 import Flex from 'styled-flex-component'
-import { graphql, compose } from 'react-apollo'
-// import Fuse from 'fuse.js'
-import Video from './Video'
-import { Title } from './../Components/Header'
 import Query from './Query'
 import Scroll from './Scroll'
+import Talks from './TalksList'
 import ALL_VIDEOS from '../Queries/ALL_VIDEOS'
-import SHOW_VIEWED from '../Queries/Local/SHOW_VIEWED'
-import ADD_WATCHED from '../Queries/Local/ADD_WATCHED'
-import GET_WATCHED from '../Queries/Local/GET_WATCHED'
 import COUNT from '../Queries/COUNT'
+
+import PublishedYearFilter from './Filters/Year'
+import DurationFilter from './Filters/Duration'
+import Order from './Filters/Order'
+
+import { Checkbox } from './Styling/Forms'
+import { Title } from './Styling/Text'
 
 const getMore = (fetchMore, allVideoses) =>
     fetchMore({
@@ -30,103 +31,123 @@ const getMore = (fetchMore, allVideoses) =>
         }
     })
 
-class TalksComponent extends Component {
+class VideoComponent extends Component {
     state = {
-        videos: this.props.talks,
-        noLazy: false
+        duration: undefined,
+        year: undefined,
+        order: 'createdAt_DESC',
+        filtersOpened: false
+    }
+    setDurationFilter = duration => {
+        this.setState({
+            duration
+        })
+    }
+    setPublishYear = year => {
+        this.setState({
+            year
+        })
     }
 
-    componentDidUpdate = prevProps => {
-        const { watched, talks, hideViewed } = this.props
-
-        if (talks !== prevProps.talks || hideViewed !== prevProps.hideViewed) {
-            const videos =
-                hideViewed && !prevProps.hideViewed
-                    ? talks.filter(t => !watched.includes(t.id))
-                    : talks
-
-            this.setState({ videos })
-        }
+    changeOrder = e => {
+        this.setState({
+            order: e.target.value
+        })
     }
 
-    render = () => {
+    toggleFilters = () => {
+        this.setState({
+            filtersOpened: !this.state.filtersOpened
+        })
+    }
+
+    render() {
+        const { search } = this.props
+        const { duration, year, order, filtersOpened } = this.state
         return (
-            <Col xs={12}>
-                <Row>
-                    {!this.state.videos.length ? (
-                        <Flex justifyCenter full>
-                            <Title small>No videos match your query</Title>
-                        </Flex>
-                    ) : null}
-                    {this.state.videos.map(v => (
-                        <Video
-                            noLazy={this.state.noLazy}
-                            key={v.id}
-                            talk={v}
-                            addWatched={this.props.addWatched}
+            <Fragment>
+                <Title>
+                    <Flex>
+                        <Checkbox>
+                            <input
+                                type="checkbox"
+                                onChange={this.toggleFilters}
+                                checked={filtersOpened}
+                                id="filters"
+                            />
+                            <label htmlFor="filters" />
+                        </Checkbox>
+                        Filters
+                    </Flex>
+                </Title>
+                {filtersOpened ? (
+                    <Flex
+                        wrap
+                        alignCenter
+                        justifyBetween
+                        style={{ marginBottom: 40 }}
+                    >
+                        <DurationFilter
+                            duration={duration}
+                            onClick={this.setDurationFilter}
                         />
-                    ))}
-                </Row>
-            </Col>
+                        <PublishedYearFilter
+                            year={year}
+                            onClick={this.setPublishYear}
+                        />
+                        <Order onChange={this.changeOrder} />
+                    </Flex>
+                ) : null}
+                <Query
+                    query={ALL_VIDEOS}
+                    variables={{
+                        first: 9,
+                        search,
+                        duration,
+                        year,
+                        order
+                    }}
+                >
+                    {({ data: { allVideoses }, fetchMore }) => {
+                        return (
+                            <Row style={{ justifyContent: 'center' }}>
+                                <Col xs={12}>
+                                    <Row>
+                                        <Talks
+                                            search={search}
+                                            talks={allVideoses}
+                                        />
+                                    </Row>
+
+                                    <Query
+                                        query={COUNT}
+                                        variables={{
+                                            search
+                                        }}
+                                    >
+                                        {({ data: { _allVideosesMeta } }) => (
+                                            <Scroll
+                                                show={
+                                                    _allVideosesMeta.count >
+                                                    allVideoses.length
+                                                }
+                                                onBottom={() =>
+                                                    getMore(
+                                                        fetchMore,
+                                                        allVideoses
+                                                    )
+                                                }
+                                            />
+                                        )}
+                                    </Query>
+                                </Col>
+                            </Row>
+                        )
+                    }}
+                </Query>
+            </Fragment>
         )
     }
 }
-
-const Talks = compose(
-    graphql(SHOW_VIEWED, {
-        ssr: false,
-        props: ({ data }) => ({ hideViewed: data.hideViewed })
-    }),
-    graphql(GET_WATCHED, {
-        ssr: false,
-        props: ({ data }) => ({ watched: data.watched })
-    }),
-    graphql(ADD_WATCHED, {
-        props: ({ mutate }) => ({
-            addWatched: id => mutate({ variables: { id } })
-        })
-    })
-)(TalksComponent)
-
-const VideoComponent = ({ search }) => (
-    <Query
-        query={ALL_VIDEOS}
-        variables={{
-            first: 9,
-            search
-        }}
-    >
-        {({ data: { allVideoses }, fetchMore }) => {
-            return (
-                <Row style={{ justifyContent: 'center' }}>
-                    <Col xs={12}>
-                        <Row>
-                            <Talks search={search} talks={allVideoses} />
-                        </Row>
-
-                        <Query
-                            query={COUNT}
-                            variables={{
-                                search
-                            }}
-                        >
-                            {({ data: { _allVideosesMeta } }) => (
-                                <Scroll
-                                    show={
-                                        _allVideosesMeta.count >
-                                        allVideoses.length
-                                    }
-                                    onBottom={() =>
-                                        getMore(fetchMore, allVideoses)
-                                    }
-                                />
-                            )}
-                        </Query>
-                    </Col>
-                </Row>
-            )
-        }}
-    </Query>
-)
 
 export default VideoComponent
