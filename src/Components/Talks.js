@@ -60,6 +60,69 @@ const Select = styled.select`
     font-weight: bold;
 `
 
+const Checkbox = styled.div`
+    user-select: none;
+    position: relative;
+    width: ${remcalc(40)};
+    margin-left: ${remcalc(-17)};
+    margin-right: ${remcalc(20)};
+
+    input[type='checkbox'] {
+        opacity: 0;
+    }
+
+    label {
+        position: relative;
+    }
+    label::before,
+    label::after {
+        position: absolute;
+    }
+    /*Outer-box*/
+    label::before {
+        top: ${remcalc(11)};
+    }
+    /*Checkmark*/
+    label::after {
+        left: ${remcalc(4)};
+        top: ${remcalc(15)};
+    }
+
+    /*Hide the checkmark by default*/
+    input[type='checkbox'] + label::after {
+        content: none;
+    }
+
+    input[type='checkbox']:focus + label::before {
+        outline: rgb(59, 153, 252) auto 5px;
+    }
+    /*Unhide the checkmark on the checked state*/
+    input[type='checkbox']:checked + label::after {
+        content: '';
+    }
+
+    label::before {
+        content: '';
+        display: inline-block;
+
+        height: 16px;
+        width: 16px;
+
+        border: 1px solid;
+    }
+
+    label::after {
+        content: '';
+        display: inline-block;
+        height: 6px;
+        width: 9px;
+        border-left: 2px solid #5e8eaa;
+        border-bottom: 2px solid #5e8eaa;
+
+        transform: rotate(-45deg);
+    }
+`
+
 const getMore = (fetchMore, allVideoses) =>
     fetchMore({
         variables: {
@@ -81,7 +144,8 @@ class VideoComponent extends Component {
     state = {
         duration: undefined,
         year: undefined,
-        order: 'createdAt_DESC'
+        order: 'createdAt_DESC',
+        filtersOpened: false
     }
     setDurationFilter = duration => {
         this.setState({
@@ -100,28 +164,49 @@ class VideoComponent extends Component {
         })
     }
 
+    toggleFilters = () => {
+        this.setState({
+            filtersOpened: !this.state.filtersOpened
+        })
+    }
+
     render() {
         const { search } = this.props
-        const { duration, year, order } = this.state
+        const { duration, year, order, filtersOpened } = this.state
         return (
             <Fragment>
-                <Title>Filters</Title>
-                <Flex
-                    wrap
-                    alignCenter
-                    justifyBetween
-                    style={{ marginBottom: 40 }}
-                >
-                    <DurationFilter
-                        duration={duration}
-                        onClick={this.setDurationFilter}
-                    />
-                    <PublishedYearFilter
-                        year={year}
-                        onClick={this.setPublishYear}
-                    />
-                    <Order onChange={this.changeOrder} />
-                </Flex>
+                <Title>
+                    <Flex>
+                        <Checkbox>
+                            <input
+                                type="checkbox"
+                                onChange={this.toggleFilters}
+                                checked={filtersOpened}
+                                id="filters"
+                            />
+                            <label htmlFor="filters" />
+                        </Checkbox>
+                        Filters
+                    </Flex>
+                </Title>
+                {filtersOpened ? (
+                    <Flex
+                        wrap
+                        alignCenter
+                        justifyBetween
+                        style={{ marginBottom: 40 }}
+                    >
+                        <DurationFilter
+                            duration={duration}
+                            onClick={this.setDurationFilter}
+                        />
+                        <PublishedYearFilter
+                            year={year}
+                            onClick={this.setPublishYear}
+                        />
+                        <Order onChange={this.changeOrder} />
+                    </Flex>
+                ) : null}
                 <Query
                     query={ALL_VIDEOS}
                     variables={{
