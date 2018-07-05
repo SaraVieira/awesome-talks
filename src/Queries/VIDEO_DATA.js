@@ -19,6 +19,7 @@ export default gql`
                     link
                     name
                     duration
+                    year
                     tags {
                         name
                         id

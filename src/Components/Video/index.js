@@ -88,6 +88,7 @@ export class SimpleVideo extends Component {
             cinemaMode,
             showCinemaVideo,
             Player,
+            year,
             toggleCinemaMode
         } = this.props
 
@@ -121,6 +122,7 @@ export class SimpleVideo extends Component {
                     {duration ? (
                         <Duration>{getDuration(duration)}</Duration>
                     ) : null}
+                    {year ? <Duration>{year}</Duration> : null}
                 </Flex>
                 <Name
                     className="no-hover"
