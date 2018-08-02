@@ -66,18 +66,20 @@ const VideoInfo = ({
                 ))}
             </div>
             <Description>{description}</Description>
-            <a
-                className="no-hover"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`https://twitter.com/intent/tweet/?text=${URLify(
-                    `Amazing Tech Talk - ${name} by @${
-                        speaker[0].twitter
-                    } via @talksawesome`
-                )}.&amp;url=${URLify(window.location.href)}`}
-            >
-                Share on Twitter
-            </a>
+            {typeof window === 'undefined' && (
+                <a
+                    className="no-hover"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`https://twitter.com/intent/tweet/?text=${URLify(
+                        `Amazing Tech Talk - ${name} by @${
+                            speaker[0].twitter
+                        } via @talksawesome`
+                    )}.&amp;url=${URLify(window.location.href)}`}
+                >
+                    Share on Twitter
+                </a>
+            )}
         </Flex>
         <Row>
             <Col xs={12}>
