@@ -144,6 +144,11 @@ export default class Navigation extends Component {
                     </LogoWrapper>
                     <List>
                         <Item>
+                            <Link to="/proposed">
+                                <span>Proposed Talks</span>
+                            </Link>
+                        </Item>
+                        <Item>
                             <Link to="/speakers">
                                 <span>Speakers</span>
                             </Link>
