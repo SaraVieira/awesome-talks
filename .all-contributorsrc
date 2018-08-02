@@ -144,6 +144,35 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "vladamx",
+      "name": "Vladimir Milojevic",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/11381171?v=4",
+      "profile": "https://github.com/vladamx",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "phoulgaux",
+      "name": "Piotr Balbier",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7175670?v=4",
+      "profile": "https://github.com/phoulgaux",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "shyamks",
+      "name": "Meghashyam Kodmad",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7412845?v=4",
+      "profile": "https://github.com/shyamks",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
