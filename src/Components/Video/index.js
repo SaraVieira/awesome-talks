@@ -48,6 +48,8 @@ const Name = styled(Link)`
     display: block;
 `
 
+const NameNoLink = Name.withComponent('h3')
+
 const Duration = styled.span`
     margin-bottom: ${remcalc(10)};
     display: block;
@@ -89,7 +91,8 @@ export class SimpleVideo extends Component {
             showCinemaVideo,
             Player,
             year,
-            toggleCinemaMode
+            toggleCinemaMode,
+            noLink
         } = this.props
 
         const { showVideo } = this.state
@@ -124,13 +127,17 @@ export class SimpleVideo extends Component {
                     ) : null}
                     {year ? <Duration>{year}</Duration> : null}
                 </Flex>
-                <Name
-                    className="no-hover"
-                    to={makeLink('video', id)}
-                    title={name}
-                >
-                    {this.videoTitle(name)}
-                </Name>
+                {noLink ? (
+                    <NameNoLink> {this.videoTitle(name)}</NameNoLink>
+                ) : (
+                    <Name
+                        className="no-hover"
+                        to={makeLink('video', id)}
+                        title={name}
+                    >
+                        {this.videoTitle(name)}
+                    </Name>
+                )}
                 <Flex>
                     {tags.map(s => (
                         <Tag key={s.id} to={makeLink('category', s.name)}>
@@ -160,6 +167,11 @@ const VideoWrapper = props => (
     />
 )
 
-export default ({ noLazy = false, talk, addWatched }) => (
-    <VideoWrapper key={talk.id} {...talk} addWatched={addWatched} />
+export default ({ noLazy = false, talk, addWatched, noLink }) => (
+    <VideoWrapper
+        key={talk.id}
+        {...talk}
+        noLink={noLink}
+        addWatched={addWatched}
+    />
 )

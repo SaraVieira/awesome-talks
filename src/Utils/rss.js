@@ -37,8 +37,9 @@ const query = `{
 export default client({ query })
     .then(res => res.data.talks)
     .then(talks =>
-        talks.forEach(({ name, link, speaker, description, tags }) => {
+        talks.forEach(({ id, name, link, speaker, description, tags }) => {
             return feed.item({
+                guid: id,
                 title: name,
                 author: description,
                 url: `https://youtube.com/watch?v=${link}`,

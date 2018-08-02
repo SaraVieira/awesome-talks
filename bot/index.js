@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
             {
                 status: `New Talk Release 🎉: ${newVideo.name} by the awesome ${
                     speaker.name
-                }(@${twitter}) -http://awesometalks.party/video/${newVideo.id}
+                }(@${twitter}) - https://youtube.com/watch?v=${newVideo.link}
 ${Tags}
             `
             },

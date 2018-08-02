@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost'
 
 export default gql`
     query speakerVideos {
-        allVideoses(filter: { isPublished: false }) {
+        allVideoses(orderBy: createdAt_DESC, filter: { isPublished: false }) {
             id
             speaker {
                 name

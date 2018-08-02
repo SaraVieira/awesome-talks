@@ -7,8 +7,8 @@ export default ({ onChange }) => (
     <Flex alignCenter>
         <Name>Order</Name>
         <Select onChange={onChange}>
-            <option value="createdAt_DESC">Created At (DESC)</option>
-            <option value="createdAt_ASC">Created At (ASC)</option>
+            <option value="createdAt_DESC">Date Added (DESC)</option>
+            <option value="createdAt_ASC">Date Added (ASC)</option>
             <option value="duration_DESC">Duration (DESC)</option>
             <option value="duration_ASC">Duration (ASC)</option>
             <option value="likes_DESC">Likes (DESC)</option>

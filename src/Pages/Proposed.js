@@ -20,7 +20,7 @@ const Proposed = () => (
                         {({ data: { allVideoses } }) => (
                             <Row>
                                 {allVideoses.map(v => (
-                                    <Video key={v.id} talk={v} />
+                                    <Video noLink key={v.id} talk={v} />
                                 ))}
                             </Row>
                         )}
