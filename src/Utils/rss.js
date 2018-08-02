@@ -41,7 +41,7 @@ export default client({ query })
             return feed.item({
                 title: name,
                 author: description,
-                url: `https://youtube.com?v=${link}`,
+                url: `https://youtube.com/watch?v=${link}`,
                 speaker: speaker.name,
                 categories: tags.map(({ name }) => name)
             })
