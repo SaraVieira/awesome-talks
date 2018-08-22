@@ -2,35 +2,16 @@ import React, { Component, Fragment } from 'react'
 import Header from './../Components/Header'
 import { Row, Grid, Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
+import { graphql, compose } from 'react-apollo'
 
 import Query from './../Components/Query'
 import Nav from './../Components/Nav'
+import VideoInfo from './../Components/VideoInfo'
 import styled from 'styled-components'
-import Tag from '../Components/Styling/Tag'
 import Player from '../Components/Player'
-import { graphql, compose } from 'react-apollo'
 import VIDEO_DATA from '../Queries/VIDEO_DATA'
 import ADD_WATCHED from '../Queries/Local/ADD_WATCHED'
-import { getDuration } from '../Utils/youtube'
-import Flex from 'styled-flex-component'
 import Error404 from './../Components/Errors/Error404'
-import VideoMeta from '../Components/MetaTags/Video'
-import { SpeakerInfo } from './../Pages/Speaker'
-
-const URLify = string => string.trim().replace(/\s/g, '%20')
-
-const Description = styled.p`
-    font-weight: 400;
-    font-size: ${remcalc(16)};
-    color: ${props => props.theme.main};
-    letter-spacing: ${remcalc(0.11)};
-    line-height: ${remcalc(21)};
-`
-
-const Duration = styled.span`
-    font-weight: 400;
-    color: ${props => props.theme.main};
-`
 
 const HeaderStyled = styled(Header)`
     margin-bottom: ${remcalc(20)};
@@ -41,58 +22,6 @@ const PlayerStyled = styled.main`
     margin: auto;
     margin-bottom: ${remcalc(20)};
 `
-
-const makeLink = (url = 'speaker', name = 'FIX ME') =>
-    `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
-
-const VideoInfo = ({
-    name,
-    description,
-    speaker,
-    id,
-    tags,
-    duration,
-    link
-}) => (
-    <Fragment>
-        <VideoMeta name={name} link={link} description={description} />
-        <Flex column style={{ marginBottom: remcalc(40) }}>
-            {duration ? <Duration>{getDuration(duration)}</Duration> : null}
-            <div>
-                {tags.map(s => (
-                    <Tag key={s.id} to={makeLink('category', s.name)}>
-                        #{s.name.toLowerCase()}
-                    </Tag>
-                ))}
-            </div>
-            <Description>{description}</Description>
-            {typeof window === 'undefined' && (
-                <a
-                    className="no-hover"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`https://twitter.com/intent/tweet/?text=${URLify(
-                        `Amazing Tech Talk - ${name} by @${
-                            speaker[0].twitter
-                        } via @talksawesome`
-                    )}.&amp;url=${URLify(window.location.href)}`}
-                >
-                    Share on Twitter
-                </a>
-            )}
-        </Flex>
-        <Row>
-            <Col xs={12}>
-                {speaker.map(s => (
-                    <Fragment key={`${s.id}_${id}`}>
-                        <HeaderStyled medium title="Speaker" noSearch />
-                        <SpeakerInfo {...s} videoPage />
-                    </Fragment>
-                ))}
-            </Col>
-        </Row>
-    </Fragment>
-)
 
 class VideoComponent extends Component {
     state = { showVideo: false }

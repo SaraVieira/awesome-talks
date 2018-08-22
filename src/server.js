@@ -53,7 +53,11 @@ server
             </ApolloProvider>
         )
 
-        await getDataFromTree(<Root />)
+        try {
+            await getDataFromTree(<Root />)
+        } catch (e) {
+            console.log(e)
+        }
         let initialApolloState = client.extract()
 
         // chaning intial state as per requirement
