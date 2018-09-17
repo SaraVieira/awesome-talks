@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Header from './../Components/Header'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
 import { graphql } from 'react-apollo'
+import Carousel from 'react-fluid-carousel'
 
 import TAGS from '../Queries/TAGS'
 import Nav from './../Components/Nav'
@@ -11,6 +12,8 @@ import Filter from '../Utils/search'
 import GET__TAGS_SEARCH from '../Queries/Local/GET__TAGS_SEARCH'
 import Tag from '../Components/Tag'
 import CookieBanner from './../Components/CookieBanner'
+import { SimpleVideo as Video } from './../Components/Video'
+import Player from './../Components/Player'
 
 const Tags = ({ data: { searchTags } }) => (
     <Grid>
@@ -30,13 +33,27 @@ const Tags = ({ data: { searchTags } }) => (
                     <Query query={TAGS}>
                         {({ data: { allTagses: allTags } }) => (
                             <Row style={{ justifyContent: 'space-around' }}>
-                                {Filter(searchTags, allTags).map(t => (
-                                    <Tag
-                                        className="no-hover"
-                                        key={t.id}
-                                        {...t}
-                                    />
-                                ))}
+                                {Filter(searchTags, allTags).map(t => {
+                                    return (
+                                        <Fragment key={t.id}>
+                                            <div>
+                                                <Tag
+                                                    className="no-hover"
+                                                    {...t}
+                                                />
+                                            </div>
+                                            <Carousel speed={1000}>
+                                                {t.videos.map(video => (
+                                                    <Video
+                                                        key={video.id}
+                                                        {...video}
+                                                        Player={Player}
+                                                    />
+                                                ))}
+                                            </Carousel>
+                                        </Fragment>
+                                    )
+                                })}
                             </Row>
                         )}
                     </Query>
