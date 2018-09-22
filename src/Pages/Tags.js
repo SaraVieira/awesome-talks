@@ -15,6 +15,52 @@ import CookieBanner from './../Components/CookieBanner'
 import { SimpleVideo as Video } from './../Components/Video'
 import Player from './../Components/Player'
 
+const prevNextStyle = {
+    opacity: '0.8',
+    outline: 'none',
+    cursor: 'pointer',
+    zIndex: 10,
+    position: 'absolute',
+    background: 'black',
+    color: 'white',
+    borderRadius: '10%',
+    textAlign: 'center'
+}
+
+const PrevButton = ({ disabled, onClick, basicStyle }) => {
+    let style = disabled
+        ? { display: 'none' }
+        : {
+              ...prevNextStyle,
+              ...basicStyle,
+              top: '0px',
+              height: '20px',
+              width: '50px'
+          }
+    return (
+        <div disabled={disabled} onClick={onClick} style={{ ...style }}>
+            Prev
+        </div>
+    )
+}
+
+const NextButton = ({ disabled, onClick, basicStyle }) => {
+    let style = disabled
+        ? { display: 'none' }
+        : {
+              ...prevNextStyle,
+              ...basicStyle,
+              top: '0px',
+              height: '20px',
+              width: '50px'
+          }
+    return (
+        <div disabled={disabled} onClick={onClick} style={{ ...style }}>
+            Next
+        </div>
+    )
+}
+
 const Tags = ({ data: { searchTags } }) => (
     <Grid>
         <TagsMeta />
@@ -42,22 +88,36 @@ const Tags = ({ data: { searchTags } }) => (
                                                     {...t}
                                                 />
                                             </div>
-                                            <Carousel speed={1000}>
-                                                {t.videos.map(video => (
-                                                    <div
-                                                        key={video.id}
-                                                        style={{
-                                                            height: '150px',
-                                                            width: '200px'
-                                                        }}
-                                                    >
-                                                        <Video
-                                                            {...video}
-                                                            Player={Player}
-                                                            noText
-                                                        />
-                                                    </div>
-                                                ))}
+
+                                            <Carousel
+                                                speed={1000}
+                                                renderPrev={PrevButton}
+                                                renderNext={NextButton}
+                                            >
+                                                {t.videos.map(video => {
+                                                    /*
+                                                    description: ""
+                                                    duration: 1842
+                                                    id: "cjhja37as0qlg0107bct8nvfj"
+                                                    link: "N-lSE3DBerM"
+                                                    name: "Developers are strange creatures"
+                                                    */
+                                                    return (
+                                                        <div
+                                                            key={video.id}
+                                                            style={{
+                                                                height: '180px',
+                                                                width: '240px'
+                                                            }}
+                                                        >
+                                                            <Video
+                                                                {...video}
+                                                                Player={Player}
+                                                                noText
+                                                            />
+                                                        </div>
+                                                    )
+                                                })}
                                             </Carousel>
                                         </Fragment>
                                     )
