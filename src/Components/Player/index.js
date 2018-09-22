@@ -62,8 +62,6 @@ const Image = styled.div`
     position: relative;
     margin: auto;
     height: 100%;
-    min-height: 100px;
-    min-width: 200px;
     overflow: hidden;
     box-shadow: ${props => props.theme.shadow};
     ${is('cinemaMode')`

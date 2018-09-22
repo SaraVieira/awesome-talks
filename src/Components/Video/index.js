@@ -92,7 +92,8 @@ export class SimpleVideo extends Component {
             Player,
             year,
             toggleCinemaMode,
-            noLink
+            noLink,
+            noText
         } = this.props
 
         const { showVideo } = this.state
@@ -127,27 +128,36 @@ export class SimpleVideo extends Component {
                     ) : null}
                     {year ? <Duration>{year}</Duration> : null}
                 </Flex>
-                {noLink ? (
-                    <NameNoLink> {this.videoTitle(name)}</NameNoLink>
-                ) : (
-                    <Name
-                        className="no-hover"
-                        to={makeLink('video', id)}
-                        title={name}
-                    >
-                        {this.videoTitle(name)}
-                    </Name>
+                {noText ? null : (
+                    <Fragment>
+                        {noLink ? (
+                            <NameNoLink> {this.videoTitle(name)}</NameNoLink>
+                        ) : (
+                            <Name
+                                className="no-hover"
+                                to={makeLink('video', id)}
+                                title={name}
+                            >
+                                {this.videoTitle(name)}
+                            </Name>
+                        )}
+                        <Flex>
+                            {tags.map(s => (
+                                <Tag
+                                    key={s.id}
+                                    to={makeLink('category', s.name)}
+                                >
+                                    #{s.name.toLowerCase()}
+                                </Tag>
+                            ))}
+                        </Flex>
+                        <Fragment>
+                            {cinemaMode && description ? (
+                                <Description>{description}</Description>
+                            ) : null}
+                        </Fragment>
+                    </Fragment>
                 )}
-                <Flex>
-                    {tags.map(s => (
-                        <Tag key={s.id} to={makeLink('category', s.name)}>
-                            #{s.name.toLowerCase()}
-                        </Tag>
-                    ))}
-                </Flex>
-                {cinemaMode && description ? (
-                    <Description>{description}</Description>
-                ) : null}
             </Fragment>
         )
     }
@@ -167,11 +177,12 @@ const VideoWrapper = props => (
     />
 )
 
-export default ({ noLazy = false, talk, addWatched, noLink }) => (
+export default ({ noLazy = false, talk, addWatched, noLink, noText }) => (
     <VideoWrapper
         key={talk.id}
         {...talk}
         noLink={noLink}
+        showText={!noText}
         addWatched={addWatched}
     />
 )

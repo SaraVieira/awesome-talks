@@ -32,7 +32,7 @@ const Tags = ({ data: { searchTags } }) => (
                 <main>
                     <Query query={TAGS}>
                         {({ data: { allTagses: allTags } }) => (
-                            <Row style={{ justifyContent: 'space-around' }}>
+                            <Fragment>
                                 {Filter(searchTags, allTags).map(t => {
                                     return (
                                         <Fragment key={t.id}>
@@ -44,17 +44,25 @@ const Tags = ({ data: { searchTags } }) => (
                                             </div>
                                             <Carousel speed={1000}>
                                                 {t.videos.map(video => (
-                                                    <Video
+                                                    <div
                                                         key={video.id}
-                                                        {...video}
-                                                        Player={Player}
-                                                    />
+                                                        style={{
+                                                            height: '150px',
+                                                            width: '200px'
+                                                        }}
+                                                    >
+                                                        <Video
+                                                            {...video}
+                                                            Player={Player}
+                                                            noText
+                                                        />
+                                                    </div>
                                                 ))}
                                             </Carousel>
                                         </Fragment>
                                     )
                                 })}
-                            </Row>
+                            </Fragment>
                         )}
                     </Query>
                 </main>
