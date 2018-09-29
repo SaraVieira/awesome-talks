@@ -101,6 +101,9 @@
             "./src/Tests/setup.js"
         ]
     },
+    "now": {
+        "alias": "awesometalks.party"
+    },
     "lint-staged": {
         "*.{js,css,md}": [
             "prettier --write",

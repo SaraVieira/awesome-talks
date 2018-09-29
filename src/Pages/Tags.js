@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react'
 import Header from './../Components/Header'
+import styled, { css } from 'styled-components'
+import is from 'styled-is'
 import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
 import { graphql } from 'react-apollo'
 import Carousel from 'react-fluid-carousel'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import remcalc from 'remcalc'
 
 import TAGS from '../Queries/TAGS'
 import Nav from './../Components/Nav'
@@ -15,50 +19,76 @@ import CookieBanner from './../Components/CookieBanner'
 import { SimpleVideo as Video } from './../Components/Video'
 import Player from './../Components/Player'
 
-const prevNextStyle = {
-    opacity: '0.8',
-    outline: 'none',
-    cursor: 'pointer',
-    zIndex: 10,
-    position: 'absolute',
-    background: 'black',
-    color: 'white',
-    borderRadius: '10%',
-    textAlign: 'center'
-}
+const commonStyles = css`
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+    color: ${props => props.theme.secondary};
+    top: 0;
+    transition: transform 200ms ease;
 
-const PrevButton = ({ disabled, onClick, basicStyle }) => {
-    let style = disabled
-        ? { display: 'none' }
-        : {
-              ...prevNextStyle,
-              ...basicStyle,
-              top: '0px',
-              height: '20px',
-              width: '50px'
-          }
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    ${is('disabled')`
+        opacity: 0.3;
+        cursor: inherit;
+
+         &:hover {
+             transform: none;
+         }
+    `};
+`
+
+const PrevButton = ({ disabled, onClick }) => {
+    const Prev = styled(FontAwesomeIcon)`
+        ${commonStyles};
+        left: ${remcalc(20)};
+    `
     return (
-        <div disabled={disabled} onClick={onClick} style={{ ...style }}>
-            Prev
-        </div>
+        <Prev
+            size="lg"
+            tabindex="0"
+            role="button"
+            aria-label="Previous Talks"
+            icon="chevron-left"
+            disabled={disabled}
+            onClick={onClick}
+        />
     )
 }
 
-const NextButton = ({ disabled, onClick, basicStyle }) => {
-    let style = disabled
-        ? { display: 'none' }
-        : {
-              ...prevNextStyle,
-              ...basicStyle,
-              top: '0px',
-              height: '20px',
-              width: '50px'
-          }
+const NextButton = ({ disabled, onClick }) => {
+    const Next = styled(FontAwesomeIcon)`
+        ${commonStyles};
+        right: ${remcalc(20)};
+    `
     return (
-        <div disabled={disabled} onClick={onClick} style={{ ...style }}>
-            Next
-        </div>
+        <Next
+            disabled={disabled}
+            onClick={onClick}
+            size="lg"
+            tabindex="0"
+            role="button"
+            aria-label="Next Talks"
+            icon="chevron-right"
+        />
     )
+}
+
+const ProgressUnit = ({ enabled }) => {
+    const Progress = styled.div`
+        width: ${remcalc(10)};
+        height: ${remcalc(10)};
+        border-radius: 50%;
+        background: ${props => props.theme.secondary};
+
+        ${is('enabled')`
+            background: ${props => props.theme.green};
+        `};
+    `
+    return <Progress enabled={enabled} />
 }
 
 const Tags = ({ data: { searchTags } }) => (
@@ -90,18 +120,12 @@ const Tags = ({ data: { searchTags } }) => (
                                             </div>
 
                                             <Carousel
+                                                renderProgress={ProgressUnit}
                                                 speed={1000}
                                                 renderPrev={PrevButton}
                                                 renderNext={NextButton}
                                             >
                                                 {t.videos.map(video => {
-                                                    /*
-                                                    description: ""
-                                                    duration: 1842
-                                                    id: "cjhja37as0qlg0107bct8nvfj"
-                                                    link: "N-lSE3DBerM"
-                                                    name: "Developers are strange creatures"
-                                                    */
                                                     return (
                                                         <div
                                                             key={video.id}

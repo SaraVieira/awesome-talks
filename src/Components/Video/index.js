@@ -62,6 +62,15 @@ const Duration = styled.span`
     color: ${props => props.theme.main};
 `
 
+const SmallName = styled(Link)`
+    &.no-hover {
+        line-height: 1.5;
+    }
+
+    margin-top: ${remcalc(8)};
+    display: block;
+`
+
 const makeLink = (url = 'speaker', name = 'FIX ME') =>
     `/${url}/${name.replace(/\s+/g, '-').toLowerCase()}`
 
@@ -110,26 +119,34 @@ export class SimpleVideo extends Component {
                     toggleCinemaMode={toggleCinemaMode}
                     onEnd={() => this.endVideo(id)}
                 />
-
-                <Flex justifyBetween alignCenter>
-                    <Speaker>
-                        {speaker.map(s => (
-                            <Link
-                                key={`${s.id}_${id}`}
-                                to={makeLink('speaker', s.name)}
-                                className="no-hover"
-                            >
-                                {s.name}
-                            </Link>
-                        ))}
-                    </Speaker>
-                    {duration ? (
-                        <Duration>{getDuration(duration)}</Duration>
-                    ) : null}
-                    {year ? <Duration>{year}</Duration> : null}
-                </Flex>
-                {noText ? null : (
+                {noText ? (
+                    <SmallName
+                        className="no-hover"
+                        to={makeLink('video', id)}
+                        title={name}
+                    >
+                        {this.videoTitle(name)}
+                    </SmallName>
+                ) : (
                     <Fragment>
+                        <Flex justifyBetween alignCenter>
+                            <Speaker>
+                                {speaker.map(s => (
+                                    <Link
+                                        key={`${s.id}_${id}`}
+                                        to={makeLink('speaker', s.name)}
+                                        className="no-hover"
+                                    >
+                                        {s.name}
+                                    </Link>
+                                ))}
+                            </Speaker>
+                            {duration ? (
+                                <Duration>{getDuration(duration)}</Duration>
+                            ) : null}
+                            {year ? <Duration>{year}</Duration> : null}
+                        </Flex>
+
                         {noLink ? (
                             <NameNoLink> {this.videoTitle(name)}</NameNoLink>
                         ) : (
