@@ -8,6 +8,11 @@
         "react/display-name": 0,
         "space-before-function-paren": 0
     },
+    "settings": {
+        "react": {
+            "version": "16.0.4"
+        }
+    },
     "globals": {
         "localStorage": true,
         "fetch": true,

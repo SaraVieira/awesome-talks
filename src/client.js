@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { hydrate } from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ApolloProvider, Query } from 'react-apollo'
@@ -16,11 +16,12 @@ hydrate(
         <Query query={GET_MODE}>
             {({ data: { mode } }) => (
                 <ThemeProvider theme={theme[mode]}>
-                    <Global>
+                    <Fragment>
                         <Router>
                             <App />
                         </Router>
-                    </Global>
+                        <Global />
+                    </Fragment>
                 </ThemeProvider>
             )}
         </Query>

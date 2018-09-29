@@ -10,7 +10,6 @@ import Favorites from './Pages/Favorites'
 import FourOFour from './Pages/FourOFour'
 import Video from './Pages/Video'
 
-import './Utils/global-styles'
 import './Utils/icons'
 
 export default () => (

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Query, withApollo } from 'react-apollo'
 import remcalc from 'remcalc'
 import styled from 'styled-components'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Wrapper = styled.div`
     display: flex;
@@ -25,12 +25,12 @@ const Icon = styled(FontAwesomeIcon)`
     transform: translateY(-50%);
 `
 
-const SearchIcon = Icon.extend`
+const SearchIcon = styled(Icon)`
     left: ${remcalc(20)};
     max-width: ${remcalc(20)};
 `
 
-const CloseIcon = Icon.extend`
+const CloseIcon = styled(Icon)`
     right: ${remcalc(20)};
 `
 
@@ -142,7 +142,7 @@ class Search extends Component {
                             )}
                         <Input
                             aria-label="Search"
-                            innerRef={node => (this.input = node)}
+                            ref={node => (this.input = node)}
                             onBlur={this.onBlur}
                             onChange={this.onChange}
                             onFocus={this.onFocus}

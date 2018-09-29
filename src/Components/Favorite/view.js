@@ -1,10 +1,10 @@
 import React from 'react'
 import Heart from '../Styling/Heart'
 
-import randomID from 'random-id'
+import uuidV4 from 'uuid/v4'
 
 export default ({ favorites, removeFavorite, addFavorite, id, big }) => {
-    const inputId = randomID()
+    const inputId = uuidV4()
     return (
         <Heart big={big}>
             <input

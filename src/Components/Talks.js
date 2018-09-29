@@ -1,6 +1,9 @@
 import React, { Fragment, Component } from 'react'
 import { Col, Row } from 'react-styled-flexboxgrid'
+import styled from 'styled-components'
 import Flex from 'styled-flex-component'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import remcalc from 'remcalc'
 import Query from './Query'
 import Scroll from './Scroll'
 import Talks from './TalksList'
@@ -11,8 +14,13 @@ import PublishedYearFilter from './Filters/Year'
 import DurationFilter from './Filters/Duration'
 import Order from './Filters/Order'
 
-import { Checkbox } from './Styling/Forms'
 import { Title } from './Styling/Text'
+
+const Icon = styled(FontAwesomeIcon)`
+    margin-right: ${remcalc(10)};
+    display: block;
+    cursor: pointer;
+`
 
 const getMore = (fetchMore, allVideoses) =>
     fetchMore({
@@ -67,16 +75,21 @@ class VideoComponent extends Component {
         return (
             <Fragment>
                 <Title>
-                    <Flex>
-                        <Checkbox>
-                            <input
-                                type="checkbox"
-                                onChange={this.toggleFilters}
-                                checked={filtersOpened}
-                                id="filters"
-                            />
-                            <label htmlFor="filters" />
-                        </Checkbox>
+                    <Flex
+                        role="button"
+                        tabindex="0"
+                        onClick={this.toggleFilters}
+                        onKeyPress={event => {
+                            if (event.key === 'Enter') {
+                                this.toggleFilters()
+                            }
+                        }}
+                    >
+                        {filtersOpened ? (
+                            <Icon icon="chevron-up" />
+                        ) : (
+                            <Icon icon="chevron-down" />
+                        )}
                         Filters
                     </Flex>
                 </Title>

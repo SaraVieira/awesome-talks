@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styled, { injectGlobal } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { withFormik } from 'formik'
 import { Mutation } from 'react-apollo'
 import Modal from 'react-modal'
@@ -9,13 +9,13 @@ import Button from './Styling/Button'
 import CREATE_VIDEO from '../Queries/ADD_VIDEO'
 import Input from './Styling/Input'
 
-const TextArea = Input.extend`
+const TextArea = styled(Input)`
     ~ span {
         bottom: ${remcalc(4)};
     }
 `.withComponent('textarea')
 
-injectGlobal`
+const ModalStyles = createGlobalStyle`
     .ReactModalPortal {
         z-index: 10;
         position: relative;
@@ -182,6 +182,7 @@ class AddTalk extends Component {
                         </form>
                     )}
                 </Mutation>
+                <ModalStyles />
             </Modal>
         )
     }

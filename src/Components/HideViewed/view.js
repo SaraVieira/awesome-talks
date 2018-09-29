@@ -116,7 +116,7 @@ export default ({ hideViewed, client }) => {
             <Hide>
                 <input
                     className="tgl tgl-ios"
-                    id="cb2"
+                    id="hide-talks"
                     type="checkbox"
                     aria-label="Hide Watched Talks"
                     onClick={() =>
@@ -126,7 +126,7 @@ export default ({ hideViewed, client }) => {
                     }
                     checked={hideViewed}
                 />
-                <label className="tgl-btn" htmlFor="cb2" />
+                <label className="tgl-btn" htmlFor="hide-talks" />
             </Hide>
             <Text>Hide Watched Talks</Text>
         </Section>

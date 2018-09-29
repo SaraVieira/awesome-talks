@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import { Col } from 'react-styled-flexboxgrid'
 import remcalc from 'remcalc'
-import styled, { injectGlobal } from 'styled-components'
+import styled from 'styled-components'
 import is from 'styled-is'
 
 const Column = styled(Col)`
@@ -24,12 +24,6 @@ const Column = styled(Col)`
   overflow: scroll;
   padding-bottom: ${remcalc(50)};
 `};
-`
-
-injectGlobal`
-    body.cinema-mode {
-        overflow: hidden;
-    }
 `
 
 const Button = styled.button`

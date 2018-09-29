@@ -1,11 +1,21 @@
-import fontawesome from '@fortawesome/fontawesome'
+import { library, config } from '@fortawesome/fontawesome-svg-core'
 
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
-import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
-import faChevronRight from '@fortawesome/fontawesome-free-solid/faChevronRight'
-import faChevronleft from '@fortawesome/fontawesome-free-solid/faChevronleft'
-fontawesome.config = {
-    autoAddCss: false
-}
+import {
+    faTimes,
+    faSearch,
+    faChevronRight,
+    faChevronLeft,
+    faChevronDown,
+    faChevronUp
+} from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faSearch, faTimes, faChevronRight, faChevronleft)
+config.autoAddCss = false
+
+library.add(
+    faSearch,
+    faTimes,
+    faChevronRight,
+    faChevronLeft,
+    faChevronUp,
+    faChevronDown
+)

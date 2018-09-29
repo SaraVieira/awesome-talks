@@ -20,7 +20,7 @@ export const Name = styled.h4`
     }
 `
 
-export const Title = Name.extend`
+export const Title = styled(Name)`
     margin: ${remcalc(20)} 0;
     font-size: ${remcalc(30)};
 `

@@ -1,5 +1,5 @@
 import App from './App'
-import React from 'react'
+import React, { Fragment } from 'react'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import { renderToString } from 'react-dom/server'
@@ -44,11 +44,12 @@ server
         const Root = () => (
             <ApolloProvider client={client}>
                 <ThemeProvider theme={theme[themeMode]}>
-                    <Global>
-                        <StaticRouter location={req.url} context={context}>
+                    <StaticRouter location={req.url} context={context}>
+                        <Fragment>
                             <App />
-                        </StaticRouter>
-                    </Global>
+                            <Global />
+                        </Fragment>
+                    </StaticRouter>
                 </ThemeProvider>
             </ApolloProvider>
         )

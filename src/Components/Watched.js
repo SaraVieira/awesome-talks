@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, compose } from 'react-apollo'
 import remcalc from 'remcalc'
-import randomID from 'random-id'
+import uuidV4 from 'uuid/v4'
 
 import ADD_WATCHED from '../Queries/Local/ADD_WATCHED'
 import REMOVE_WATCHED from '../Queries/Local/REMOVE_WATCHED'
@@ -12,7 +12,7 @@ import Heart from './Styling/Heart'
 const Favorite = ({ id, removeWatched, addWatched, big }) => (
     <Query query={GET_WATCHED}>
         {({ data: { watched } }) => {
-            const inputId = randomID()
+            const inputId = uuidV4()
             return (
                 <Heart watched big={big}>
                     <input

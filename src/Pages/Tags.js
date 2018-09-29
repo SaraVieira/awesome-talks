@@ -6,7 +6,7 @@ import { Col, Row, Grid } from 'react-styled-flexboxgrid'
 import Query from './../Components/Query'
 import { graphql } from 'react-apollo'
 import Carousel from 'react-fluid-carousel'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import remcalc from 'remcalc'
 
 import TAGS from '../Queries/TAGS'
