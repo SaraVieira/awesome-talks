@@ -6,7 +6,9 @@ import {
     faChevronRight,
     faChevronLeft,
     faChevronDown,
-    faChevronUp
+    faChevronUp,
+    faMoon,
+    faSun
 } from '@fortawesome/free-solid-svg-icons'
 
 config.autoAddCss = false
@@ -17,5 +19,7 @@ library.add(
     faChevronRight,
     faChevronLeft,
     faChevronUp,
-    faChevronDown
+    faChevronDown,
+    faMoon,
+    faSun
 )
