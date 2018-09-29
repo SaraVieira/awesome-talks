@@ -44,7 +44,7 @@ const Global = ({ theme, children }) => {
     text-decoration: none;
     position: relative;
     opacity: 0.8;
-    font-wheight: 300;
+    font-weight: 300;
     letter-spacing: ${remcalc(0.09)};
     text-align: left;
     line-height: ${remcalc(21)};

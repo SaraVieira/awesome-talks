@@ -11,6 +11,20 @@ export default gql`
             _videosMeta {
                 count
             }
+            videos {
+                id
+                description
+                link
+                duration
+                name
+                speaker {
+                    name
+                }
+                tags {
+                    name
+                    id
+                }
+            }
         }
     }
 `
