@@ -13,7 +13,7 @@ export default ({ onClick, duration }) => (
                 onClick(1200)
             }}
         >
-            Less that 20 min
+            Less than 20 min
         </Button>
         <Button
             selected={duration === 2700}
@@ -23,7 +23,7 @@ export default ({ onClick, duration }) => (
                 onClick(2700)
             }}
         >
-            Less that 45 min
+            Less than 45 min
         </Button>
         <Button
             selected={duration === undefined}
