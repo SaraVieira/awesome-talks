@@ -129,10 +129,10 @@ const Tags = ({ data: { searchTags } }) => (
                                                     return (
                                                         <div
                                                             key={video.id}
-                                                            style={{
-                                                                height: '180px',
-                                                                width: '240px'
-                                                            }}
+                                                            css={`
+                                                                height: 180px;
+                                                                width: 240px;
+                                                            `}
                                                         >
                                                             <Video
                                                                 {...video}

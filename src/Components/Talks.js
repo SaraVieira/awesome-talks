@@ -98,7 +98,9 @@ class VideoComponent extends Component {
                         wrap
                         alignCenter
                         justifyBetween
-                        style={{ marginBottom: 40 }}
+                        style={{
+                            marginBottom: 40
+                        }}
                     >
                         <DurationFilter
                             duration={duration}
@@ -123,7 +125,11 @@ class VideoComponent extends Component {
                 >
                     {({ data: { allVideoses }, fetchMore }) => {
                         return (
-                            <Row style={{ justifyContent: 'center' }}>
+                            <Row
+                                css={`
+                                    justify-content: center;
+                                `}
+                            >
                                 <Col xs={12}>
                                     <Row>
                                         <Talks

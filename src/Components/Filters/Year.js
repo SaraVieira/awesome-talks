@@ -31,7 +31,9 @@ export default ({ onClick, year }) => (
 
 const PublishedYearButton = ({ value, onClick, year }) => (
     <Button
-        style={{ marginRight: 10 }}
+        css={`
+            margin-right: 10px;
+        `}
         className="no-hover"
         selected={year === value}
         onClick={() => {

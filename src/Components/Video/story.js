@@ -6,7 +6,11 @@ import Video from './example'
 
 storiesOf('Video', module).add('Default', () => {
     return (
-        <div style={{ width: '400px' }}>
+        <div
+            css={`
+                width: 400px;
+            `}
+        >
             <Video />
         </div>
     )

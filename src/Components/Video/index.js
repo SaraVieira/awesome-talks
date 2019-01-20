@@ -28,7 +28,7 @@ const Speaker = styled.p`
 
 const Description = styled.p`
     opacity: 0.8;
-    font-family: Montserrat-Light;
+    font-family: Montserrat;
     font-size: ${remcalc(14)};
     color: ${props => props.theme.main};
     letter-spacing: ${remcalc(0.11)};

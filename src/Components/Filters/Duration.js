@@ -7,7 +7,9 @@ export default ({ onClick, duration }) => (
         <Name>Duration</Name>
         <Button
             selected={duration === 1200}
-            style={{ marginRight: 10 }}
+            css={`
+                margin-right: 10px;
+            `}
             className="no-hover"
             onClick={() => {
                 onClick(1200)
@@ -17,7 +19,9 @@ export default ({ onClick, duration }) => (
         </Button>
         <Button
             selected={duration === 2700}
-            style={{ marginRight: 10 }}
+            css={`
+                margin-right: 10px;
+            `}
             className="no-hover"
             onClick={() => {
                 onClick(2700)
@@ -27,7 +31,9 @@ export default ({ onClick, duration }) => (
         </Button>
         <Button
             selected={duration === undefined}
-            style={{ marginRight: 10 }}
+            css={`
+                margin-right: 10px;
+            `}
             className="no-hover"
             onClick={() => {
                 onClick(undefined)

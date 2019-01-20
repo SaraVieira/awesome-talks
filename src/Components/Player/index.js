@@ -40,6 +40,7 @@ const Iframe = styled(YouTube)`
     transition: all 200ms ease;
     box-shadow: ${props => props.theme.shadow};
     height: 100%;
+    height: ${remcalc(231)};
     ${is('cinemaMode')`
     height: ${remcalc(600)};
     @media (max-width: ${remcalc(768)}) {
@@ -123,7 +124,12 @@ export default props =>
     props.cinemaMode || props.videoMode ? (
         <Player {...props} />
     ) : (
-        <Card style={{ padding: 0 }}>
+        <Card
+            style={{
+                padding: 0,
+                width: 'auto'
+            }}
+        >
             <Player {...props} />
         </Card>
     )

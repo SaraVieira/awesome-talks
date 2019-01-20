@@ -13,7 +13,7 @@ const TextArea = styled(Input)`
     ~ span {
         bottom: ${remcalc(4)};
     }
-`.withComponent('textarea')
+`
 
 const ModalStyles = createGlobalStyle`
     .ReactModalPortal {
@@ -150,6 +150,7 @@ class AddTalk extends Component {
                             </Wrapper>
                             <Wrapper>
                                 <TextArea
+                                    as="textarea"
                                     aria-label="Why do you love this talk ?"
                                     id="moderatorNotes"
                                     placeholder="Why do you love this talk ?"

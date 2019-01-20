@@ -43,7 +43,12 @@ const VideoInfo = ({
 }) => (
     <Fragment>
         <VideoMeta name={name} link={link} description={description} />
-        <Flex column style={{ marginBottom: remcalc(40) }}>
+        <Flex
+            column
+            style={{
+                marginBottom: remcalc(40)
+            }}
+        >
             {duration ? <Duration>{getDuration(duration)}</Duration> : null}
             <div>
                 {tags.map(s => (
