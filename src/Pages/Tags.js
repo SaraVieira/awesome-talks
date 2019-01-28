@@ -91,6 +91,11 @@ const ProgressUnit = ({ enabled }) => {
     return <Progress enabled={enabled} />
 }
 
+const VideoWrapper = styled.div`
+    height: 180px;
+    width: 240px;
+`
+
 const Tags = ({ data: { searchTags } }) => (
     <Grid>
         <TagsMeta />
@@ -127,19 +132,15 @@ const Tags = ({ data: { searchTags } }) => (
                                             >
                                                 {t.videos.map(video => {
                                                     return (
-                                                        <div
+                                                        <VideoWrapper
                                                             key={video.id}
-                                                            css={`
-                                                                height: 180px;
-                                                                width: 240px;
-                                                            `}
                                                         >
                                                             <Video
                                                                 {...video}
                                                                 Player={Player}
                                                                 noText
                                                             />
-                                                        </div>
+                                                        </VideoWrapper>
                                                     )
                                                 })}
                                             </Carousel>
