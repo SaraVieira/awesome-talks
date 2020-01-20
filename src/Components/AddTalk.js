@@ -112,7 +112,7 @@ class AddTalk extends Component {
                         >
                             {submitted ? (
                                 <Name>
-                                    You are the Best{' '}
+                                    SUBMITTED: You are the Best{' '}
                                     <span role="img" aria-label="party">
                                         🎉
                                     </span>
